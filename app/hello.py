@@ -6,18 +6,13 @@ app = Flask(__name__)
 @app.route('/', defaults={'path': ''})
 @app.route('/<path:path>')
 def send(path):
-    return render_template('index.html')
-
-
-""" 
-    if(path == ""):
-        return send_from_directory('roadtripr/public', 'index.html')
+    if path == "":
+        return render_template('index.html')
     else:
-        if(os.path.exists("roadtripr/public/" + path)):
-            return send_from_directory('roadtripr/public', path)
+        if os.path.exists('templates/' + path):
+            return render_template(path)
         else:
-            return send_from_directory('roadtripr/public', 'index.html')
-"""
+            return render_template('index.html')
 
 if __name__ == '__main__':
     app.run(use_reloader=True, threaded=True)
