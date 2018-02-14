@@ -4,7 +4,7 @@ SHELL := /bin/bash
 
 run:
 	source ../venv/bin/activate; \
-	python hello.py; \
+	python3 hello.py; \
 
 clean:
 	rm -f  .coverage
@@ -25,5 +25,5 @@ format:
 
 update:
 	source ../venv/bin/activate; \
-	pip install -r ../requirements.txt; \
-	pip list; \
+	pip3 install -r ../requirements.txt; \
+	pip3 list; \
