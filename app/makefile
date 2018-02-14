@@ -2,7 +2,7 @@
 
 SHELL := /bin/bash
 
-run:
+run: update
 	source ../venv/bin/activate; \
 	python3 hello.py; \
 
