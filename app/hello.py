@@ -9,8 +9,8 @@ def send(path):
     if path == "":
         return render_template('index.html')
     else:
-        if os.path.exists('templates/' + path):
-            return render_template(path)
+        if os.path.exists('templates/' + path + '.html'):
+            return render_template(path + '.html')
         else:
             return render_template('index.html')
 
