@@ -1,8 +1,28 @@
-
 {% extends "base.html" %}
     
 {% block content %}
+<div style="padding-top:4rem">
 
+<h3>About RoadTripr</h3>
+<p>A road trip, in its most primitive definition, is a long journey undertaken
+  on the road. It is the epitome of the 90's family vacation, but a lot has
+  changed since then. Technological advances, construction headway, and
+  development progress have all played a role in changing our society and
+  thereby altering much of our old conduct of various activities. Gone are the
+  days of flipping through maps and printing out directions, yet the
+  sentimentality and metamorphosis associated with road-trips have not changed.
+  Nowadays, planning a road-trip incorporates much of the tech aspects that are
+  supposed to bring ease and simplicity to a once chaotic task, however these
+  applications normally have to be used separately. With this site, users will
+  be able to access all relevant information in relation to their interests in
+  each component. We hope to widen the breadth of their knowledge regarding the
+  sites they plan to visit by including additional facts and invaluable reviews.
+  Our team consists of travel aficionados who are rather well versed in the art
+  of road-tripping. Thus, this project is the culmination of our experiences -
+  understanding some of the problems that can arise when planning and
+  incorporating our own solutions to such problems.</p>
+
+<h3>Are We Done Yet? Team</h3>
 <div style="display:inline-block" class="about-block">
   <img src="static/img/headshot-jon.png" style="max-width:200px">
   <p>Jon Brewer</p>
@@ -39,4 +59,24 @@
   <p>Issues: {{ issues['Magana'] if issues['Magana'] else 0 }}</p>
   <p>Unit tests: 0</p>
 </div>
+
+<h3>Stats</h3>
+<p>Total commits: {{ commits.values() | sum }}</p>
+<p>Total issues: {{ issues.values() | sum }} </p>
+<p>Total tests: 0 </p>
+
+<h3>Data</h3>
+<ul>
+  <li><a href="https://developers.google.com/maps/documentation/">Google Maps</a></li>
+  <li><a href="https://www.nps.gov/subjects/digital/nps-data-api.htm">National Parks Service</a></li>
+  <li><a href="https://www.yelp.com/developers/documentation/v3">Yelp</a></li>
+</ul>
+
+<h3>Tools</h3>
+<ul>
+  <li>nothing special</li>
+</ul>
+
+</div>
+
 {% endblock %}

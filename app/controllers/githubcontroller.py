@@ -15,7 +15,7 @@ class GithubController:
 
     def get_issue_counts(self):
         issue_counts = dict()
-        issues = self.repo.issues()
+        issues = self.repo.issues(state='all')
 
         for i in issues:
             user = str(i.user)
