@@ -112,3 +112,5 @@ venv.bak/
 
 # config files
 *.ini
+
+.DS_Store

@@ -6,6 +6,10 @@ run: update
 	source ../venv/bin/activate; \
 	python3 hello.py; \
 
+fast:
+	source ../venv/bin/activate; \
+	python3 hello.py; \
+
 clean:
 	rm -f  .coverage
 	rm -f  .pylintrc
