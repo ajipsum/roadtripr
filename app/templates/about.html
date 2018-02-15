@@ -2,7 +2,41 @@
 {% extends "base.html" %}
     
 {% block content %}
-{{ commits['Magana'] }}
-{{ issues }}
 
+<div style="display:inline-block" class="about-block">
+  <img src="static/img/headshot-jon.png" style="max-width:200px">
+  <p>Jon Brewer</p>
+  <p>Jon is a computer science student at UT.</p>
+  <p>Major responsibilities: Full Stack</p>
+  <p>Commits: {{ commits['jonbrew'] }}</p>
+  <p>Issues: {{ issues['jonbrew'] if issues['jonbrew'] else 0 }}</p>
+  <p>Unit tests: 0</p>
+</div>
+<div style="display:inline-block" class="about-block">
+  <img src="static/img/headshot-matt.png" style="max-width:200px">
+  <p>Matt Savignano</p>
+  <p>Matt is a computer science student at UT.</p>
+  <p>Major responsibilities: Full Stack</p>
+  <p>Commits: {{ commits['savi975'] }}</p>
+  <p>Issues: {{ issues['savi975'] if issues['savi975'] else 0 }}</p>
+  <p>Unit tests: 0</p>
+</div>
+<div style="display:inline-block" class="about-block">
+  <img src="static/img/headshot-yvonne.jpg" style="max-width:200px">
+  <p>Yvonne Huang</p>
+  <p>Yvonne is a computer science student at UT.</p>
+  <p>Major responsibilities: Full Stack</p>
+  <p>Commits: {{ commits['huangyvonnee'] }}</p>
+  <p>Issues: {{ issues['huangyvonnee'] if issues['huangyvonnee'] else 0 }}</p>
+  <p>Unit tests: 0</p>
+</div>
+<div style="display:inline-block" class="about-block">
+  <img src="static/img/headshot-jose.png" style="max-width:200px">
+  <p>Jose Magana</p>
+  <p>Jose is a computer science student at UT.</p>
+  <p>Major responsibilities: Full Stack</p>
+  <p>Commits: {{ commits['Magana'] }}</p>
+  <p>Issues: {{ issues['Magana'] if issues['Magana'] else 0 }}</p>
+  <p>Unit tests: 0</p>
+</div>
 {% endblock %}
