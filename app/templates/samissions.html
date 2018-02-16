@@ -1,23 +1,38 @@
 {% extends "base.html" %}
     
 {% block content %}
-<div style="padding-top:4rem"></div>
+    <section id="about">
+      <div class="container">
 
-    <div class="col-sm" style="padding: 10px; border:4px solid black">
-        <img src="http://whc.unesco.org/uploads/thumbs/site_1466_0004-750-0-20150610094423.jpg" style="max-width:200px">
-        <p>San Antonio Missions</p>
-        <p><a href=" https://www.nps.gov/saan/index.htm">Website</a></p>
-        <p>Weather: 60 and Cloudy </p>
-        <p>Nearby Restaurants</p>
-            <ul>
-                <li><a href="/fricanos">Fricano's Deli</a></li>
-                <li><a href="/schilos">Schilo's Delicatessen</a></li>
-            </ul>    
-        <p>Nearby Cities</p>
-            <ul>
-                <li><a href="/houston">Houston</a></li>
-                <li><a href="/austin">Austin</a></li>
-                <li><a href="/sanantonio">San Antonio</a></li>
-            </ul>    
-    </div>
+        <header class="section-header">
+          <h3>Parks</h3>
+        </header>
+
+        <div class="row about-cols" align="center">
+
+          <div class="col-md-6 wow" align="center">
+            <div class="about-col">
+              <div class="img">
+                <img src="http://whc.unesco.org/uploads/thumbs/site_1466_0004-750-0-20150610094423.jpg" alt="" class="img-fluid">
+              </div>
+              <h2 class="title">San Antonio Missions</h2>
+                <p><a href=" https://www.nps.gov/saan/index.htm">Website</a></p>
+                <p>Weather: 60 and Cloudy </p>
+                <hr>
+                <p>Nearby Restaurants</p>
+                    <p class="small"><a href="/fricanos">Fricano's Deli</a></p>
+                    <p class="small"><a href="/schilos">Schilo's Delicatessen</a></p>
+                <hr>
+                <p>Nearby Cities</p>
+                    <p class="small"><a href="/houston">Houston</a></p>
+                    <p class="small"><a href="/austin">Austin</a></p>
+                    <p class="small"><a href="/sanantonio">San Antonio</a></p>
+            </div>
+          </div>
+
+        </div>
+
+      </div>
+    </section><!-- #about -->
+
 {% endblock %}

@@ -1,18 +1,33 @@
 {% extends "base.html" %}
     
 {% block content %}
-<div style="padding-top:4rem"></div>
+    <section id="about">
+      <div class="container">
 
-    <div class="col-sm" style="padding: 10px; border:4px solid black">
-        <img src="https://activerain-store.s3.amazonaws.com/image_store/uploads/agents/doriedillard/files/Fricanos.JPG" style="max-width:200px">
-        <p>Fricano's Deli</p>
-        <p>2405 Nueces St. <a href="/austin">Austin</a>, Texas 78705</p>
-        <p><a href=" https://www.yelp.com/biz/fricanos-deli-austin-15?adjust_creative=NiPGboCsDJsDrHmTMuDppw&utm_campaign=yelp_api_v3&utm_medium=api_v3_business_search&utm_source=NiPGboCsDJsDrHmTMuDppw">Website</a></p>
-        <p>Nearby parks</p>
-            <ul>
-                <li><a href="/bigbend">Big Bend National Park</a></li>
-                <li><a href="/fortdavis">Fort Davis</a></li>
-            </ul>
-    </div>
+        <header class="section-header">
+          <h3>Restaurants</h3>
+        </header>
+
+        <div class="row about-cols" align="center">
+
+          <div class="col-md-6 wow" align="center">
+            <div class="about-col">
+              <div class="img">
+                <img src="https://activerain-store.s3.amazonaws.com/image_store/uploads/agents/doriedillard/files/Fricanos.JPG" alt="" class="img-fluid">
+              </div>
+              <h2 class="title">Fricano's Deli</h2>
+                <p>2405 Nueces St. <a href="/austin">Austin</a>, Texas 78705</p>
+                <p><a href=" https://www.yelp.com/biz/fricanos-deli-austin-15?adjust_creative=NiPGboCsDJsDrHmTMuDppw&utm_campaign=yelp_api_v3&utm_medium=api_v3_business_search&utm_source=NiPGboCsDJsDrHmTMuDppw">Website</a></p>
+                <hr>
+                <p>Nearby parks</p>
+                    <p class="small"><a href="/bigbend">Big Bend National Park</a></p>
+                    <p class="small"><a href="/fortdavis">Fort Davis</a></p>
+            </div>
+          </div>
+
+        </div>
+
+      </div>
+    </section><!-- #about -->
 
 {% endblock %}

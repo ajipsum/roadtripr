@@ -1,29 +1,75 @@
 {% extends "base.html" %}
     
 {% block content %}
-<div style="padding-top:4rem"></div>
-  <div class="container">
-    <div class="row">
-      <div class="col-sm" style="padding: 10px; border:4px solid black">
-        <a href="/austin">
-          <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/a/a5/Austin_Evening.jpg/1200px-Austin_Evening.jpg" style="max-width:200px">
-          <p>Austin</p>
-        </a>
-      </div>
-      <div class="col-sm" style="padding: 10px; border:4px solid black">
-        <a href="/sanantonio">
-          <img src="https://www.cbre.us/-/media/cbre/countryunitedstates/corporate%20offices/texas-oklahoma/san-antonio/san-antonio-skyline_768x582.jpg?mh=0&w=768&mw=0&h=582&la=en&hash=2909B553A7CA676C75A10DA7C6386E5993013675" style="max-width:200px">
-          <p>San Antonio</p>
-          </a>
+
+<!--==========================
+      Portfolio Section
+    ============================-->
+    <section id="portfolio"  class="section-bg" >
+      <div class="container">
+
+        <header class="section-header">
+          <h3 class="section-title">Cities</h3>
+        </header>
+<!--
+        <div class="row">
+          <div class="col-lg-12">
+            <ul id="portfolio-flters">
+              <li data-filter="*" class="filter-active">All</li>
+              <li data-filter=".filter-app">App</li>
+              <li data-filter=".filter-card">Card</li>
+              <li data-filter=".filter-web">Web</li>
+            </ul>
+          </div>
         </div>
-      <div class="col-sm" style="padding: 10px; border:4px solid black">
-        <a href="/houston">
-          <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/2/24/Houston_Images.jpg/250px-Houston_Images.jpg" style="max-width:200px">
-          <p>Houston</p>
-          </a>
+-->
+        <div class="row portfolio-container">
+
+          <div class="col-lg-4 col-md-6 portfolio-item filter-app wow">
+            <div class="portfolio-wrap">
+              <figure>
+                <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/a/a5/Austin_Evening.jpg/1200px-Austin_Evening.jpg" class="img-fluid" alt="">
+                <a href="https://upload.wikimedia.org/wikipedia/commons/thumb/a/a5/Austin_Evening.jpg/1200px-Austin_Evening.jpg" data-lightbox="portfolio" data-title="city" class="link-preview" title="Preview"><i class="ion ion-eye"></i></a>
+                <a href="/austin" class="link-details" title="More Details"><i class="ion ion-android-open"></i></a>
+              </figure>
+
+              <div class="portfolio-info">
+                <h4><a href="/austin">Austin</a></h4>
+              </div>
+            </div>
+          </div>
+
+          <div class="col-lg-4 col-md-6 portfolio-item filter-web wow">
+            <div class="portfolio-wrap">
+              <figure>
+                <img src="https://www.cbre.us/-/media/cbre/countryunitedstates/corporate%20offices/texas-oklahoma/san-antonio/san-antonio-skyline_768x582.jpg?mh=0&w=768&mw=0&h=582&la=en&hash=2909B553A7CA676C75A10DA7C6386E5993013675" class="img-fluid" alt="">
+                <a href="https://www.cbre.us/-/media/cbre/countryunitedstates/corporate%20offices/texas-oklahoma/san-antonio/san-antonio-skyline_768x582.jpg?mh=0&w=768&mw=0&h=582&la=en&hash=2909B553A7CA676C75A10DA7C6386E5993013675" class="link-preview" data-lightbox="portfolio" data-title="city" title="Preview"><i class="ion ion-eye"></i></a>
+                <a href="/sanantonio" class="link-details" title="More Details"><i class="ion ion-android-open"></i></a>
+              </figure>
+
+              <div class="portfolio-info">
+                <h4><a href="/sanantonio">San Antonio</a></h4>
+              </div>
+            </div>
+          </div>
+
+          <div class="col-lg-4 col-md-6 portfolio-item filter-app wow">
+            <div class="portfolio-wrap">
+              <figure>
+                <img src="https://upload.wikimedia.org/wikipedia/commons/d/de/Houston_night.jpg" class="img-fluid" alt="">
+                <a href="https://upload.wikimedia.org/wikipedia/commons/d/de/Houston_night.jpg" class="link-preview" data-lightbox="portfolio" data-title="city" title="Preview"><i class="ion ion-eye"></i></a>
+                <a href="/houston" class="link-details" title="More Details"><i class="ion ion-android-open"></i></a>
+              </figure>
+
+              <div class="portfolio-info">
+                <h4><a href="/houston">Houston</a></h4>
+              </div>
+            </div>
+          </div>
+
+        </div>
+
       </div>
-    </div>
-  </div>
-</div>
+    </section><!-- #portfolio -->
 
 {% endblock %}

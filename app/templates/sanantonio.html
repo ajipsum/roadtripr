@@ -1,24 +1,38 @@
 {% extends "base.html" %}
     
 {% block content %}
-<div style="padding-top:4rem"></div>
+    <section id="about">
+      <div class="container">
 
-    <div class="col-sm" style="padding: 10px; border:4px solid black">
-        <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/a/a5/Austin_Evening.jpg/1200px-Austin_Evening.jpg" style="max-width:200px">
-        <p>San Antonio</p>
-        <p>Population: 1,493,000</p>
-        <p><a href="www.visitsanantonio.com">Website</a></p>
-        <p>Weather: 63 and overcast </p>
-        <p>Nearby restaurants</p>
-            <ul>
-                <li><a href="/delideluxe">Deli Deluxe</a></li>
-                <li><a href="/schilos">Schilo's Delicatessen</a></li>
-            </ul>    
-        <p>Nearby parks</p>
-            <ul>
-                <li><a href="/fortdavis">Fort Davis</a></li>
-                <li><a href="/samissions">San Antonio Missions</a></li>
-            </ul>
-    </div>
+        <header class="section-header">
+          <h3>Cities</h3>
+        </header>
+
+        <div class="row about-cols" align="center">
+
+          <div class="col-md-6 wow" align="center">
+            <div class="about-col">
+              <div class="img">
+                <img src="https://www.cbre.us/-/media/cbre/countryunitedstates/corporate%20offices/texas-oklahoma/san-antonio/san-antonio-skyline_768x582.jpg?mh=0&w=768&mw=0&h=582&la=en&hash=2909B553A7CA676C75A10DA7C6386E5993013675" alt="" class="img-fluid">
+              </div>
+              <h2 class="title">San Antonio</h2>
+                <p>Population: 1,493,000</p>
+                <p><a href="www.visitsanantonio.com">Website</a></p>
+                <p>Weather: 63 and overcast </p>
+                <hr>
+                <p>Nearby restaurants</p>
+                    <p class="small"><a href="/delideluxe">Deli Deluxe</a></p>
+                    <p class="small"><a href="/schilos">Schilo's Delicatessen</a></p>
+                <hr>
+                <p>Nearby parks</p>
+                    <p class="small"><a href="/fortdavis">Fort Davis</a></p>
+                    <p class="small"><a href="/samissions">San Antonio Missions</a></p>
+            </div>
+          </div>
+
+        </div>
+
+      </div>
+    </section><!-- #about -->
 
 {% endblock %}
