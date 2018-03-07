@@ -1,19 +1,22 @@
 from github3 import login
-import configparser
+from basecontroller import BaseController
 
+class GithubController(BaseController):
+    '''
+    Controller for Github API.
+    '''
 
-class GithubController:
-    '''
-    '''
     def __init__(self):
-        config = configparser.ConfigParser()
-        config.read('config.ini')
+        super(GithubController, self).__init__()
 
-        gh = login(token=config['GITHUB']['ACCESS_TOKEN'])
+        gh = login(token=self._config['GITHUB']['ACCESS_TOKEN'])
         self.repo = gh.repository('Magana', 'roadtripr')
 
 
     def get_issue_counts(self):
+        '''
+        Return a dictionary of number of issues per username in the repository.
+        '''
         issue_counts = dict()
         issues = self.repo.issues(state='all')
 
@@ -28,6 +31,9 @@ class GithubController:
 
 
     def get_commit_counts(self):
+        '''
+        Return a dictionary of number of commits per username in the repository.
+        '''
         commit_counts = dict()
         commits = self.repo.commits()
 
@@ -39,4 +45,3 @@ class GithubController:
                 commit_counts[user] = 1
 
         return commit_counts
-
