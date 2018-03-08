@@ -1,22 +1,19 @@
-class Park:
-    '''
-    '''
-    def __init__(self, name=None, location=None, website=None):
-        self.name = name
-        self.location = location
-        self.website = website
+from sqlalchemy import Column, ForeignKey, Integer, String, Float
+from sqlalchemy.ext.declarative import declarative_base
+from sqlalchemy.orm import relationship
 
-    def get_weather(self):
+Base = declarative_base()
+
+class Park(Base):
+    __tablename__ = 'park'
+    id = Column('id', Integer, primary_key=True, nullable=False)
+    name = Column('name', String(50), nullable=False, unique=True)
+    latitude = Column('latitude', Float, nullable=False)
+    longitude = Column('longitude', Float, nullable=False)
+    website = Column('website', String(200))
+
+    def nearby_citys(self):
         pass
 
-    def get_pictures(self):
-        pass
-
-    def get_review(self):
-        pass
-
-    def nearby_cities(self):
-        pass
-
-    def nearby_restaurants(self):
+    def top_restaurants(self):
         pass

@@ -29,3 +29,4 @@ class DatabaseController(BaseController):
         Return the session
         '''
         return self.session
+        
