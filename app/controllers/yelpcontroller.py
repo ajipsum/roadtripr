@@ -1,6 +1,7 @@
 import requests
 from basecontroller import BaseController
 
+
 class YelpController(BaseController):
     '''
     Controller for Yelp API.
@@ -8,7 +9,7 @@ class YelpController(BaseController):
 
     def __init__(self):
         super(YelpController, self).__init__()
-        
+
         self._endpoint = 'https://api.yelp.com/v3/businesses/search'
 
         bearer = self._config['YELP']['authorization']
@@ -21,7 +22,7 @@ class YelpController(BaseController):
         '''
         params = {"latitude": latitude, "longitude": longitude, "limit": 50}
         r = requests.get(self._endpoint, params=params, headers=self._headers)
-        
+
         return r.json()['businesses']
 
     def get_nearby_restaurants_city(self, city: str, state: str) -> dict:
@@ -31,5 +32,5 @@ class YelpController(BaseController):
         '''
         params = {"location": city + " " + state, "limit": 50}
         r = requests.get(self._endpoint, params=params, headers=self._headers)
-       
+
         return r.json()['businesses']
