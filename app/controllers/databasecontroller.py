@@ -1,7 +1,5 @@
-import sys, os
 from sqlalchemy import create_engine
 from sqlalchemy.orm import sessionmaker
-sys.path.insert(1, os.path.join(sys.path[0], '..'))
 from controllers.basecontroller import BaseController
 
 class DatabaseController(BaseController):

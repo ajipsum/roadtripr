@@ -8,7 +8,7 @@ run: update
 
 fast:
 	source ../venv/bin/activate; \
-	python3 hello.py; \
+	python3 api.py; \
 
 clean:
 	rm -f  .coverage
