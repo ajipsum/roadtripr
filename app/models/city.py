@@ -10,7 +10,6 @@ class City(Base):
     name = Column('name', String(50), nullable=False, unique=True)
     latitude = Column('latitude', Float, nullable=False)
     longitude = Column('longitude', Float, nullable=False)
-    website = Column('website', String(200))
     population = Column('population', Integer)
 
     def nearby_parks(self):
