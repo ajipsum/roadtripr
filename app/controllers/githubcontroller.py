@@ -1,5 +1,7 @@
+import sys, os
 from github3 import login
-from basecontroller import BaseController
+sys.path.insert(1, os.path.join(sys.path[0], '..'))
+from controllers.basecontroller import BaseController
 
 class GithubController(BaseController):
     '''

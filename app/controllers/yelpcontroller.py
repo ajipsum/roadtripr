@@ -1,5 +1,7 @@
+import sys, os
 import requests
-from basecontroller import BaseController
+sys.path.insert(1, os.path.join(sys.path[0], '..'))
+from controllers.basecontroller import BaseController
 
 
 class YelpController(BaseController):
