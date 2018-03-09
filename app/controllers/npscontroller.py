@@ -22,4 +22,4 @@ class NPSController(BaseController):
         endpoint = self._base_url + 'parks?' + self._api_key + '&limit=1000'
         r = requests.get(endpoint)
 
-        return r.json()
+        return r.json()['data']
