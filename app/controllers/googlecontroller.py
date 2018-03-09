@@ -14,7 +14,7 @@ class GoogleController(BaseController):
 
         self.gmaps_geocoding = googlemaps.Client(key=self._config['GOOGLE']['geocoding_key'])
 
-    def get_city_latlong(self, city: str, state: str) -> dict:
+    def get_city_latlong(self, city, state):
         '''
         Given a city, state combination, return a dictionary of latitude,
         longitude.

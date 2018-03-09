@@ -17,7 +17,7 @@ class YelpController(BaseController):
         bearer = self._config['YELP']['authorization']
         self._headers = {'Authorization': bearer}
 
-    def get_nearby_restaurants_latlong(self, latitude: float, longitude: float) -> dict:
+    def get_nearby_restaurants_latlong(self, latitude, longitude):
         '''
         Given the latitude and longitude, return a list of up to 50 nearby
         restaurants.
@@ -27,7 +27,7 @@ class YelpController(BaseController):
 
         return r.json()['businesses']
 
-    def get_nearby_restaurants_city(self, city: str, state: str) -> dict:
+    def get_nearby_restaurants_city(self, city, state):
         '''
         Given the name of a city and a two letter state code, return a list
         of up to 50 nearby restaurants.
