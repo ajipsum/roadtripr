@@ -42,5 +42,5 @@ for city in cities:
         try:
             session.add(entry)
             session.commit()
-        except sqlalchemy.exc.IntegrityError:  # ignore duplicates
+        except:  # we have enough data to ignore bad data
             session.rollback()
