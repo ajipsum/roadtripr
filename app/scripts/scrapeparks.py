@@ -10,7 +10,7 @@ sys.path.insert(1, os.path.join(sys.path[0], '..'))
 from controllers.npscontroller import NPSController
 from controllers.databasecontroller import DatabaseController
 from models.park import Park
-import sqlalchemy 
+import sqlalchemy
 
 parks = NPSController().get_all_parks()
 
@@ -28,7 +28,6 @@ for park in parks:
     entry = Park(name=name, latitude=lat, longitude=lng, website=website)
     try:
         session.add(entry)
-	session.commit()
+        session.commit()
     except sqlalchemy.exc.IntegrityError:
-	session.rollback()
-
+        session.rollback()
