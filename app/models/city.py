@@ -7,7 +7,7 @@ Base = declarative_base()
 class City(Base):
     __tablename__ = 'city'
     id = Column('id', Integer, primary_key=True, nullable=False)
-    name = Column('name', String(50), nullable=False, unique=True)
+    name = Column('name', String(255), nullable=False, unique=True)
     latitude = Column('latitude', Float, nullable=False)
     longitude = Column('longitude', Float, nullable=False)
     population = Column('population', Integer)

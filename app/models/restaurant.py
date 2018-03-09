@@ -10,7 +10,7 @@ class Restaurant(Base):
     name = Column('name', String(50), nullable=False, unique=True)
     latitude = Column('latitude', Float, nullable=False)
     longitude = Column('longitude', Float, nullable=False)
-    website = Column('website', String(200))
+    website = Column('website', String(255))
     rating = Column('rating', Float)
     cuisine = Column('cuisine', String(50))
     pricing = Column('pricing', String(10))
