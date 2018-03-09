@@ -19,7 +19,7 @@ class NPSController(BaseController):
         '''
         Return a list of all parks.
         '''
-        endpoint = self._base_url + 'parks?' + self._api_key
+        endpoint = self._base_url + 'parks?' + self._api_key + '&limit=1000'
         r = requests.get(endpoint)
 
-        return r.json()['data']
+        return r.json()
