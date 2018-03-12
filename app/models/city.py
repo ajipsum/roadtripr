@@ -12,6 +12,9 @@ class City(Base):
     longitude = Column('longitude', Float, nullable=False)
     population = Column('population', Integer)
 
+    def to_json(self):
+        return jsonify(id=self.id,name=self.name,latitiude=self.latitude,longitude=self.longitude,population=self.population)
+
     def nearby_parks(self):
         pass
 
