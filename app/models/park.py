@@ -1,7 +1,6 @@
 from sqlalchemy import Column, ForeignKey, Integer, String, Float
 from sqlalchemy.ext.declarative import declarative_base
 from sqlalchemy.orm import relationship
-from flask import jsonify
 
 Base = declarative_base()
 
@@ -13,8 +12,14 @@ class Park(Base):
     longitude = Column('longitude', Float, nullable=False)
     website = Column('website', String(200))
 
-    def to_json(self):
-        return jsonify(id=self.id,name=self.name,latitiude=self.latitude,longitude=self.longitude,website=self.website)
+    def as_dict(self):
+        result = {}
+        result['id'] = self.id
+        result['name'] = self.name
+        result['latitude'] = self.latitude
+        result['longitude'] = self.longitude
+        result['website'] = self.website
+        return result
 
     def nearby_citys(self):
         pass

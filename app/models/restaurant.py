@@ -16,7 +16,16 @@ class Restaurant(Base):
     pricing = Column('pricing', String(10))
 
     def to_json(self):
-        return jsonify(id=self.id,name=self.name,latitiude=self.latitude,longitude=self.longitude,website=self.website,rating=self.rating,cuisine=self.cuisine,pricing=self.pricing)
+        result = {}
+        result['id'] = self.id
+        result['name'] = self.name
+        result['latitude'] = self.latitude
+        result['longitude'] = self.longitude
+        result['website'] = self.website
+        result['rating'] = self.rating
+        result['cuisine'] = self.cuisine
+        result['pricing'] = self.pricing
+        return result
 
     def nearby_parks(self):
         pass
