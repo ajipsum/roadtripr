@@ -15,7 +15,7 @@ class Restaurant(Base):
     cuisine = Column('cuisine', String(50))
     pricing = Column('pricing', String(10))
 
-    def to_json(self):
+    def as_dict(self):
         result = {}
         result['id'] = self.id
         result['name'] = self.name

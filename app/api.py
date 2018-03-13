@@ -4,6 +4,7 @@ from controllers.databasecontroller import DatabaseController
 from models.city import City
 from models.park import Park
 from models.restaurant import Restaurant
+from utils import miles_distance
 
 app = Flask(__name__)
 
@@ -36,10 +37,9 @@ def get_park_params():
         if name == None:
             return jsonify({'error' : 'No parameter \'name\' in request.'})
         parks_query = session.query(Park).filter(Park.name.ilike('%'+name+'%'))
-        total = parks_query.count()
         parks = [park.as_dict() for park in parks_query]
-        return jsonify({'total' : total,'data':parks})
-        
+        return jsonify({'total' : len(parks),'data':parks})
+
     if len(args) == 2 or len(args) == 3:
         lat = args.get('lat')
         longitude = args.get('long')
@@ -50,11 +50,16 @@ def get_park_params():
             return jsonify({'error' : 'No parameter \'long\' in request.'})
         if length == None:
             length = 10
+        lat = float(lat)
+        longitude = float(longitude)
         length = int(length)
         if length < 1:
             return jsonify({'error' : 'Parameter \'length\' must be greater than 0.'})
-        # todo query
-        return jsonify({'todo' : 'todo'})
+        parks_query = session.query(Park).all()
+        parks = sorted(parks_query, key=lambda park: miles_distance(lat,longitude,park.latitude,park.longitude))
+        parks = parks[:length]
+        parks = [park.as_dict() for park in parks]
+        return jsonify({'total' : len(parks),'data':parks})
 
     return jsonify({'error' : 'No matching parks call with parameter length ' +str(len(args))})
 
