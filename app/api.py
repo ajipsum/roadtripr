@@ -55,7 +55,7 @@ def get_park_params():
         length = int(length)
         if length < 1:
             return jsonify({'error' : 'Parameter \'length\' must be greater than 0.'})
-        parks_query = session.query(Park).all()
+        parks_query = session.query(Park).filter(Park.latitude.isnot(None))
         parks = sorted(parks_query, key=lambda park: miles_distance(lat,longitude,park.latitude,park.longitude))
         parks = parks[:length]
         parks = [park.as_dict() for park in parks]
