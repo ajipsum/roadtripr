@@ -157,5 +157,62 @@ def get_restaurant_params():
         
     return jsonify({'error' : 'No matching restaurants call with parameter length ' +str(len(args))})
 
+@app.route('/api/cities/<int:id>', methods=['GET'])
+def get_city_id(id):
+    global session
+    
+    if session == None:
+        return jsonify({'error' : 'Could not retrieve database session.'})
+
+    city = session.query(City).get(id)
+    if city == None:
+        return jsonify({'error' : 'City with ID '+str(id)+' does not exist.'})
+    return jsonify(city.as_dict())
+
+@app.route('/api/cities/', methods=['GET'])
+def get_city_params():
+    global session
+    
+    if session == None:
+        return jsonify({'error' : 'Could not retrieve database session.'})
+
+    def get_cities_by_name(name):
+        if name == None:
+            return jsonify({'error' : 'No parameter \'name\' in request.'})
+        cities_query = session.query(City).filter(City.name.ilike('%'+name+'%'))
+        cities = [city.as_dict() for city in cities_query]
+        return jsonify({'total' : len(cities),'data':cities})
+
+    def get_nearby_cities(lat,longitude,length):
+        if lat == None:
+            return jsonify({'error' : 'No parameter \'lat\' in request.'})
+        if longitude == None:
+            return jsonify({'error' : 'No parameter \'long\' in request.'})
+        if length == None:
+            length = 10
+        lat = float(lat)
+        longitude = float(longitude)
+        length = int(length)
+        if length < 1:
+            return jsonify({'error' : 'Parameter \'length\' must be greater than 0.'})
+        cities_query = session.query(City).filter(City.latitude.isnot(None))
+        cities = sorted(cities_query, key=lambda city: miles_distance(lat,longitude,city.latitude,city.longitude))
+        cities = cities[:length]
+        cities = [city.as_dict() for city in cities]
+        return jsonify({'total' : len(cities),'data':cities})
+
+    args = request.args
+    name = args.get('name')
+    lat = args.get('lat')
+    longitude = args.get('long')
+    length = args.get('length')
+
+    if len(args) == 1:
+        return get_cities_by_name(name)
+    if len(args) == 2 or len(args) == 3:
+        return get_nearby_cities(lat,longitude,length)
+        
+    return jsonify({'error' : 'No matching cities call with parameter length ' +str(len(args))})
+
 if __name__ == '__main__':
     app.run(use_reloader=True, threaded=True, host="0.0.0.0", port=80)
