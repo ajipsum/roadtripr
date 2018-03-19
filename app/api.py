@@ -130,10 +130,11 @@ def get_restaurant_params():
             return jsonify({'error' : 'Parameter \'length\' must be greater than 0.'})
 
         restaurants_query = session.query(Restaurant).filter(Restaurant.latitude.isnot(None))
-        restaurants = sorted(restaurants_query, key=lambda restaurant: miles_distance(lat,longitude,restaurant.latitude,restaurant.longitude) < 35)
-        for rest in restaurants:
-            print(str(miles_distance(lat,longitude,rest.latitude,rest.longitude)))
-        return jsonify({})
+        restaurants = sorted(restaurants_query, key=lambda restaurant: miles_distance(lat,longitude,restaurant.latitude,restaurant.longitude))
+        restaurants = list(filter(lambda restaurant: miles_distance(lat,longitude,restaurant.latitude,restaurant.longitude) < 35, restaurants))
+        restaurants = restaurants[:length]
+        restaurants = [restaurant.as_dict() for restaurant in restaurants]
+        return jsonify({'total' : len(restaurants),'data':restaurants})
 
     args = request.args
     name = args.get('name')
