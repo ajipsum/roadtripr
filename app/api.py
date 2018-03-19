@@ -7,6 +7,7 @@ from models.restaurant import Restaurant
 from utils import miles_distance
 
 app = Flask(__name__)
+app.config['JSON_AS_ASCII'] = False
 
 db = DatabaseController()
 session = db.get_session()
@@ -130,7 +131,8 @@ def get_restaurant_params():
 
         restaurants_query = session.query(Restaurant).filter(Restaurant.latitude.isnot(None))
         restaurants = sorted(restaurants_query, key=lambda restaurant: miles_distance(lat,longitude,restaurant.latitude,restaurant.longitude) < 35)
-        print(restaurants)
+        for rest in restaurants:
+            print(str(miles_distance(lat,longitude,rest.latitude,rest.longitude)))
         return jsonify({})
 
     args = request.args
@@ -154,4 +156,4 @@ def get_restaurant_params():
     return jsonify({'error' : 'No matching restaurants call with parameter length ' +str(len(args))})
 
 if __name__ == '__main__':
-    app.run(use_reloader=True, threaded=True)
+    app.run(use_reloader=True, threaded=True, host="0.0.0.0", port=80)
