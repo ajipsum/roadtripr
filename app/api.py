@@ -16,7 +16,7 @@ def get_park_id(id):
     global session
     
     if session == None:
-        return jsonify({'error' : 'Could not retrive database session.'})
+        return jsonify({'error' : 'Could not retrieve database session.'})
 
     park = session.query(Park).get(id)
     if park == None:
@@ -28,7 +28,7 @@ def get_park_params():
     global session
     
     if session == None:
-        return jsonify({'error' : 'Could not retrive database session.'})
+        return jsonify({'error' : 'Could not retrieve database session.'})
 
     args = request.args
 
@@ -63,5 +63,17 @@ def get_park_params():
 
     return jsonify({'error' : 'No matching parks call with parameter length ' +str(len(args))})
 
+@app.route('/api/restaurants/<int:id>', methods=['GET'])
+def get_restaurant_id(id):
+    global session
+    
+    if session == None:
+        return jsonify({'error' : 'Could not retrieve database session.'})
+
+    restaurant = session.query(Restaurant).get(id)
+    if restaurant == None:
+        return jsonify({'error' : 'Restaurant with ID '+str(id)+' does not exist.'})
+    return jsonify(restaurant.as_dict())
+
 if __name__ == '__main__':
-    app.run(use_reloader=True, threaded=True)
+    app.run(use_reloader=True, threaded=True, host="0.0.0.0", port=80)
