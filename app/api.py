@@ -132,6 +132,7 @@ def get_restaurant_params():
         restaurants_query = session.query(Restaurant).filter(Restaurant.latitude.isnot(None))
         restaurants = sorted(restaurants_query, key=lambda restaurant: miles_distance(lat,longitude,restaurant.latitude,restaurant.longitude))
         restaurants = list(filter(lambda restaurant: miles_distance(lat,longitude,restaurant.latitude,restaurant.longitude) < 35, restaurants))
+        restaurants = sorted(restaurants, key=lambda restaurant: restaurant.rating, reverse=True)
         restaurants = restaurants[:length]
         restaurants = [restaurant.as_dict() for restaurant in restaurants]
         return jsonify({'total' : len(restaurants),'data':restaurants})
