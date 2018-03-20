@@ -12,7 +12,7 @@ app.config['JSON_AS_ASCII'] = False
 db = DatabaseController()
 session = db.get_session()
 
-@app.route('/api/parks/<int:id>', methods=['GET'])
+@app.route('/parks/<int:id>', methods=['GET'], subdomain='api')
 def get_park_id(id):
     global session
     
@@ -24,7 +24,7 @@ def get_park_id(id):
         return jsonify({'error' : 'Park with ID '+str(id)+' does not exist.'})
     return jsonify(park.as_dict())
 
-@app.route('/api/parks/', methods=['GET'])
+@app.route('/parks/', methods=['GET'], subdomain='api')
 def get_park_params():
     global session
     
@@ -69,7 +69,7 @@ def get_park_params():
         
     return jsonify({'error' : 'No matching parks call with parameter length ' +str(len(args))})
 
-@app.route('/api/restaurants/<int:id>', methods=['GET'])
+@app.route('/restaurants/<int:id>', methods=['GET'], subdomain='api')
 def get_restaurant_id(id):
     global session
     
@@ -81,7 +81,7 @@ def get_restaurant_id(id):
         return jsonify({'error' : 'Restaurant with ID '+str(id)+' does not exist.'})
     return jsonify(restaurant.as_dict())
 
-@app.route('/api/restaurants/', methods=['GET'])
+@app.route('/restaurants/', methods=['GET'], subdomain='api')
 def get_restaurant_params():
     global session
     
@@ -157,7 +157,7 @@ def get_restaurant_params():
         
     return jsonify({'error' : 'No matching restaurants call with parameter length ' +str(len(args))})
 
-@app.route('/api/cities/<int:id>', methods=['GET'])
+@app.route('/cities/<int:id>', methods=['GET'], subdomain='api')
 def get_city_id(id):
     global session
     
@@ -169,7 +169,7 @@ def get_city_id(id):
         return jsonify({'error' : 'City with ID '+str(id)+' does not exist.'})
     return jsonify(city.as_dict())
 
-@app.route('/api/cities/', methods=['GET'])
+@app.route('/cities/', methods=['GET'], subdomain='api')
 def get_city_params():
     global session
     
