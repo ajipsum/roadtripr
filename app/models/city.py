@@ -11,6 +11,7 @@ class City(Base):
     latitude = Column('latitude', Float, nullable=False)
     longitude = Column('longitude', Float, nullable=False)
     population = Column('population', Integer)
+    place_id = Column('place_id', String(255))
 
     def as_dict(self):
         result = {}
@@ -19,6 +20,7 @@ class City(Base):
         result['latitude'] = self.latitude
         result['longitude'] = self.longitude
         result['population'] = self.population
+        result['place_id'] = self.place_id
         return result
 
     def nearby_parks(self):

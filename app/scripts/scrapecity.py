@@ -25,10 +25,11 @@ for c in cities:
     city = c[0]
     state = c[1].strip()
     pop = int(c[2])
-    latlong = gc.get_city_latlong(city, state)
-    lat = latlong['lat']
-    lng = latlong['lng']
+    info = gc.get_city_info(city, state)
+    lat = info[0]['lat']
+    lng = info[0]['lng']
+    pid = info[1]
 
-    entry = City(name="{}, {}".format(city, state), latitude=lat, longitude=lng, population=pop)
+    entry = City(name="{}, {}".format(city, state), latitude=lat, longitude=lng, population=pop, place_id=pid)
     session.add(entry)
     session.commit()
