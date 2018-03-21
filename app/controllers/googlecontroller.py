@@ -21,3 +21,10 @@ class GoogleController(BaseController):
         '''
         geocode_result = self.gmaps_geocoding.geocode(city + ", " + state)[0]
         return (geocode_result['geometry']['location'], geocode_result['place_id'])
+
+    def get_park_info(self, parkname):
+        '''
+        Given a park name, return the place id.
+        '''
+        geocode_result = self.gmaps_geocoding.geocode(parkname)[0]
+        return geocode_result['place_id']

@@ -10,9 +10,9 @@ class ImageController(BaseController):
 
     def __init__(self):
         super(ImageController, self).__init__()
-        self.gmaps_places = googlemaps.Client(key=self._config['GOOGLE']['places_key'])
+        self.gmaps_places = googlemaps.Client(key=self._config['GOOGLE']['places_key2'])
         self.base_url = 'https://maps.googleapis.com/maps/api/place/photo?maxwidth=1000&photoreference='
-        self.url_end = '&key=' + self._config['GOOGLE']['places_key']
+        self.url_end = '&key=' + self._config['GOOGLE']['places_key2']
 
     def get_image(self, place_id):
         '''
@@ -23,7 +23,3 @@ class ImageController(BaseController):
         photo_ref = place_search['result']['photos'][0]['photo_reference']
         photo_url = self.base_url + photo_ref + self.url_end
         return photo_url
-
-if __name__ == "__main__":
-    ic = ImageController()
-    print(ic.get_image('ChIJOwg_06VPwokRYv534QaPC8g'))
