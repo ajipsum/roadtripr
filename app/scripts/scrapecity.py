@@ -30,6 +30,7 @@ for c in cities:
     lng = info[0]['lng']
     pid = info[1]
 
-    entry = City(name="{}, {}".format(city, state), latitude=lat, longitude=lng, population=pop, place_id=pid)
+    entry = City(name="{}, {}".format(city, state), latitude=lat, longitude=lng,
+                 population=pop, place_id=pid)
     session.add(entry)
     session.commit()

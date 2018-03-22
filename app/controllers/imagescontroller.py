@@ -1,4 +1,5 @@
-import sys, os
+import sys
+import os
 import googlemaps
 sys.path.insert(1, os.path.join(sys.path[0], '..'))
 from controllers.basecontroller import BaseController
