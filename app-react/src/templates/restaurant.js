@@ -57,6 +57,7 @@ export default class Restaurant extends React.Component {
     }
     render() {
         var restaurant = this.state.restaurant
+        var stars = "\u2605".repeat(restaurant.rating);
     
         var cityEle = []
         var parkEle = []
@@ -84,7 +85,7 @@ export default class Restaurant extends React.Component {
                         
                         <h2 className="title">{restaurant.name}</h2>
                         <p>Type: {restaurant.cuisine}</p>
-                        <p>{restaurant.rating} Stars</p>
+                        <p>{stars}</p>
                         <p>Pricing: {restaurant.pricing}</p>
                         <hr />
                         <p>Nearby Parks</p>
