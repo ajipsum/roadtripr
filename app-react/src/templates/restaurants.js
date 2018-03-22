@@ -35,6 +35,9 @@ export default class Restaurants extends React.Component {
 
     }
     renderRestaurant(restaurant){
+        var num = Math.round(restaurant.rating);
+        var stars = "\u2605".repeat(num);
+        console.log(stars);
         const element = (
         <div className="col-lg-4 col-md-6 portfolio-item filter-app wow">
         <div className="portfolio-wrap">
@@ -45,6 +48,7 @@ export default class Restaurants extends React.Component {
           </figure>
           <div className="portfolio-info">
             <p><Link to={'/restaurants/' + restaurant.name}>{restaurant.name}</Link></p>
+            {restaurant.pricing} | {restaurant.cuisine} | {stars}
           </div>
         </div>
       </div>)

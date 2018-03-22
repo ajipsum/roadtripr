@@ -33,6 +33,8 @@ export default class Cities extends React.Component {
 
     }
     renderCity(city){
+        var cityName = city.name.split(",")[0]
+        var state = city.name.split(",")[1]
         const element = (
             <div className="col-lg-4 col-md-6 portfolio-item filter-app wow">
             <div className="portfolio-wrap">
@@ -41,7 +43,9 @@ export default class Cities extends React.Component {
                 <a href={city.image} data-lightbox="portfolio" data-title="city" className="link-preview" title="Preview"><i className="ion ion-eye" /></a>
             </figure>
             <div className="portfolio-info">
-                <p><Link to={'/city/' + city.name}>{city.name}</Link></p>
+                <p><Link to={'/city/' + city.name}>{cityName}</Link></p>
+                <p>{state}</p>
+                Population: {city.population}
             </div>
             </div>
         </div>)

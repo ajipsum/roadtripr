@@ -35,18 +35,20 @@ export default class Parks extends React.Component {
     renderPark(park){
         const element = (
             <div className="col-lg-4 col-md-6 portfolio-item filter-app wow">
-            <div className="portfolio-wrap">
-            <figure>
-                <img src={park.image} className="img-fluid" alt />
-                <a href={park.image} data-lightbox="portfolio" data-title="park" className="link-preview" title="Preview"><i className="ion ion-eye" /></a>
-                <a href={"parks/" + park.name} className="link-details" title="More Details"><i className="ion ion-android-open" /></a>
-            </figure>
-            <div className="portfolio-info">
-                <p><Link to={'/parks/' + park.name}>{park.name}</Link></p>
-            </div>
+                <div className="portfolio-wrap">
+                <figure>
+                    <img src={park.image} className="img-fluid" alt />
+                    <a href={park.image} data-lightbox="portfolio" data-title="park" className="link-preview" title="Preview"><i className="ion ion-eye" /></a>
+                    <a href={"parks/" + park.name} className="link-details" title="More Details"><i className="ion ion-android-open" /></a>
+                </figure>
+                <div className="portfolio-info">
+                    <p><Link to={'/parks/' + park.name}>{park.name}</Link></p>
+                    <hr style = {{margin:"0"}}/>
+                    <a href="{park.website}" style={{color:"blue !important"}}>Website</a>
+                </div>
             </div>
         </div>)
-      console.log(element)
+      console.log(element);
       return element;
       
       
