@@ -4,9 +4,11 @@ from models.city import City
 from models.park import Park
 from models.restaurant import Restaurant
 from utils import miles_distance
+from flask_cors import CORS
 
 app = Flask(__name__)
 app.config['JSON_AS_ASCII'] = False
+CORS(app)
 
 db = DatabaseController()
 session = db.get_session()
