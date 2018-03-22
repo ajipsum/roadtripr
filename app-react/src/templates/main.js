@@ -2,7 +2,7 @@ import React from 'react'
 import { Switch, Route } from 'react-router-dom'
 import Home from './home'
 //import Roster from './Roster'
-import Cities from './cities'
+import CityMapper from './citymapper'
 
 // The Main component renders one of the three provided
 // Routes (provided that one matches). Both the /roster
@@ -13,7 +13,7 @@ const Main = () => (
   <main>
     <Switch>
       <Route exact path='/' component={Home}/>
-      <Route path='/cities' component={Cities}/>
+      <Route path='/cities' component={CityMapper}/>
     </Switch>
   </main>
 )

@@ -18,31 +18,25 @@ export default class Cities extends React.Component {
           }
     }
     getCities() {
-       //var res = $.getJSON('http://api.roadtripr.fun/parks/?latitude=32.7791&longitude=-96.8003&length=10');
-        axios.get('http://api.roadtripr.fun/parks/?latitude=32.7791&longitude=-96.8003&length=10')
+       //var res = $.getJSON('http://api.roadtripr.fun/cities/?latitude=32.7791&longitude=-96.8003&length=10');
+        axios.get('http://api.roadtripr.fun/cities/')
         .then(res => {
-            console.log(res)
           this.setState({cities: res.data.data})
-          console.log(this.state.cities)
 
         });
-        console.log(this.state.cities)
         /*var res2 = JSON.parse(JSON.stringify(res))
         console.log(res)
         this.setState({cities: res2.responseJSON.data});*/
         
     }
     renderCities(){
-        
+        console.log("in rendercities")
         for (var city of this.state.cities){
-            console.log(this.state.cities)
             this.renderCity(city);
-            console.log(city)
         }
 
     }
     renderCity(city){
-        console.log(city)
         const element = (
         <div className="col-lg-4 col-md-6 portfolio-item filter-app wow">
         <div className="portfolio-wrap">
@@ -52,11 +46,12 @@ export default class Cities extends React.Component {
             <a href={"/" + city.name} className="link-details" title="More Details"><i className="ion ion-android-open" /></a>
           </figure>
           <div className="portfolio-info">
-            <h4><a href={"/" + city.name} >{city.name}</a></h4>
+            <h4><a href={"cities/" + city.name} >{city.name}</a></h4>
           </div>
         </div>
       </div>)
-      ReactDom.render(element);
+      console.log(element)
+      return element;
       
       
     }
@@ -64,6 +59,18 @@ export default class Cities extends React.Component {
          this.getCities();
     }
     render() {
+        //var cities = this.renderCities()
+        var elements = []
+        var i = 0
+        for(var city of this.state.cities){ 
+            if(i>10){
+                break
+            }
+            elements.push(this.renderCity(city));
+            i++;
+        }
+        //console.log("cities + ")
+        //console.log(cities)
         return (
             <div>
             <section id="portfolio" className="section-bg">
@@ -72,7 +79,7 @@ export default class Cities extends React.Component {
                   <h3 className="section-title">Cities</h3>
                 </header>
                 <div className="row portfolio-container">
-                    {this.renderCities()}
+                    {elements}
                 </div>
               </div>
             </section>
