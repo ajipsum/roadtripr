@@ -10,17 +10,16 @@ app = Flask(__name__)
 app.config['JSON_AS_ASCII'] = False
 CORS(app)
 
-db = DatabaseController()
-session = db.get_session()
-
 @app.route('/parks/<int:limit>', methods=['GET'])
 def get_park_limit(limit):
-    global session
+    db = DatabaseController()
+    session = db.get_session()
 
     if session is None:
         return jsonify({'error': 'Could not retrieve database session.'})
 
     parks_query = session.query(Park).limit(limit).all()
+    session.close()
     if parks_query is None:
         return jsonify({'error': 'No parks found.'})
     parks = [park.as_dict() for park in parks_query]
@@ -28,7 +27,8 @@ def get_park_limit(limit):
 
 @app.route('/parks/', methods=['GET'])
 def get_park_params():
-    global session
+    db = DatabaseController()
+    session = db.get_session()
 
     if session is None:
         return jsonify({'error': 'Could not retrieve database session.'})
@@ -36,19 +36,24 @@ def get_park_params():
     def get_all_parks():
         parks_query = session.query(Park).all()
         parks = [park.as_dict() for park in parks_query]
+        session.close()
         return jsonify({'total': len(parks), 'data': parks})
 
     def get_parks_by_name(name):
         if name is None:
+            session.close()
             return jsonify({'error': 'No parameter \'name\' in request.'})
         parks_query = session.query(Park).filter(Park.name.ilike('%' + name + '%'))
         parks = [park.as_dict() for park in parks_query]
+        session.close()
         return jsonify({'total': len(parks), 'data': parks})
 
     def get_nearby_parks(latitude, longitude, length):
         if latitude is None:
+            session.close()
             return jsonify({'error': 'No parameter \'latitude\' in request.'})
         if longitude is None:
+            session.close()
             return jsonify({'error': 'No parameter \'longitude\' in request.'})
         if length is None:
             length = 10
@@ -56,11 +61,13 @@ def get_park_params():
         longitude = float(longitude)
         length = int(length)
         if length < 1:
+            session.close()
             return jsonify({'error': 'Parameter \'length\' must be greater than 0.'})
         parks_query = session.query(Park).filter(Park.latitude.isnot(None))
         parks = sorted(parks_query, key=lambda park: miles_distance(latitude, longitude, park.latitude, park.longitude))
         parks = parks[:length]
         parks = [park.as_dict() for park in parks]
+        session.close()
         return jsonify({'total': len(parks), 'data': parks})
 
     args = request.args
@@ -76,24 +83,29 @@ def get_park_params():
     if len(args) == 2 or len(args) == 3:
         return get_nearby_parks(latitude, longitude, length)
 
+    session.close()
     return jsonify({'error': 'No matching parks call with parameter length ' + str(len(args))})
 
 @app.route('/restaurants/<int:limit>', methods=['GET'])
 def get_restaurant_limit(limit):
-    global session
+    db = DatabaseController()
+    session = db.get_session()
 
     if session is None:
         return jsonify({'error': 'Could not retrieve database session.'})
 
     restaurants_query = session.query(Restaurant).limit(limit).all()
     if restaurants_query is None:
+        session.close()
         return jsonify({'error': 'No restaurants found.'})
     restaurants = [restaurant.as_dict() for restaurant in restaurants_query]
+    session.close()
     return jsonify({'total': len(restaurants), 'data': restaurants})
 
 @app.route('/restaurants/', methods=['GET'])
 def get_restaurant_params():
-    global session
+    db = DatabaseController()
+    session = db.get_session()
 
     if session is None:
         return jsonify({'error': 'Could not retrieve database session.'})
@@ -101,19 +113,24 @@ def get_restaurant_params():
     def get_all_restaurants():
         restaurants_query = session.query(Restaurant).all()
         restaurants = [restaurant.as_dict() for restaurant in restaurants_query]
+        session.close()
         return jsonify({'total': len(restaurants), 'data': restaurants})
 
     def get_restaurants_by_name(name):
         if name is None:
+            session.close()
             return jsonify({'error': 'No parameter \'name\' in request.'})
         restaurants_query = session.query(Restaurant).filter(Restaurant.name.ilike('%'+name+'%'))
         restaurants = [restaurant.as_dict() for restaurant in restaurants_query]
+        session.close()
         return jsonify({'total': len(restaurants), 'data': restaurants})
 
     def get_nearby_restaurants(latitude, longitude, length):
         if latitude is None:
+            session.close()
             return jsonify({'error': 'No parameter \'latitude\' in request.'})
         if longitude is None:
+            session.close()
             return jsonify({'error': 'No parameter \'longitude\' in request.'})
         if length is None:
             length = 10
@@ -121,27 +138,33 @@ def get_restaurant_params():
         longitude = float(longitude)
         length = int(length)
         if length < 1:
+            session.close()
             return jsonify({'error': 'Parameter \'length\' must be greater than 0.'})
         restaurants_query = session.query(Restaurant).filter(Restaurant.latitude.isnot(None))
         restaurants = sorted(restaurants_query, key=lambda restaurant: miles_distance(latitude, longitude, restaurant.latitude, restaurant.longitude))
         restaurants = restaurants[:length]
         restaurants = [restaurant.as_dict() for restaurant in restaurants]
+        session.close()
         return jsonify({'total': len(restaurants), 'data': restaurants})
 
     def get_top_restaurants(city, length):
         city_query = session.query(City).filter(City.name.ilike(city+'%')).first()
         if city_query is None:
+            session.close()
             return jsonify({'error': 'No city matching \'' +city+ '\'.'})
         latitude = city_query.latitude
         longitude = city_query.longitude
         if latitude is None:
+            session.close()
             return jsonify({'error': 'Could not find coords for specified city.'})
         if longitude is None:
+            session.close()
             return jsonify({'error': 'Could not find coords for specified city.'})
         if length is None:
             length = 10
         length = int(length)
         if length < 1:
+            session.close()
             return jsonify({'error': 'Parameter \'length\' must be greater than 0.'})
 
         restaurants_query = session.query(Restaurant).filter(Restaurant.latitude.isnot(None))
@@ -150,6 +173,7 @@ def get_restaurant_params():
         restaurants = sorted(restaurants, key=lambda restaurant: restaurant.rating, reverse=True)
         restaurants = restaurants[:length]
         restaurants = [restaurant.as_dict() for restaurant in restaurants]
+        session.close()
         return jsonify({'total': len(restaurants), 'data': restaurants})
 
     args = request.args
@@ -174,24 +198,29 @@ def get_restaurant_params():
 
         return get_top_restaurants(city, length)
 
+    session.close()
     return jsonify({'error': 'No matching restaurants call with parameter length ' + str(len(args))})
 
 @app.route('/cities/<int:limit>', methods=['GET'])
 def get_city_limit(limit):
-    global session
+    db = DatabaseController()
+    session = db.get_session()
 
     if session is None:
         return jsonify({'error': 'Could not retrieve database session.'})
 
     cities_query = session.query(City).limit(limit).all()
     if cities_query is None:
+        session.close()
         return jsonify({'error': 'No cities found.'})
     cities = [city.as_dict() for city in cities_query]
+    session.close()
     return jsonify({'total': len(cities), 'data': cities})
 
 @app.route('/cities/', methods=['GET'])
 def get_city_params():
-    global session
+    db = DatabaseController()
+    session = db.get_session()
 
     if session is None:
         return jsonify({'error': 'Could not retrieve database session.'})
@@ -199,19 +228,24 @@ def get_city_params():
     def get_all_cities():
         cities_query = session.query(City).all()
         cities = [city.as_dict() for city in cities_query]
+        session.close()
         return jsonify({'total': len(cities), 'data': cities})
 
     def get_cities_by_name(name):
         if name is None:
+            session.close()
             return jsonify({'error': 'No parameter \'name\' in request.'})
         cities_query = session.query(City).filter(City.name.ilike('%'+name+'%'))
         cities = [city.as_dict() for city in cities_query]
+        session.close()
         return jsonify({'total': len(cities), 'data': cities})
 
     def get_nearby_cities(latitude, longitude, length):
         if latitude is None:
+            session.close()
             return jsonify({'error': 'No parameter \'latitude\' in request.'})
         if longitude is None:
+            session.close()
             return jsonify({'error': 'No parameter \'longitude\' in request.'})
         if length is None:
             length = 10
@@ -219,11 +253,13 @@ def get_city_params():
         longitude = float(longitude)
         length = int(length)
         if length < 1:
+            session.close()
             return jsonify({'error': 'Parameter \'length\' must be greater than 0.'})
         cities_query = session.query(City).filter(City.latitude.isnot(None))
         cities = sorted(cities_query, key=lambda city: miles_distance(latitude, longitude, city.latitude, city.longitude))
         cities = cities[:length]
         cities = [city.as_dict() for city in cities]
+        session.close()
         return jsonify({'total': len(cities), 'data': cities})
 
     args = request.args
@@ -239,6 +275,7 @@ def get_city_params():
     if len(args) == 2 or len(args) == 3:
         return get_nearby_cities(latitude, longitude, length)
 
+    session.close()
     return jsonify({'error': 'No matching cities call with parameter length ' +str(len(args))})
 
 if __name__ == '__main__':
