@@ -13,17 +13,18 @@ CORS(app)
 db = DatabaseController()
 session = db.get_session()
 
-@app.route('/parks/<int:id>', methods=['GET'])
-def get_park_id(id):
+@app.route('/parks/<int:limit>', methods=['GET'])
+def get_park_limit(limit):
     global session
 
     if session is None:
         return jsonify({'error': 'Could not retrieve database session.'})
 
-    park = session.query(Park).get(id)
-    if park is None:
-        return jsonify({'error': 'Park with ID '+ str(id) +' does not exist.'})
-    return jsonify(park.as_dict())
+    parks_query = session.query(Park).limit(limit).all()
+    if parks_query is None:
+        return jsonify({'error': 'No parks found.'})
+    parks = [park.as_dict() for park in parks_query]
+    return jsonify({'total': len(parks), 'data': parks})
 
 @app.route('/parks/', methods=['GET'])
 def get_park_params():
@@ -77,17 +78,18 @@ def get_park_params():
 
     return jsonify({'error': 'No matching parks call with parameter length ' + str(len(args))})
 
-@app.route('/restaurants/<int:id>', methods=['GET'])
-def get_restaurant_id(id):
+@app.route('/restaurants/<int:limit>', methods=['GET'])
+def get_restaurant_limit(limit):
     global session
 
     if session is None:
         return jsonify({'error': 'Could not retrieve database session.'})
 
-    restaurant = session.query(Restaurant).get(id)
-    if restaurant is None:
-        return jsonify({'error': 'Restaurant with ID '+str(id)+' does not exist.'})
-    return jsonify(restaurant.as_dict())
+    restaurants_query = session.query(Restaurant).limit(limit).all()
+    if restaurants_query is None:
+        return jsonify({'error': 'No restaurants found.'})
+    restaurants = [restaurant.as_dict() for restaurant in restaurants_query]
+    return jsonify({'total': len(restaurants), 'data': restaurants})
 
 @app.route('/restaurants/', methods=['GET'])
 def get_restaurant_params():
