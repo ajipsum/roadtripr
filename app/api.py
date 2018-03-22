@@ -1,5 +1,6 @@
 from flask import Flask, jsonify, request
 from controllers.databasecontroller import DatabaseController
+from controllers.githubcontroller import GithubController
 from models.city import City
 from models.park import Park
 from models.restaurant import Restaurant
@@ -9,6 +10,13 @@ from flask_cors import CORS
 app = Flask(__name__)
 app.config['JSON_AS_ASCII'] = False
 CORS(app)
+
+@app.route('/contribs/', methods=['GET'])
+def get_contrib_info():
+    gc = GithubController()
+    result = {'commits': gc.get_commit_counts(),
+              'issues': gc.get_issue_counts()}
+    return jsonify(result)
 
 @app.route('/parks/<int:limit>', methods=['GET'])
 def get_park_limit(limit):
