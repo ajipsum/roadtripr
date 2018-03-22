@@ -47,7 +47,7 @@ export default class TopBase extends React.Component {
             </div>
             <nav id="nav-menu-container">
               <ul className="nav-menu">
-                <li className="menu-active"><a href="/index">Home</a></li>
+                <li className="menu-active"><a href="/">Home</a></li>
                 <li><a href="/about">About</a></li>
                 <li><Link to='/cities'>Cities</Link></li>
 

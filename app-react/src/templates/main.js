@@ -6,6 +6,7 @@ import ParkMapper from './parkmapper';
 import RestaurantMapper from './restaurantmapper';
 import Cities from './cities';
 import City from './city';
+import About from './about'
 
 
 // The Main component renders one of the three provided
@@ -21,6 +22,8 @@ const Main = () => (
       <Route path='/city/:city' component={City}/>
       <Route path='/parks' component={ParkMapper}/>
       <Route path='/restaurants' component={RestaurantMapper}/>
+      <Route path='/about' component={About}/>
+
     </Switch>
   </main>
 )
