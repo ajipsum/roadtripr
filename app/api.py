@@ -174,17 +174,18 @@ def get_restaurant_params():
 
     return jsonify({'error': 'No matching restaurants call with parameter length ' + str(len(args))})
 
-@app.route('/cities/<int:id>', methods=['GET'])
-def get_city_id(id):
+@app.route('/cities/<int:limit>', methods=['GET'])
+def get_city_limit(limit):
     global session
 
     if session is None:
         return jsonify({'error': 'Could not retrieve database session.'})
 
-    city = session.query(City).get(id)
-    if city is None:
-        return jsonify({'error': 'City with ID '+str(id)+' does not exist.'})
-    return jsonify(city.as_dict())
+    cities_query = session.query(City).limit(limit).all()
+    if cities_query is None:
+        return jsonify({'error': 'No cities found.'})
+    cities = [city.as_dict() for city in cities_query]
+    return jsonify({'total': len(cities), 'data': cities})
 
 @app.route('/cities/', methods=['GET'])
 def get_city_params():
