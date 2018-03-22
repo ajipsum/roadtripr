@@ -1,4 +1,4 @@
-('New York', ' New York', '8537673')
+('New York City', ' New York', '8537673')
 ('Los Angeles', ' California', '3976322')
 ('Chicago', ' Illinois', '2704958')
 ('Houston', ' Texas', '2303482')

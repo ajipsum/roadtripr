@@ -1,6 +1,5 @@
-from sqlalchemy import Column, ForeignKey, Integer, String, Float
+from sqlalchemy import Column, Integer, String, Float
 from sqlalchemy.ext.declarative import declarative_base
-from sqlalchemy.orm import relationship
 
 Base = declarative_base()
 
@@ -11,6 +10,8 @@ class City(Base):
     latitude = Column('latitude', Float, nullable=False)
     longitude = Column('longitude', Float, nullable=False)
     population = Column('population', Integer)
+    place_id = Column('place_id', String(255))
+    image = Column('image', String(512))
 
     def as_dict(self):
         result = {}
@@ -19,6 +20,8 @@ class City(Base):
         result['latitude'] = self.latitude
         result['longitude'] = self.longitude
         result['population'] = self.population
+        result['place_id'] = self.place_id
+        result['image'] = self.image
         return result
 
     def nearby_parks(self):

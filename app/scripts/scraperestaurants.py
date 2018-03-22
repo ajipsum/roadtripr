@@ -12,7 +12,6 @@ from controllers.yelpcontroller import YelpController
 from controllers.databasecontroller import DatabaseController
 from models.restaurant import Restaurant
 from models.city import City
-import sqlalchemy
 
 yc = YelpController()
 
@@ -30,6 +29,7 @@ for city in cities:
         website = rest['url']
         rating = rest['rating']
         cuisine = rest['categories'][0]['title']  # fix later to include all
+        image = rest['image_url']
         pricing = ''
         try:
             # some places choose not to show prices
@@ -38,7 +38,8 @@ for city in cities:
             pass
 
         entry = Restaurant(name=name, latitude=lat, longitude=lng,
-            website=website, rating=rating, cuisine=cuisine, pricing=pricing)
+                           website=website, rating=rating, cuisine=cuisine,
+                           pricing=pricing, image=image)
         try:
             session.add(entry)
             session.commit()

@@ -1,6 +1,5 @@
-from sqlalchemy import Column, ForeignKey, Integer, String, Float
+from sqlalchemy import Column, Integer, String, Float
 from sqlalchemy.ext.declarative import declarative_base
-from sqlalchemy.orm import relationship
 
 Base = declarative_base()
 
@@ -14,6 +13,7 @@ class Restaurant(Base):
     rating = Column('rating', Float)
     cuisine = Column('cuisine', String(50))
     pricing = Column('pricing', String(10))
+    image = Column('image', String(512))
 
     def as_dict(self):
         result = {}
@@ -25,6 +25,7 @@ class Restaurant(Base):
         result['rating'] = self.rating
         result['cuisine'] = self.cuisine
         result['pricing'] = self.pricing
+        result['image'] = self.image
         return result
 
     def nearby_parks(self):
