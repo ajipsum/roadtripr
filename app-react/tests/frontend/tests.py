@@ -35,6 +35,9 @@ class Test(unittest.TestCase):
         restaurants_page.click()
         self.assertEqual("http://www.roadtripr.fun/restaurants", driver.current_url)
 
+    def tearDown(self):
+        self.driver.close()
+"""
 #   Test Instances
     def test_cities_instance(self):
         driver = self.driver
@@ -58,10 +61,7 @@ class Test(unittest.TestCase):
         assert "Population" in driver.page_source
         assert "Nearby Restaurants" in driver.page_source
         assert "Nearby Parks" in driver.page_source
-
-    def tearDown(self):
-        self.driver.close()
-
+"""
 
 if __name__ == "__main__":
     unittest.main()
