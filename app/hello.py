@@ -18,14 +18,14 @@ def github_contribs():
 
 @app.route('/', defaults={'path': ''})
 @app.route('/<path:path>')
-def send(path):
-    if path == "":
+def serve(path):
+    if(path == ""):
         return render_template('index.html')
     else:
-        if os.path.exists('templates/' + path + '.html'):
-            return render_template(path + '.html')
+        if(os.path.exists("react_app/build/" + path)):
+            return send_from_directory('react-app/build/static/js', path)
         else:
-            return render_template('index.html')
+            return send_from_directory('react-app/build', 'index.html')
 
 if __name__ == '__main__':
     app.run(use_reloader=True, threaded=True)
