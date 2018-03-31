@@ -601,7 +601,7 @@ body.mobile-nav-active #mobile-nav-toggle {
 }
 
 /* About Us Section
---------------------------------
+--------------------------------*/
 #about {
   background: url("../img/about-bg.jpg") center top no-repeat fixed;
   background-size: cover;
@@ -693,7 +693,7 @@ body.mobile-nav-active #mobile-nav-toggle {
   color: #333;
   margin-bottom: 0;
   padding: 0 20px 20px 20px;
-}*/
+}
 
 /* Services Section
 --------------------------------*/
@@ -810,7 +810,7 @@ body.mobile-nav-active #mobile-nav-toggle {
 }
 
 /* Facts Section
---------------------------------
+--------------------------------*/
 #facts {
   background: url("../img/facts-bg.jpg") center top no-repeat fixed;
   background-size: cover;
