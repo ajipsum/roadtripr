@@ -11,7 +11,7 @@ import axios from 'axios'
 // and /schedule routes will match any pathname that starts
 // with /roster or /schedule. The / route will only match
 // when the pathname is exactly the string "/"
-export default class About extends React.Component {    
+export default class About extends React.Component {
     constructor(props) {
         super(props)
 
@@ -145,9 +145,6 @@ export default class About extends React.Component {
           <p>Total Tests</p>
         </div>
       </div>
-      <div className="facts-img">
-        <img src="../static/img/facts-img.png" alt className="img-fluid" />
-      </div>
     </div>
   </section>{/* #facts */}
   <section id="contact" className="section-bg wow">
@@ -186,13 +183,13 @@ export default class About extends React.Component {
             <i className="ion-social-github-outline" />
             <h3>Links</h3>
             <p><a href="https://www.gitbook.com/book/huangyvonnee/roadtripr/">Gitbook</a></p>
-            <p><a href="https://github.com/Magana/roadtripr/">Github Repo</a></p>  
+            <p><a href="https://github.com/Magana/roadtripr/">Github Repo</a></p>
           </div>
         </div>
       </div>
     </div>
   </section>{/* #contact */}
- 
+
 </div>
 
         );
