@@ -1,7 +1,7 @@
 import React from 'react'
 import matt from '../img/headshot-matt.png'
-import jon from '../img/headshot-jon.png'
-import jose from '../img/headshot-jose.png'
+import jon from '../img/headshot-jon.jpg'
+import jose from '../img/headshot-jose.jpg'
 import yvonne from '../img/headshot-yvonne.jpg'
 import axios from 'axios'
 
@@ -74,7 +74,7 @@ export default class About extends React.Component {
         <div className="col-sm-3 wow" align="center">
           <div className="about-col">
             <div className="img">
-              <img src={jon} alt className="rounded mx-auto d-block" style={{maxWidth: 200}} />
+              <img src={jon} alt className="rounded mx-auto d-block" style={{maxHeight: 300}} />
             </div>
             <h2 className="title"> Jonathan Brewer</h2>
             <p>Jon is a computer science student at UT.</p>
@@ -87,7 +87,7 @@ export default class About extends React.Component {
         <div className="col-sm-3 wow" align="center">
           <div className="about-col">
             <div className="img">
-              <img src={matt} alt className="rounded mx-auto d-block" style={{maxWidth: 200}} />
+              <img src={matt} alt className="rounded mx-auto d-block" style={{maxHeight: 300}} />
             </div>
             <h2 className="title"> Matthew Savignano</h2>
             <p>Matt is a computer science student at UT.</p>
@@ -100,7 +100,7 @@ export default class About extends React.Component {
         <div className="col-sm-3 wow" align="center">
           <div className="about-col">
             <div className="img">
-              <img src={jose} alt className="rounded mx-auto d-block" style={{maxWidth: 200}} />
+              <img src={jose} alt className="rounded mx-auto d-block" style={{maxHeight: 300}} />
             </div>
             <h2 className="title"> Jose Magana</h2>
             <p>Jose is a computer science student at UT.</p>
@@ -113,7 +113,7 @@ export default class About extends React.Component {
         <div className="col-sm-3 wow" align="center">
           <div className="about-col">
             <div className="img">
-              <img src={yvonne} alt className="rounded mx-auto d-block" style={{maxWidth: 200}} />
+              <img src={yvonne} alt className="rounded mx-auto d-block" style={{maxHeight: 300}} />
             </div>
             <h2 className="title"> Yvonne Huang</h2>
             <p>Yvonne is a computer science student at UT.</p>
