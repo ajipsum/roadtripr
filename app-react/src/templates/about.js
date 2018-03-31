@@ -1,7 +1,7 @@
 import React from 'react'
 import matt from '../img/headshot-matt.png'
-import jon from '../img/headshot-jon.png'
-import jose from '../img/headshot-jose.png'
+import jon from '../img/headshot-jon.jpg'
+import jose from '../img/headshot-jose.jpg'
 import yvonne from '../img/headshot-yvonne.jpg'
 import axios from 'axios'
 
@@ -11,7 +11,7 @@ import axios from 'axios'
 // and /schedule routes will match any pathname that starts
 // with /roster or /schedule. The / route will only match
 // when the pathname is exactly the string "/"
-export default class About extends React.Component {    
+export default class About extends React.Component {
     constructor(props) {
         super(props)
 
@@ -74,7 +74,7 @@ export default class About extends React.Component {
         <div className="col-sm-3 wow" align="center">
           <div className="about-col">
             <div className="img">
-              <img src={jon} alt className="rounded mx-auto d-block" style={{maxWidth: 200}} />
+              <img src={jon} alt className="rounded mx-auto d-block" style={{maxHeight: 300}} />
             </div>
             <h2 className="title"> Jonathan Brewer</h2>
             <p>Jon is a computer science student at UT.</p>
@@ -87,7 +87,7 @@ export default class About extends React.Component {
         <div className="col-sm-3 wow" align="center">
           <div className="about-col">
             <div className="img">
-              <img src={matt} alt className="rounded mx-auto d-block" style={{maxWidth: 200}} />
+              <img src={matt} alt className="rounded mx-auto d-block" style={{maxHeight: 300}} />
             </div>
             <h2 className="title"> Matthew Savignano</h2>
             <p>Matt is a computer science student at UT.</p>
@@ -100,7 +100,7 @@ export default class About extends React.Component {
         <div className="col-sm-3 wow" align="center">
           <div className="about-col">
             <div className="img">
-              <img src={jose} alt className="rounded mx-auto d-block" style={{maxWidth: 200}} />
+              <img src={jose} alt className="rounded mx-auto d-block" style={{maxHeight: 300}} />
             </div>
             <h2 className="title"> Jose Magana</h2>
             <p>Jose is a computer science student at UT.</p>
@@ -113,7 +113,7 @@ export default class About extends React.Component {
         <div className="col-sm-3 wow" align="center">
           <div className="about-col">
             <div className="img">
-              <img src={yvonne} alt className="rounded mx-auto d-block" style={{maxWidth: 200}} />
+              <img src={yvonne} alt className="rounded mx-auto d-block" style={{maxHeight: 300}} />
             </div>
             <h2 className="title"> Yvonne Huang</h2>
             <p>Yvonne is a computer science student at UT.</p>
@@ -144,9 +144,6 @@ export default class About extends React.Component {
           <span data-toggle="counter-up">0</span>
           <p>Total Tests</p>
         </div>
-      </div>
-      <div className="facts-img">
-        <img src="../static/img/facts-img.png" alt className="img-fluid" />
       </div>
     </div>
   </section>{/* #facts */}
@@ -186,13 +183,13 @@ export default class About extends React.Component {
             <i className="ion-social-github-outline" />
             <h3>Links</h3>
             <p><a href="https://www.gitbook.com/book/huangyvonnee/roadtripr/">Gitbook</a></p>
-            <p><a href="https://github.com/Magana/roadtripr/">Github Repo</a></p>  
+            <p><a href="https://github.com/Magana/roadtripr/">Github Repo</a></p>
           </div>
         </div>
       </div>
     </div>
   </section>{/* #contact */}
- 
+
 </div>
 
         );

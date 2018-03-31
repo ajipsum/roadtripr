@@ -1,15 +1,22 @@
 from flask import Flask, jsonify, request
+from flask_restless import APIManager
 from controllers.databasecontroller import DatabaseController
 from controllers.githubcontroller import GithubController
 from models.city import City
 from models.park import Park
 from models.restaurant import Restaurant
 from utils import miles_distance
-from flask_cors import CORS
+# from flask_cors import CORS
 
 app = Flask(__name__)
-app.config['JSON_AS_ASCII'] = False
-CORS(app)
+# app.config['JSON_AS_ASCII'] = False
+# CORS(app)
+db = DatabaseController()
+apimanager = APIManager(app, session=db.get_session())
+
+# Create Endpoints
+get_park_limit = apimanager.create_api(Park, url_prefix='/', methods=['GET'])
+
 
 @app.route('/contribs/', methods=['GET'])
 def get_contrib_info():
@@ -287,4 +294,5 @@ def get_city_params():
     return jsonify({'error': 'No matching cities call with parameter length ' +str(len(args))})
 
 if __name__ == '__main__':
-    app.run(use_reloader=True, threaded=True, host="0.0.0.0", port=80)
+    # app.run(use_reloader=True, threaded=True, host="0.0.0.0", port=80)
+    app.run(use_reloader=True, threaded=True)

@@ -5,7 +5,7 @@ import { Link } from 'react-router-dom'
 export default class TopBase extends React.Component {
   constructor(props) {
       super(props)
-  }  
+  }
   render(){
     return (
       <div>
@@ -41,7 +41,7 @@ export default class TopBase extends React.Component {
         <header id="header">
           <div className="container-fluid">
             <div id="logo" className="pull-left">
-              <h1><a href="/index" className="scrollto">RoadTripr</a></h1>
+              <h1><a href="/" className="scrollto">RoadTripr</a></h1>
               {/* Uncomment below if you prefer to use an image logo */}
               {/* <a href="#intro"><img src="img/logo.png" alt="" title="" /></a>*/}
             </div>

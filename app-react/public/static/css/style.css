@@ -71,13 +71,15 @@ h1, h2, h3, h4, h5, h6 {
 --------------------------------------------------------------*/
 #header {
   padding: 30px 0;
-  height: 92px;
-  position: fixed;
+  height: 80px;
+  /* position: fixed;
   left: 0;
   top: 0;
-  right: 0;
+  right: 0; */
+  float: top;
   transition: all 0.5s;
   z-index: 997;
+  background: rgb(0, 0, 0);
 }
 
 #header.header-scrolled {
@@ -98,7 +100,7 @@ h1, h2, h3, h4, h5, h6 {
 }
 
 #header #logo h1 {
-  font-size: 34px;
+  font-size: 30px;
   margin: 0;
   padding: 0;
   line-height: 1;
@@ -108,7 +110,7 @@ h1, h2, h3, h4, h5, h6 {
 }
 
 #header #logo h1 a, #header #logo h1 a:hover {
-  color: #fff;
+  color: rgb(0, 167, 22);
   padding-left: 10px;
   border-left: 4px solid #18d26e;
 }
@@ -345,7 +347,7 @@ h1, h2, h3, h4, h5, h6 {
   padding: 0 8px 10px 8px;
   text-decoration: none;
   display: inline-block;
-  color: #fff;
+  color: rgb(0, 167, 22);
   font-family: "Montserrat", sans-serif;
   font-weight: 700;
   font-size: 13px;
@@ -599,7 +601,7 @@ body.mobile-nav-active #mobile-nav-toggle {
 }
 
 /* About Us Section
---------------------------------
+--------------------------------*/
 #about {
   background: url("../img/about-bg.jpg") center top no-repeat fixed;
   background-size: cover;
@@ -691,7 +693,7 @@ body.mobile-nav-active #mobile-nav-toggle {
   color: #333;
   margin-bottom: 0;
   padding: 0 20px 20px 20px;
-}*/
+}
 
 /* Services Section
 --------------------------------*/
@@ -808,7 +810,7 @@ body.mobile-nav-active #mobile-nav-toggle {
 }
 
 /* Facts Section
---------------------------------
+--------------------------------*/
 #facts {
   background: url("../img/facts-bg.jpg") center top no-repeat fixed;
   background-size: cover;
