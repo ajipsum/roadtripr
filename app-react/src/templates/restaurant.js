@@ -25,15 +25,14 @@ export default class Restaurant extends React.Component {
                 .then(parkData => {
                 this.setState({parks: parkData.data.data})
                 //console.log(data.data)
-                console.log(this.state.restaurants)
+            });
+            console.log(this.state.restaurants)
                 axios.get('http://api.roadtripr.fun/cities/?latitude=' + this.state.restaurant.latitude + '&longitude=' + this.state.restaurant.longitude + '&length=4')
                     .then(cityData => {
                         //console.log(data2.data)
                         this.setState({cities: cityData.data.data})
                         console.log(this.state.cities)
                     });
-
-            });
            
         
 

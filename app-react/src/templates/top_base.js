@@ -45,14 +45,23 @@ export default class TopBase extends React.Component {
               {/* Uncomment below if you prefer to use an image logo */}
               {/* <a href="#intro"><img src="img/logo.png" alt="" title="" /></a>*/}
             </div>
-            <nav id="nav-menu-container">
+           
+            <nav id="nav-menu-container" >
               <ul className="nav-menu">
                 <li className="menu-active"><a href="/">Home</a></li>
                 <li><a href="/about">About</a></li>
                 <li><Link to='/cities'>Cities</Link></li>
-
                 <li><a href="/parks">Parks</a></li>
                 <li><a href="/restaurants">Restaurants</a></li>
+                <li> 
+                  <form>
+                    <label>
+                      Search: &nbsp;
+                    <input type="text"/>
+                    </label>
+                    <input type="submit" value="Submit" />
+                  </form>
+                </li>
                 {/*<li class="menu-has-children"><a href="">Drop Down</a>
             <ul>
               <li><a href="#">Drop Down 1</a></li>
