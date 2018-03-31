@@ -110,7 +110,7 @@ h1, h2, h3, h4, h5, h6 {
 }
 
 #header #logo h1 a, #header #logo h1 a:hover {
-  color: rgb(0, 167, 22);
+  color: white;
   padding-left: 10px;
   border-left: 4px solid #18d26e;
 }
@@ -347,7 +347,7 @@ h1, h2, h3, h4, h5, h6 {
   padding: 0 8px 10px 8px;
   text-decoration: none;
   display: inline-block;
-  color: rgb(0, 167, 22);
+  color: white;
   font-family: "Montserrat", sans-serif;
   font-weight: 700;
   font-size: 13px;
