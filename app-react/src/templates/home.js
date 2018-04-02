@@ -3,7 +3,7 @@ import ReactDOM from 'react-dom';
 import TopBase from './top_base.js'
 import BottomBase from './bottom_base.js'
 // import { Carousel } from 'react-responsive-carousel';
-import { Carousel } from 'react-bootstrap'
+import { Carousel, Button } from 'react-bootstrap'
 import styles from 'react-responsive-carousel/lib/styles/carousel.min.css';
 import header from '../img/header.jpg'
 import city from '../img/city.jpg'
@@ -26,7 +26,6 @@ export default class ControlledCarousel extends React.Component {
   }
 
   handleSelect(selectedIndex, e) {
-    alert(`selected=${selectedIndex}, direction=${e.direction}`);
     this.setState({
       index: selectedIndex,
       direction: e.direction
@@ -44,29 +43,26 @@ export default class ControlledCarousel extends React.Component {
             <Carousel.Item>
               <img width={900} height={500} alt="900x500" src={header} />
               <Carousel.Caption>
-                <h3>First slide label</h3>
-                <p>Nulla vitae elit libero, a pharetra augue mollis interdum.</p>
+                <h2>Discover the freedom of the open road</h2>
+                <h4>Time to embark on a timeless recreational tradition</h4>
               </Carousel.Caption>
             </Carousel.Item>
             <Carousel.Item>
               <img width={900} height={500} alt="900x500" src={city} />
               <Carousel.Caption>
-                <h3>Second slide label</h3>
-                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
+                <a href="/cities" className="explore-btn">Explore Cities</a>
               </Carousel.Caption>
             </Carousel.Item>
             <Carousel.Item>
               <img width={900} height={500} alt="900x500" src={park} />
               <Carousel.Caption>
-                <h3>Third slide label</h3>
-                <p>Praesent commodo cursus magna, vel scelerisque nisl consectetur.</p>
+                <a href="/parks" className="explore-btn">Explore Parks</a>
               </Carousel.Caption>
             </Carousel.Item>
             <Carousel.Item>
               <img width={900} height={500} alt="900x500" src={restaurant} />
               <Carousel.Caption>
-                <h3>Third slide label</h3>
-                <p>Praesent commodo cursus magna, vel scelerisque nisl consectetur.</p>
+                <a href="/restaurants" className="explore-btn">Explore Restaurants</a>
               </Carousel.Caption>
             </Carousel.Item>
           </Carousel>

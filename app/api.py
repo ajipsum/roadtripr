@@ -6,11 +6,11 @@ from models.city import City
 from models.park import Park
 from models.restaurant import Restaurant
 from utils import miles_distance
-# from flask_cors import CORS
+from flask_cors import CORS
 
 app = Flask(__name__)
 # app.config['JSON_AS_ASCII'] = False
-# CORS(app)
+CORS(app)
 db = DatabaseController()
 apimanager = APIManager(app, session=db.get_session())
 
@@ -172,5 +172,5 @@ def get_nearby_cities():
     return jsonify({'total': len(cities), 'data': cities})
 
 if __name__ == '__main__':
-    # app.run(use_reloader=True, threaded=True, host="0.0.0.0", port=80)
-    app.run(use_reloader=True, threaded=True)
+    app.run(use_reloader=True, threaded=True, host="0.0.0.0", port=80)
+    # app.run(use_reloader=True, threaded=True)
