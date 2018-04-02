@@ -2,55 +2,75 @@ import React, { Component } from 'react';
 import ReactDOM from 'react-dom';
 import TopBase from './top_base.js'
 import BottomBase from './bottom_base.js'
-import { Carousel } from 'react-responsive-carousel';
+// import { Carousel } from 'react-responsive-carousel';
+import { Carousel } from 'react-bootstrap'
 import styles from 'react-responsive-carousel/lib/styles/carousel.min.css';
 import header from '../img/header.jpg'
 import city from '../img/city.jpg'
 import park from '../img/park.jpg'
 import restaurant from '../img/restaurant.jpg'
-var innerDiv = 
+var innerDiv =
 {
-     margin: "auto",    
+     margin: "auto",
 }
-export default class Base extends Component {
-  constructor() {
-    super();
+export default class ControlledCarousel extends React.Component {
+  constructor(props, context) {
+    super(props, context);
+
+    this.handleSelect = this.handleSelect.bind(this);
+
+    this.state = {
+      index: 0,
+      direction: null
+    };
+  }
+
+  handleSelect(selectedIndex, e) {
+    alert(`selected=${selectedIndex}, direction=${e.direction}`);
+    this.setState({
+      index: selectedIndex,
+      direction: e.direction
+    });
   }
   render() {
+    const { index, direction } = this.state;
     return (
       <div style={{overflow:"none !important"}}>
-        {/*==========================
-          Intro Section
-        ============================*/}
-          <Carousel
-              showThumbs={false}
-              showStatus={false}
-              width={window.innerWidth.toString}
-              useKeyboardArrows
-              infiniteLoop
-              className="presentation-mode"
+            <Carousel
+              activeIndex={index}
+              direction={direction}
+              onSelect={this.handleSelect}
             >
-              <div> 
-                <img src={header}  /> 
-                <div className="legend">
-                  <p>Discover the freedom of the open road</p>
-                  <p>Time to embark on a timeless recreational tradition</p>
-                </div>
-              </div>
-              <div>
-                    <img src={city} />
-                    <p className="legend">Explore Cities</p>
-                </div>
-                <div>
-                    <img src={park} />
-                    <p className="legend">Explore Parks</p>
-                </div>
-                <div>
-                    <img src={restaurant} />
-                    <p className="legend">Explore Restaurants</p>
-                </div>
-            </Carousel>
-       <BottomBase />
+            <Carousel.Item>
+              <img width={900} height={500} alt="900x500" src={header} />
+              <Carousel.Caption>
+                <h3>First slide label</h3>
+                <p>Nulla vitae elit libero, a pharetra augue mollis interdum.</p>
+              </Carousel.Caption>
+            </Carousel.Item>
+            <Carousel.Item>
+              <img width={900} height={500} alt="900x500" src={city} />
+              <Carousel.Caption>
+                <h3>Second slide label</h3>
+                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
+              </Carousel.Caption>
+            </Carousel.Item>
+            <Carousel.Item>
+              <img width={900} height={500} alt="900x500" src={park} />
+              <Carousel.Caption>
+                <h3>Third slide label</h3>
+                <p>Praesent commodo cursus magna, vel scelerisque nisl consectetur.</p>
+              </Carousel.Caption>
+            </Carousel.Item>
+            <Carousel.Item>
+              <img width={900} height={500} alt="900x500" src={restaurant} />
+              <Carousel.Caption>
+                <h3>Third slide label</h3>
+                <p>Praesent commodo cursus magna, vel scelerisque nisl consectetur.</p>
+              </Carousel.Caption>
+            </Carousel.Item>
+          </Carousel>
+          <BottomBase />
       </div>
       );
   }
