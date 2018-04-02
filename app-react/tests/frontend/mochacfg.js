@@ -3,18 +3,22 @@ process.env.NODE_ENV = 'test'
 require('babel-core/register')()
 
 require.extensions['.css'] = function () {return null}
-/*
+require.extensions['.png'] = function () {return null}
+require.extensions['.jpg'] = function () {return null}
+require.extensions['.gif'] = function () {return null}
+require.extensions['.svg'] = function () {return null}
+
 var jsdom = require('jsdom');
 var exposedProperties = ['window', 'navigator', 'document']
 const { JSDOM } = jsdom;
-*/
+
 var fs = require('fs');
 require.extensions['.png'] = function(module, filepath) {
   var src = fs.readFileSync(filepath).toString ('base64');
   return module._compile('module.exports = "data:image/png;base64,' + src + '";');
 
 }
-/*
+
 const { document } = (new JSDOM('')).window;
 global.document = document
 global.navigator = { userAgent: 'node.js' }
@@ -25,4 +29,4 @@ Object.keys(document.defaultView).forEach((property) => {
     global[property] = document.defaultView[property]
   }
 })
-documentRef = document */
+documentRef = document 

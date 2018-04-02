@@ -20,9 +20,9 @@ export default class Parks extends React.Component {
           }
     }
     getParks() {
-        axios.get('http://api.roadtripr.fun/parks/10')
+        axios.get('http://test.roadtripr.fun/parks?page=1&results_per_page=15')
         .then(res => {
-          this.setState({parks: res.data.data})
+          this.setState({parks: res.data.objects})
         });
     }
     renderParks(){

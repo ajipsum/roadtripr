@@ -20,9 +20,9 @@ export default class Restaurants extends React.Component {
           }
     }
     getRestaurants() {
-        axios.get('http://api.roadtripr.fun/restaurants/10')
+        axios.get('http://test.roadtripr.fun/restaurant?page=1&results_per_page=15')
         .then(res => {
-          this.setState({restaurants: res.data.data})
+          this.setState({restaurants: res.data.objects})
 
         });
 
@@ -30,6 +30,7 @@ export default class Restaurants extends React.Component {
     }
     renderRestaurants(){
         for (var restaurant of this.state.restaurants){
+            
             this.renderRestaurant(restaurant);
         }
 
@@ -37,7 +38,7 @@ export default class Restaurants extends React.Component {
     renderRestaurant(restaurant){
         var num = Math.round(restaurant.rating);
         var stars = "\u2605".repeat(num);
-        console.log(stars);
+        
         const element = (
         <div className="col-lg-4 col-md-6 portfolio-item filter-app wow">
         <div className="portfolio-wrap">
@@ -52,7 +53,6 @@ export default class Restaurants extends React.Component {
           </div>
         </div>
       </div>)
-      console.log(element)
       return element;
 
 
@@ -64,6 +64,7 @@ export default class Restaurants extends React.Component {
         var elements = []
         var i = 0
         for(var restaurant of this.state.restaurants){
+            console.log(restaurant)
             elements.push(this.renderRestaurant(restaurant));
         }
 

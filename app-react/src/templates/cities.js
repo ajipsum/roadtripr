@@ -20,13 +20,16 @@ export default class Cities extends React.Component {
           }
     }
     getCities() {
-        axios.get('http://api.roadtripr.fun/cities/10')
+        axios.get('http://test.roadtripr.fun/city?page=1&results_per_page=15')
         .then(res => {
-          this.setState({cities: res.data.data})
+            console.log(res);
+            this.setState({cities: res.data.objects})
+            console.log(this.state.cities)
+         
         });
     }
     renderCities(){
-        console.log("in rendercities");
+        console.log("in rendercities"); 
         for (var city of this.state.cities){
             this.renderPark(city);
         }
