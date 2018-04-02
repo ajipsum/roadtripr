@@ -2,13 +2,13 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import { Switch, Route } from 'react-router-dom'
 import axios from 'axios';
-import $ from 'jquery'; 
+import $ from 'jquery';
 import { Link } from 'react-router-dom';
 
 
 var config = {
     headers: {'Access-Control-Allow-Origin': '*'}
-    
+
 };
 
 export default class Parks extends React.Component {
@@ -36,22 +36,21 @@ export default class Parks extends React.Component {
         const element = (
             <div className="col-lg-4 col-md-6 portfolio-item filter-app wow">
                 <div className="portfolio-wrap">
-                <figure>
-                    <img src={park.image} className="img-fluid" alt />
-                    <a href={park.image} data-lightbox="portfolio" data-title="park" className="link-preview" title="Preview"><i className="ion ion-eye" /></a>
-                    <a href={"parks/" + park.name} className="link-details" title="More Details"><i className="ion ion-android-open" /></a>
-                </figure>
-                <div className="portfolio-info">
-                    <p><Link to={'/parks/' + park.name}>{park.name}</Link></p>
-                    <hr style = {{margin:"0"}}/>
-                    <a href="{park.website}" style={{color:"blue !important"}}>Website</a>
+                    <figure>
+                        <a href={"parks/" + park.name}><img src={park.image} className="img-fluid" alt /></a>
+                        {/* <a href={park.image} data-lightbox="portfolio" data-title="park" className="link-preview" title="Preview"><i className="ion ion-eye" /></a>
+                        <a href={"parks/" + park.name} className="link-details" title="More Details"><i className="ion ion-android-open" /></a> */}
+                    </figure>
+                    <div className="portfolio-info">
+                        <p><Link to={'/parks/' + park.name}>{park.name}</Link></p>
+                        <a href="{park.website}" className="website">Website <i className="ion ion-android-open" /></a>
+                    </div>
                 </div>
-            </div>
-        </div>)
+            </div>)
       console.log(element);
       return element;
-      
-      
+
+
     }
     componentDidMount(){
          this.getParks();
@@ -59,7 +58,7 @@ export default class Parks extends React.Component {
     render() {
         var elements = []
         // var i = 0
-        for(var park of this.state.parks){ 
+        for(var park of this.state.parks){
             elements.push(this.renderPark(park));
         }
 
@@ -76,8 +75,8 @@ export default class Parks extends React.Component {
               </div>
             </section>
           </div>
-          
-          
+
+
         );
     }
 }
