@@ -903,7 +903,7 @@ body.mobile-nav-active #mobile-nav-toggle {
 
 #portfolio .portfolio-item {
   position: relative;
-  height: 360px;
+  height: 370px;
   overflow: hidden;
 }
 
@@ -916,8 +916,18 @@ body.mobile-nav-active #mobile-nav-toggle {
   margin: 0;
 }
 
+#portfolio .portfolio-item figure img {
+  height: 100%;
+  width: 100%;
+  overflow: hidden;
+}
+
+#portfolio .portfolio-item .website {
+  color: grey;
+}
+
 #portfolio .portfolio-item figure:hover img {
-  opacity: 0.4;
+  opacity: 0.7;
   transition: 0.3s;
 }
 
@@ -972,7 +982,7 @@ body.mobile-nav-active #mobile-nav-toggle {
   background: #fff;
   text-align: center;
   padding: 30px;
-  height: 90px;
+  height: 100px;
   border-radius: 0 0 3px 3px;
 }
 
