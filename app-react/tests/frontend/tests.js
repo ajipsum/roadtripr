@@ -4,7 +4,7 @@ import { shallow, mount } from 'enzyme';
 import Adapter from 'enzyme-adapter-react-16';
 Enzyme.configure({ adapter: new Adapter() });
 
-import About from '../../src/templates/about.js'
+//import About from '../../src/templates/about.js'
 import Cities from '../../src/templates/cities.js'
 import City from '../../src/templates/city.js'
 import Parks from '../../src/templates/parks.js'
@@ -26,7 +26,7 @@ describe('Test About Page', () => {
       expect(wrapper.find('#about').exists()).to.eql(true);
     });
 });
-*/
+
 
 describe('Test Cities Page', () => {
     before(function() {
@@ -89,3 +89,4 @@ describe("Test Park", function() {
     expect(wrapper.state().restaurants).contains({restaurants: ['McDonalds']});
   });
 });
+*/

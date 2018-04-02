@@ -9,7 +9,7 @@ module.exports = {
     extensions: ['', '.js', '.jsx'],
   },
   output: {
-    path: '../../../app/static',
+    path: '../../src/templates/',
     filename: 'app.js',
   },
   module: {
