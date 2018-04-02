@@ -34,39 +34,38 @@ export default class ControlledCarousel extends React.Component {
   render() {
     const { index, direction } = this.state;
     return (
-      <div style={{overflow:"none !important"}}>
+      <div>
             <Carousel
               activeIndex={index}
               direction={direction}
               onSelect={this.handleSelect}
             >
             <Carousel.Item>
-              <img width={900} height={500} alt="900x500" src={header} />
+              <img src={header}/>
               <Carousel.Caption>
                 <h2>Discover the freedom of the open road</h2>
                 <h4>Time to embark on a timeless recreational tradition</h4>
               </Carousel.Caption>
             </Carousel.Item>
             <Carousel.Item>
-              <img width={900} height={500} alt="900x500" src={city} />
+              <img src={city}/>
               <Carousel.Caption>
                 <a href="/cities" className="explore-btn">Explore Cities</a>
               </Carousel.Caption>
             </Carousel.Item>
             <Carousel.Item>
-              <img width={900} height={500} alt="900x500" src={park} />
+              <img src={park}/>
               <Carousel.Caption>
                 <a href="/parks" className="explore-btn">Explore Parks</a>
               </Carousel.Caption>
             </Carousel.Item>
             <Carousel.Item>
-              <img width={900} height={500} alt="900x500" src={restaurant} />
+              <img src={restaurant}/>
               <Carousel.Caption>
                 <a href="/restaurants" className="explore-btn">Explore Restaurants</a>
               </Carousel.Caption>
             </Carousel.Item>
           </Carousel>
-          <BottomBase />
       </div>
       );
   }
