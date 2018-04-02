@@ -35,33 +35,33 @@ class Test(unittest.TestCase):
         restaurants_page.click()
         self.assertEqual("http://www.roadtripr.fun/restaurants", driver.current_url)
 
-    def tearDown(self):
-        self.driver.close()
-"""
-#   Test Instances
+
+    # Test Instances
     def test_cities_instance(self):
         driver = self.driver
-        cities_page = driver.find_element_by_link_text("Cities")
+        cities_page = driver.find_element_by_xpath("//*[@id='nav-menu-container']/ul/li[3]/a")
         cities_page.click()
-        cities = driver.find_element_by_xpath("")
+        cities = driver.find_element_by_xpath("//*[@id='portfolio']/div/div/div[1]/div/div/p[1]/a")
         cities.click()
         assert "Population" in driver.page_source
         assert "Nearby Restaurants" in driver.page_source
         assert "Nearby Parks" in driver.page_source
 
-# Navigation between instances
+#   Navigation between instances
     def test_navigation(self):
         driver = self.driver
-        parks_page = driver.find_element_by_link_text("Parks")
+        parks_page = driver.find_element_by_xpath("//*[@id='nav-menu-container']/ul/li[4]/a")
         parks_page.click()
-        park = driver.find_element_by_xpath("")
+        park = driver.find_element_by_xpath("//*[@id='portfolio']/div/div/div[1]/div/div/p/a")
         park.click()
-        cities = driver.find_element_by_xpath("")
+        cities = driver.find_element_by_xpath("//*[@id='about']/div/div/div/div/p[8]/a")
         cities.click()
         assert "Population" in driver.page_source
         assert "Nearby Restaurants" in driver.page_source
         assert "Nearby Parks" in driver.page_source
-"""
+
+    def tearDown(self):
+        self.driver.close()
 
 if __name__ == "__main__":
     unittest.main()
