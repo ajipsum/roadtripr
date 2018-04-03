@@ -4,6 +4,8 @@ import { Switch, Route } from 'react-router-dom'
 import axios from 'axios';
 import $ from 'jquery';
 import { Link } from 'react-router-dom';
+import Pagination from "react-js-pagination";
+
 
 
 var config = {
@@ -16,21 +18,26 @@ export default class Restaurants extends React.Component {
         super(props)
 
         this.state = {
+            totRestaurants: 0,
+            activePage: 1,
             restaurants: []
           }
-    }
-    getRestaurants() {
-        axios.get('http://test.roadtripr.fun/restaurant?page=1&results_per_page=15')
-        .then(res => {
-          this.setState({restaurants: res.data.objects})
+          this.handlePageChange = this.handlePageChange.bind(this)
 
+    }
+    getRestaurants(page) {
+        axios.get('http://test.roadtripr.fun/restaurant?page=' + page + '&results_per_page=15')
+        .then(res => {
+            console.log(res)
+            this.setState({restaurants: res.data.objects, totRestaurants:res.data.num_results})
+            console.log(this.state.restaurants)
+            console.log(this.state.totRestaurants)
         });
 
 
     }
     renderRestaurants(){
         for (var restaurant of this.state.restaurants){
-            
             this.renderRestaurant(restaurant);
         }
 
@@ -58,7 +65,11 @@ export default class Restaurants extends React.Component {
 
     }
     componentDidMount(){
-         this.getRestaurants();
+         this.getRestaurants(1);
+    }
+    handlePageChange(data){
+        this.setState({activePage: data})
+        this.getRestaurants(data)
     }
     render() {
         var elements = []
@@ -80,6 +91,14 @@ export default class Restaurants extends React.Component {
                 </div>
               </div>
             </section>
+            <div style={{display: 'flex', justifyContent: 'center'}}>
+                <Pagination 
+                totalItemsCount={this.state.totRestaurants}
+                activePage={this.state.activePage}
+                itemsCountPerPage={15}
+                pageRangeDisplayed={5}
+                onChange={this.handlePageChange} />
+            </div>
           </div>
 
 

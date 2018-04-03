@@ -4,6 +4,8 @@ import { Switch, Route } from 'react-router-dom'
 import axios from 'axios';
 import $ from 'jquery';
 import { Link } from 'react-router-dom';
+import Pagination from "react-js-pagination";
+
 
 
 var config = {
@@ -16,13 +18,17 @@ export default class Parks extends React.Component {
         super(props)
 
         this.state = {
+            totParks: 0,
+            activePage: 1,
             parks: []
           }
+          this.handlePageChange = this.handlePageChange.bind(this)
+
     }
-    getParks() {
-        axios.get('http://test.roadtripr.fun/parks?page=1&results_per_page=15')
+    getParks(page) {
+        axios.get('http://test.roadtripr.fun/parks?page=' + page + '&results_per_page=15')
         .then(res => {
-          this.setState({parks: res.data.objects})
+          this.setState({parks: res.data.objects, totParks:res.data.num_results})
         });
     }
     renderParks(){
@@ -53,8 +59,13 @@ export default class Parks extends React.Component {
 
     }
     componentDidMount(){
-         this.getParks();
+         this.getParks(1);
     }
+    handlePageChange(data){
+        this.setState({activePage: data})
+        this.getParks(data)
+    }
+
     render() {
         var elements = []
         // var i = 0
@@ -64,19 +75,28 @@ export default class Parks extends React.Component {
 
         return (
             <div>
-            <section id="portfolio" className="section-bg">
-              <div className="container">
-                <header className="section-header">
-                  <h3 className="section-title">Parks</h3>
-                </header>
-                <div className="row portfolio-container">
-                    {elements}
+                <section id="portfolio" className="section-bg">
+                <div className="container">
+                    <header className="section-header">
+                    <h3 className="section-title">Parks</h3>
+                    </header>
+                    <div className="row portfolio-container">
+                        {elements}
+                    </div>
                 </div>
-              </div>
-            </section>
+                </section>
+            <div style={{display: 'flex', justifyContent: 'center'}}>
+                <Pagination 
+                totalItemsCount={this.state.totParks}
+                activePage={this.state.activePage}
+                itemsCountPerPage={15}
+                pageRangeDisplayed={5}
+                onChange={this.handlePageChange} />
+            </div>
           </div>
 
 
         );
     }
+
 }

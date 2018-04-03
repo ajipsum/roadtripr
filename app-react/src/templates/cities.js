@@ -4,27 +4,32 @@ import { Switch, Route } from 'react-router-dom'
 import axios from 'axios';
 import $ from 'jquery';
 import { Link } from 'react-router-dom';
+import Pagination from "react-js-pagination";
 
 
 var config = {
     headers: {'Access-Control-Allow-Origin': '*'}
 
 };
-
+var self = this;
 export default class Cities extends React.Component {
     constructor(props) {
         super(props)
 
         this.state = {
+            totCities: 0,
+            activePage: 1,
             cities: []
           }
+          this.handlePageChange = this.handlePageChange.bind(this)
     }
-    getCities() {
-        axios.get('http://test.roadtripr.fun/city?page=1&results_per_page=15')
+    getCities(page) {
+        axios.get('http://test.roadtripr.fun/city?page=' + page + '&results_per_page=15')
         .then(res => {
             console.log(res);
-            this.setState({cities: res.data.objects})
+            this.setState({cities: res.data.objects, totCities:res.data.num_results})
             console.log(this.state.cities)
+            console.log(this.state.totCities)
          
         });
     }
@@ -60,13 +65,14 @@ export default class Cities extends React.Component {
     }
     componentDidMount(){
         console.log("component");
-        this.getCities();
+        this.getCities(1);
 
     }
-    // componentWillMount(){
-    //     console.log(this.props.location.pathname)
-    // }
+    handlePageChange(data){
+        this.setState({activePage: data})
+        this.getCities(data)
 
+    }
     render() {
         //var cities = this.renderCities()
         var elements = []
@@ -88,6 +94,14 @@ export default class Cities extends React.Component {
                 </div>
               </div>
             </section>
+            <div style={{display: 'flex', justifyContent: 'center'}}>
+                <Pagination 
+                totalItemsCount={this.state.totCities}
+                activePage={this.state.activePage}
+                itemsCountPerPage={15}
+                pageRangeDisplayed={5}
+                onChange={this.handlePageChange} />
+            </div>
           </div>
         );
     }
