@@ -11,6 +11,9 @@ class Park(Base):
     longitude = Column('longitude', Float, nullable=False)
     website = Column('website', String(200))
     image = Column('image', String(512))
+    designation = Column('designation', String(200))
+    states = Column('states', String(150))
+    cost = Column('cost', Float)
 
     def as_dict(self):
         result = {}
@@ -20,6 +23,9 @@ class Park(Base):
         result['longitude'] = self.longitude
         result['website'] = self.website
         result['image'] = self.image
+        result['designation'] = self.designation
+        result['states'] = self.states
+        result['cost'] = self.cost
         return result
 
     def nearby_citys(self):
