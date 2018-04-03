@@ -38,7 +38,7 @@ export default class Search extends React.Component {
                     console.log(res.data.objects);
                         axios.get('http://test.roadtripr.fun/park?q={"filters":[{"or": [{"name":"name","op":"like","val":' + query + '},{"name":"designation","op":"like","val":' + query + '}, {"name":"states","op":"like","val":' + query + '}]}]}')
                         .then(res => { 
-                            this.state.parks.push(res.data.objects); 
+                            this.setState({parks: res.data.objects})
                             console.log('Park results: ' + this.state.results);
                         });
                 
@@ -138,6 +138,15 @@ export default class Search extends React.Component {
                 if(restCount>5)
                     break;
                 elements.push(this.renderRestaurant(rest))
+            }
+        }
+        var parkCount = 0;
+        if(this.state.parks.length!=0){
+            for(var park of this.state.parks){
+                parkCount++;
+                if(parkCount>5)
+                    break;
+                elements.push(this.renderPark(park))
             }
         }   
 
