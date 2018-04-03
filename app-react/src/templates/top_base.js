@@ -1,5 +1,5 @@
 import React from 'react';
-import { Link } from 'react-router-dom'
+import { Link, Redirect } from 'react-router-dom'
 import { Form, Button } from 'react-bootstrap'
 import axios from 'axios';
 
@@ -7,7 +7,7 @@ import axios from 'axios';
 export default class TopBase extends React.Component {
   constructor(props) {
       super(props);
-      this.state = {query: '', results: []};
+      this.state = {query: '', results: [], redirect: false, url:""};
       this.handleChange = this.handleChange.bind(this);
       this.handleSubmit = this.handleSubmit.bind(this);
 
@@ -18,19 +18,16 @@ export default class TopBase extends React.Component {
   }
 
   handleSubmit(event) {
-    var query = "\"%" + this.state.query + "%\"";
-
-    axios.get('hhttp://test.roadtripr.fun/city?q={"filters":[{"or": [{"name":"name","op":"like","val":' + query + '},{"name":"population","op":"like","val":' + query + '}]}]}')
-      .then(res => { this.state.results.push(res); console.log('City results: ' + this.state.results);});
-
-    axios.get('http://test.roadtripr.fun/park?q={"filters":[{"or": [{"name":"name","op":"like","val":' + query +'},{"name":"designation","op":"like","val":' + query +'},{"name":"states","op":"like","val":' + query +'},{"name":"cost","op":"like","val":' + query +'}]}]')
-    .then(res => { this.state.results.push(res); console.log('Park results: ' + this.state.results);});
-
-    axios.get('http://test.roadtripr.fun/restaurant?q={"filters":[{"or": [{"name":"name","op":"like","val":' + query +'},{"name":"rating","op":"like","val":' + query +'},{"name":"cuisine","op":"like","val":' + query +'},{"name":"pricing","op":"like","val":' + query +'}]}]')
-    .then(res => { this.state.results.push(res); console.log('Restaurant results: ' + this.state.results);});
+    var built = "/search/" + this.state.query;
+    this.setState({redirect:true, url:built})
   }
 
   render(){
+    if(this.state.redirect){
+      return(
+        <Redirect to={this.state.url} />
+      )
+    }
     return (
       <div>
         <title>RoadTripr</title>

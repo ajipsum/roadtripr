@@ -7,6 +7,7 @@ import RestaurantMapper from './restaurantmapper';
 import Cities from './cities';
 import City from './city';
 import About from './about'
+import Search from './search'
 
 
 // The Main component renders one of the three provided
@@ -23,7 +24,7 @@ const Main = () => (
       <Route path='/parks' component={ParkMapper}/>
       <Route path='/restaurants' component={RestaurantMapper}/>
       <Route path='/about' component={About}/>
-
+      <Route path='/search/:term' component={Search} />
     </Switch>
   </main>
 )
