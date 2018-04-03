@@ -13,7 +13,7 @@ class DatabaseController(BaseController):
         user = self._config['MYSQL']['USER']
         password = self._config['MYSQL']['PASS']
         db_name = self._config['MYSQL']['NAME']
-        self.engine = create_engine('mysql+pymysql://'+user+':'+password+'@localhost/'+db_name)
+        self.engine = create_engine('mysql+pymysql://'+user+':'+password+'@localhost/'+db_name, pool_pre_ping=True)
         DBSession = sessionmaker(bind=self.engine)
         self.session = DBSession()
 
