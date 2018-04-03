@@ -20,13 +20,13 @@ export default class TopBase extends React.Component {
   handleSubmit(event) {
     var query = "\"%" + this.state.query + "%\"";
 
-    axios.get('http://test.roadtripr.fun/city?q={"filters":[{“or”: [{“name”:“name”,“op”:“like”,“val”:' + query + '},{“name”:“population”,“op”:“like”,“val”:' + query + '}]}]}')
+    axios.get('hhttp://test.roadtripr.fun/city?q={"filters":[{"or": [{"name":"name","op":"like","val":' + query + '},{"name":"population","op":"like","val":' + query + '}]}]}')
       .then(res => { this.state.results.push(res); console.log('City results: ' + this.state.results);});
 
-    axios.get('http://test.roadtripr.fun/park?q={"filters":[{“or”: [{“name”:“name”,“op”:“like”,“val”:' + query +'},{“name”:“designation”,“op”:“like”,“val”:' + query +'},{“name”:“states”,“op”:“like”,“val”:' + query +'},{“name”:“cost”,“op”:“like”,“val”:' + query +'}]}]')
+    axios.get('http://test.roadtripr.fun/park?q={"filters":[{"or": [{"name":"name","op":"like","val":' + query +'},{"name":"designation","op":"like","val":' + query +'},{"name":"states","op":"like","val":' + query +'},{"name":"cost","op":"like","val":' + query +'}]}]')
     .then(res => { this.state.results.push(res); console.log('Park results: ' + this.state.results);});
 
-    axios.get('http://test.roadtripr.fun/restaurant?q={"filters":[{“or”: [{“name”:“name”,“op”:“like”,“val”:' + query +'},{“name”:“rating”,“op”:“like”,“val”:' + query +'},{“name”:“cuisine”,“op”:“like”,“val”:' + query +'},{“name”:“pricing”,“op”:“like”,“val”:' + query +'}]}]')
+    axios.get('http://test.roadtripr.fun/restaurant?q={"filters":[{"or": [{"name":"name","op":"like","val":' + query +'},{"name":"rating","op":"like","val":' + query +'},{"name":"cuisine","op":"like","val":' + query +'},{"name":"pricing","op":"like","val":' + query +'}]}]')
     .then(res => { this.state.results.push(res); console.log('Restaurant results: ' + this.state.results);});
   }
 
