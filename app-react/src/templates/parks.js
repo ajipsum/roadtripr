@@ -26,7 +26,7 @@ export default class Parks extends React.Component {
 
     }
     getParks(page) {
-        axios.get('http://test.roadtripr.fun/parks?page=' + page + '&results_per_page=15')
+        axios.get('http://test.roadtripr.fun/park?page=' + page + '&results_per_page=15')
         .then(res => {
           this.setState({parks: res.data.objects, totParks:res.data.num_results})
         });

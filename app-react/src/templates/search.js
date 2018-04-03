@@ -21,14 +21,33 @@ export default class Search extends React.Component {
     }
     search(){
         var query = "\"%" + this.state.query + "%\"";
-
+        var numQuery = ""
+        var nan = isNaN(this.state.query)
+        if(!isNaN(this.state.query)){
+            numQuery = "%" + this.state.query + "%"
+        }
+        console.log(query)
         axios.get('http://test.roadtripr.fun/city?q={"filters":[{"or": [{"name":"name","op":"like","val":' + query + '},{"name":"population","op":"like","val":' + query + '}]}]}')
-          .then(res => {console.log(res)});
-    
-        axios.get('http://test.roadtripr.fun/park?q={"filters":[{"or": [{"name":"name","op":"like","val":' + query + '},{"name":"designation","op":"like","val":' + query + '}, "name":"states","op":"like","val":' + query + '}, "name":"cost","op":"like","val":' + query + '}]}]}')
-        .then(res => { this.state.results.push(res); console.log('Park results: ' + this.state.results);});
-        axios.get('http://test.roadtripr.fun/restaurant?q={"filters":[{"or": [{"name":"name","op":"like","val":' + query + '},{"name":"rating","op":"like","val":' + query + '}, "name":"cuisine","op":"like","val":' + query + '}, "name":"pricing","op":"like","val":' + query + '}]}]}')
-        .then(res => { this.state.results.push(res); console.log('Park results: ' + this.state.results);});
+          .then(res => {
+              this.setState({cities: res.data.objects})
+              console.log(res.data.objects)
+              console.log(this.state.cities)
+              axios.get('http://test.roadtripr.fun/restaurant?q={"filters":[{"or": [{"name":"name","op":"like","val":' + query + '},{"name":"rating","op":"like","val":' + query + '}, {"name":"cuisine","op":"like","val":' + query + '}, {"name":"pricing","op":"like","val":' + query + '}]}]}')
+                .then(res => { 
+                    this.setState({restaurants: res.data.objects}); 
+                    console.log(res.data.objects);
+                        axios.get('http://test.roadtripr.fun/park?q={"filters":[{"or": [{"name":"name","op":"like","val":' + query + '},{"name":"designation","op":"like","val":' + query + '}, {"name":"states","op":"like","val":' + query + '}]}]}')
+                        .then(res => { 
+                            this.state.parks.push(res.data.objects); 
+                            console.log('Park results: ' + this.state.results);
+                        });
+                
+                });
+              
+        });
+       
+        
+        
     }
     renderPark(park){
         const element = (
@@ -51,8 +70,10 @@ export default class Search extends React.Component {
 
     }
     renderCity(city){
-        var cityName = city.name.split(",")[0]
-        var state = city.name.split(",")[1]
+        console.log("city")
+        console.log(city)
+        var cityName = city.name//.split(",")[0]
+        var state = city.name//.split(",")[1]
         const element = (
             <div className="col-lg-4 col-md-6 portfolio-item filter-app wow">
             <div className="portfolio-wrap">
@@ -100,24 +121,32 @@ export default class Search extends React.Component {
     }
     render(){
         var elements = []
-        for(var i=0; i<6; i++){
-            if(this.state.cities[i]){
-                elements.push(this.renderCity(this.state.cities[i]))
-            }
-            if(this.state.parks[i]){
-                elements.push(this.renderPark(this.state.parks[i]))
-            }
-            if(this.state.restaurants[i]){
-                elements.push(this.renderCity(this.state.restaurants[i]))
+        var cityCount = 0;
+        if(this.state.cities.length!=0){
+            for(var city of this.state.cities){
+                
+                cityCount++;
+                if(cityCount>5)
+                    break;
+                elements.push(this.renderCity(city))
             }
         }
+        var restCount = 0;
+        if(this.state.restaurants.length!=0){
+            for(var rest of this.state.restaurants){
+                restCount++;
+                if(restCount>5)
+                    break;
+                elements.push(this.renderRestaurant(rest))
+            }
+        }   
 
         return(
             <div>
                 <section id="portfolio" className="section-bg">
                 <div className="container">
                     <header className="section-header">
-                    <h3 className="section-title">Parks</h3>
+                    <h3 className="section-title">Search</h3>
                     </header>
                     <div className="row portfolio-container">
                         {elements}
