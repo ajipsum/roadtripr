@@ -24,27 +24,33 @@ export default class Search extends React.Component {
         var numQuery = ""
         var nan = isNaN(this.state.query)
         if(!isNaN(this.state.query)){
-            numQuery = "%" + this.state.query + "%"
+            numQuery = this.state.query
+            axios.get('http://test.roadtripr.fun/city?q={"filters":[{"or": [{"name":"population","op":"like","val":' + numQuery + '}]}]}')
+            .then(res => {
+                this.setState({cities: res.data.objects})
+                console.log(res.data.objects)
+                console.log(this.state.cities)
+            })
         }
-        console.log(query)
-        axios.get('http://test.roadtripr.fun/city?q={"filters":[{"or": [{"name":"name","op":"like","val":' + query + '},{"name":"population","op":"like","val":' + query + '}]}]}')
-          .then(res => {
-              this.setState({cities: res.data.objects})
-              console.log(res.data.objects)
-              console.log(this.state.cities)
-              axios.get('http://test.roadtripr.fun/restaurant?q={"filters":[{"or": [{"name":"name","op":"like","val":' + query + '},{"name":"rating","op":"like","val":' + query + '}, {"name":"cuisine","op":"like","val":' + query + '}, {"name":"pricing","op":"like","val":' + query + '}]}]}')
-                .then(res => { 
-                    this.setState({restaurants: res.data.objects}); 
-                    console.log(res.data.objects);
-                        axios.get('http://test.roadtripr.fun/park?q={"filters":[{"or": [{"name":"name","op":"like","val":' + query + '},{"name":"designation","op":"like","val":' + query + '}, {"name":"states","op":"like","val":' + query + '}]}]}')
-                        .then(res => { 
-                            this.setState({parks: res.data.objects})
-                            console.log('Park results: ' + this.state.results);
-                        });
+        else{
+            axios.get('http://test.roadtripr.fun/city?q={"filters":[{"or": [{"name":"name","op":"like","val":' + query + '},{"name":"population","op":"like","val":' + query + '}]}]}')
+            .then(res => {
+                this.setState({cities: res.data.objects})
+                console.log(res.data.objects)
+                console.log(this.state.cities)
+                axios.get('http://test.roadtripr.fun/restaurant?q={"filters":[{"or": [{"name":"name","op":"like","val":' + query + '},{"name":"rating","op":"like","val":' + query + '}, {"name":"cuisine","op":"like","val":' + query + '}, {"name":"pricing","op":"like","val":' + query + '}]}]}')
+                    .then(res => { 
+                        this.setState({restaurants: res.data.objects}); 
+                        console.log(res.data.objects);
+                            axios.get('http://test.roadtripr.fun/park?q={"filters":[{"or": [{"name":"name","op":"like","val":' + query + '},{"name":"designation","op":"like","val":' + query + '}, {"name":"states","op":"like","val":' + query + '}]}]}')
+                            .then(res => { 
+                                this.setState({parks: res.data.objects})
+                                console.log('Park results: ' + this.state.results);
+                            });
+                    
+                    });
                 
-                });
-              
-        });
+            });}
        
         
         
