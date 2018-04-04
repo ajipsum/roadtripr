@@ -51,7 +51,6 @@ const CUISINE = [
     {label: 'Tapas/Small Plates', value: 'Tapas/Small Plates'},
     {label: 'Bars', value: 'Bars'},
     {label: 'Gastropubs', value: 'Gastropubs'},
-    {label: 'Parks', value: 'Parks'},
     {label: 'Steakhouses', value: 'Steakhouses'},
     {label: 'Hot Dogs', value: 'Hot Dogs'},
     {label: 'Cafes', value: 'Cafes'},
@@ -236,7 +235,7 @@ const RATING = [
     {label: '\u2605\u2605\u2605\u2605', value: '\u2605\u2605\u2605\u2605'},
     {label: '\u2605\u2605\u2605\u2605\u2605', value: '\u2605\u2605\u2605\u2605\u2605'}
 ]
-
+/*
 var MultiSelectFilter_Type = createClass({
     displayName: 'Filter',
     propTypes:{
@@ -351,7 +350,7 @@ var MultiSelectFilter_Rating = createClass({
 		);
 	}
 });
-
+*/
 var config = {
     headers: {'Access-Control-Allow-Origin': '*'}
 
@@ -415,6 +414,10 @@ export default class Restaurants extends React.Component {
         this.setState({activePage: data})
         this.getRestaurants(data)
     }
+    handleSelectChange (value) {
+		console.log('You\'ve selected:', value);
+		this.setState({ value });
+	}
     render() {
         var elements = []
         var i = 0
@@ -431,9 +434,37 @@ export default class Restaurants extends React.Component {
                   <h3 className="section-title">Restaurants</h3>
                 </header>
                 <div className="row portfolio-container">
-                <MultiSelectFilter_Type/>
-                <MultiSelectFilter_Price/>
-                <MultiSelectFilter_Rating/>
+                <div className="section">
+                    <h4 className="section-heading">Filter</h4>
+                    <Select
+                        multi
+                        onChange={this.handleSelectChange}
+                        options={CUISINE}
+                        placeholder="Cuisine"
+                        removeSelected={this.state.removeSelected}
+                        simpleValue
+                    />
+			    </div>
+                <div className="section">
+                    <Select
+                        multi
+                        onChange={this.handleSelectChange}
+                        options={PRICING}
+                        placeholder="Price"
+                        removeSelected={this.state.removeSelected}
+                        simpleValue
+                    />
+                </div>
+                <div className="section">
+                    <Select
+                        multi
+                        onChange={this.handleSelectChange}
+                        options={RATING}
+                        placeholder="Rating"
+                        removeSelected={this.state.removeSelected}
+                        simpleValue
+                    />
+                </div>
                     {elements}
                 </div>
               </div>

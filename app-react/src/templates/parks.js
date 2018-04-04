@@ -120,7 +120,7 @@ const DESIGNATION = [
     {label: 'Scenic & Recreational River', value:'Scenic & Recreational River'},
     {label: 'Affiliated Area', value:'Affiliated Area'}
 ]
-
+/*
 var MultiSelectFilter_State = createClass({
     displayName: 'Filter',
     propTypes:{
@@ -197,6 +197,7 @@ var MultiSelectFilter_Designation = createClass({
 		);
 	}
 });
+*/
 var config = {
     headers: {'Access-Control-Allow-Origin': '*'}
 
@@ -255,7 +256,10 @@ export default class Parks extends React.Component {
         this.setState({activePage: data})
         this.getParks(data)
     }
-
+    handleSelectChange (value) {
+		console.log('You\'ve selected:', value);
+		this.setState({ value });
+	}
     render() {
         var elements = []
         // var i = 0
@@ -271,8 +275,27 @@ export default class Parks extends React.Component {
                     <h3 className="section-title">Parks</h3>
                     </header>
                     <div className="row portfolio-container">
-                    <MultiSelectFilter_State/>
-                    <MultiSelectFilter_Designation/>
+                    <div className="section">
+                        <h4 className="section-heading">Filter</h4>
+                        <Select
+                            multi
+                            onChange={this.handleSelectChange}
+                            options={STATES}
+                            placeholder="State"
+                            removeSelected={this.state.removeSelected}
+                            simpleValue
+                        />
+                    </div>
+                    <div className="section">
+                        <Select
+                            multi
+                            onChange={this.handleSelectChange}
+                            options={DESIGNATION}
+                            placeholder="Designation"
+                            removeSelected={this.state.removeSelected}
+                            simpleValue
+                        />
+                    </div>
                         {elements}
                     </div>
                 </div>
