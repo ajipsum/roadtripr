@@ -30,7 +30,7 @@ export default class Search extends React.Component {
         var moneyQuery = "\"" + this.state.query + "\""
         if(this.state.query.charAt(0)==="$"){
             console.log(this.state.query.charAt(0))
-            axios.get('http://test.roadtripr.fun/restaurant?page=1&&results_per_page=1000&q={"filters":[{"or": [{"name":"pricing","op":"eq","val":' + moneyQuery + '}]}]}')
+            axios.get('http://api.roadtripr.fun/restaurant?page=1&&results_per_page=1000&q={"filters":[{"or": [{"name":"pricing","op":"eq","val":' + moneyQuery + '}]}]}')
             .then(res => {
                 console.log(res)
                 for (var obj of res.data.objects){
@@ -48,7 +48,7 @@ export default class Search extends React.Component {
         }
         else if(!isNaN(this.state.query)){
             numQuery = this.state.query
-            axios.get('http://test.roadtripr.fun/city?page=1&&results_per_page=100&q={"filters":[{"or": [{"name":"population","op":"like","val":' + numQuery + '}]}]}')
+            axios.get('http://api.roadtripr.fun/city?page=1&&results_per_page=100&q={"filters":[{"or": [{"name":"population","op":"like","val":' + numQuery + '}]}]}')
             .then(res => {
                 for (var obj of res.data.objects){
                     this.state.tot.push(obj)}
@@ -56,16 +56,16 @@ export default class Search extends React.Component {
             })
         }
         else{
-            axios.get('http://test.roadtripr.fun/city?page=1&&results_per_page=100&q={"filters":[{"or": [{"name":"name","op":"like","val":' + query + '},{"name":"population","op":"like","val":' + query + '}]}]}')
+            axios.get('http://api.roadtripr.fun/city?page=1&&results_per_page=100&q={"filters":[{"or": [{"name":"name","op":"like","val":' + query + '},{"name":"population","op":"like","val":' + query + '}]}]}')
             .then(res => {
                 for (var obj of res.data.objects){
                     this.state.tot.push(obj)}
-                axios.get('http://test.roadtripr.fun/restaurant?page=1&&results_per_page=100&q={"filters":[{"or": [{"name":"name","op":"like","val":' + query + '},{"name":"rating","op":"like","val":' + query + '}, {"name":"cuisine","op":"like","val":' + query + '}, {"name":"pricing","op":"like","val":' + query + '}]}]}')
+                axios.get('http://api.roadtripr.fun/restaurant?page=1&&results_per_page=100&q={"filters":[{"or": [{"name":"name","op":"like","val":' + query + '},{"name":"rating","op":"like","val":' + query + '}, {"name":"cuisine","op":"like","val":' + query + '}, {"name":"pricing","op":"like","val":' + query + '}]}]}')
                     .then(res => {
                         console.log(res)
                         for (var obj of res.data.objects){
                             this.state.tot.push(obj)}
-                        axios.get('http://test.roadtripr.fun/park?page=1&&results_per_page=100&q={"filters":[{"or": [{"name":"name","op":"like","val":' + query + '},{"name":"designation","op":"like","val":' + query + '}, {"name":"states","op":"like","val":' + query + '}]}]}')
+                        axios.get('http://api.roadtripr.fun/park?page=1&&results_per_page=100&q={"filters":[{"or": [{"name":"name","op":"like","val":' + query + '},{"name":"designation","op":"like","val":' + query + '}, {"name":"states","op":"like","val":' + query + '}]}]}')
                             .then(res => {
                                 for (var obj of res.data.objects){
                                     this.state.tot.push(obj)}

@@ -51,10 +51,24 @@ body {
 }
 
 .search-button {
-  margin-left: -14px !important;
+  margin-left: -20px !important;
   border-radius: 2px;
   border: 0;
-  background: rgb(70, 70, 70);
+  background: rgb(41, 41, 41);
+  color: white;
+}
+.search-button:hover {
+  background: rgb(41, 41, 41);
+  color:white;
+}
+
+button.dropdown-toggle.btn.btn-default {
+  background: #18d26e;
+  color: white;
+}
+
+.btn-default:active:hover, .btn-default.active:hover, .open > .dropdown-toggle.btn-default:hover, .btn-default:active:focus, .btn-default.active:focus, .open > .dropdown-toggle.btn-default:focus, .btn-default:active.focus, .btn-default.active.focus, .open > .dropdown-toggle.btn-default.focus {
+  background: #12964f;
   color: white;
 }
 

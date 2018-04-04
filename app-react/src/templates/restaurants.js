@@ -5,6 +5,7 @@ import axios from 'axios';
 import $ from 'jquery';
 import { Link } from 'react-router-dom';
 import Pagination from "react-js-pagination";
+import { DropdownButton, MenuItem } from "react-bootstrap";
 
 import createClass from 'create-react-class';
 import PropTypes from 'prop-types';
@@ -124,7 +125,7 @@ const CUISINE = [
     {label: 'Tobacco Shops', value: 'Tobacco Shops'},
     {label: 'Internet Cafes', value: 'Internet Cafes'},
     {label: 'Argentine', value: 'Argentine'},
-    {label: 'Waffles', value: 'Waffles'}, 
+    {label: 'Waffles', value: 'Waffles'},
     {label: 'British', value: 'British'},
     {label: 'Hawaiian', value: 'Hawaiian'},
     {label: 'Tiki Bars', value: 'Tiki Bars'},
@@ -180,7 +181,7 @@ const CUISINE = [
     {label: 'Scottish', value: 'Scottish'},
     {label: 'Indonesian', value: 'Indonesian'},
     {label: 'Arabian', value: 'Arabian'},
-    {label: 'Wineries', value: 'Wineries'}, 
+    {label: 'Wineries', value: 'Wineries'},
     {label: 'Cigar Bars', value: 'Cigar Bars'},
     {label: 'Food Delivery Services', value: 'Food Delivery Services'},
     {label: 'Pakistani', value: 'Pakistani'},
@@ -247,15 +248,18 @@ export default class Restaurants extends React.Component {
         this.state = {
             totRestaurants: 0,
             activePage: 1,
+            sort: {"field": "rating", "direction": "desc"},
             restaurants: [],
             value: []
           }
           this.handlePageChange = this.handlePageChange.bind(this)
+          this.sortby = this.sortby.bind(this)
           this.handleSelectChange = this.handleSelectChange.bind(this)
           this.handleApply = this.handleApply.bind(this)
+
     }
-    getRestaurants(page) {
-        axios.get('http://test.roadtripr.fun/restaurant?page=' + page + '&results_per_page=15')
+    getRestaurants(page, field, direction) {
+        axios.get('http://api.roadtripr.fun/restaurant?page=' + page + '&results_per_page=15&q={"order_by":[{"field":"' + field + '","direction":"' + direction + '"}]}')
         .then(res => {
             console.log(res)
             this.setState({restaurants: res.data.objects, totRestaurants:res.data.num_results})
@@ -294,11 +298,26 @@ export default class Restaurants extends React.Component {
 
     }
     componentDidMount(){
-         this.getRestaurants(1);
+         this.getRestaurants(1, "rating", "desc");
     }
     handlePageChange(data){
         this.setState({activePage: data})
-        this.getRestaurants(data)
+        var field = this.state.sort.field
+        var dir = this.state.sort.direction
+        this.getRestaurants(data, field, dir)
+    }
+    sortby(key) {
+        var translation = {"1": {"field": "name", "direction": "asc"},
+                           "2": {"field": "name", "direction": "desc"},
+                           "3": {"field": "cuisine", "direction": "asc"},
+                           "4": {"field": "cuisine", "direction": "desc"},
+                           "5": {"field": "pricing", "direction": "desc"},
+                           "6": {"field": "pricing", "direction": "asc"},
+                           "7": {"field": "rating", "direction": "desc"},
+                           "8": {"field": "rating", "direction": "asc"},};
+        var values = translation[key];
+        this.setState({sort: values});
+        this.getRestaurants(1, values.field, values.direction)
     }
     handleSelectChange (value) {
 		console.log('You\'ve selected:', value);
@@ -322,9 +341,22 @@ export default class Restaurants extends React.Component {
             <div>
             <section id="portfolio" className="section-bg">
               <div className="container">
-                <header className="section-header">
-                  <h3 className="section-title">Restaurants</h3>
+                <header className="section-header" style={{marginBottom:"60px"}}>
+                  <h3 style={{display:"inline"}}className="section-title">Restaurants</h3>
+                  <div style={{float:"right", display:"inline"}}>
+                    <DropdownButton class="sort-dropdown" title="Sort">
+                        <MenuItem eventKey="1" onSelect={this.sortby}>Name: A-Z</MenuItem>
+                        <MenuItem eventKey="2" onSelect={this.sortby}>Name: Z-A</MenuItem>
+                        <MenuItem eventKey="3" onSelect={this.sortby}>Cuisine: A-Z</MenuItem>
+                        <MenuItem eventKey="4" onSelect={this.sortby}>Cuisine: Z-A</MenuItem>
+                        <MenuItem eventKey="5" onSelect={this.sortby}>Pricing: $$$$-$</MenuItem>
+                        <MenuItem eventKey="6" onSelect={this.sortby}>Pricing: $-$$$$</MenuItem>
+                        <MenuItem eventKey="7" onSelect={this.sortby}>Rating: High-Low</MenuItem>
+                        <MenuItem eventKey="8" onSelect={this.sortby}>Rating: Low-High</MenuItem>
+                    </DropdownButton>
+                    </div>
                 </header>
+
                 <div className="row portfolio-container">
                 <div className="section">
                     <h4 className="section-heading">Filter</h4>
