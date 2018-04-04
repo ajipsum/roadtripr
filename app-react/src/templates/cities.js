@@ -5,7 +5,7 @@ import axios from 'axios';
 import $ from 'jquery';
 import { Link } from 'react-router-dom';
 import Pagination from "react-js-pagination";
-/*
+
 import createClass from 'create-react-class';
 import PropTypes from 'prop-types';
 import Select from 'react-select';
@@ -90,7 +90,7 @@ var MultiSelectFilter = createClass({
         const options = STATES;
 		return (
 			<div className="section">
-				<h3 className="section-heading">{this.props.label}</h3>
+				<h3 className="section-heading">Filter</h3>
 				<Select
 					closeOnSelect={!stayOpen}
 					disabled={disabled}
@@ -122,7 +122,7 @@ var MultiSelectFilter = createClass({
 		);
 	}
 });
-*/
+
 
 var config = {
     headers: {'Access-Control-Allow-Origin': '*'}
@@ -140,7 +140,7 @@ export default class Cities extends React.Component {
           }
           this.handlePageChange = this.handlePageChange.bind(this)
 
-       // this.MultiSelectFilter = MultiSelectFilter().render();
+       this.MultiSelectFilter = new MultiSelectFilter().render();
     }
     getCities(page) {
         axios.get('http://test.roadtripr.fun/city?page=' + page + '&results_per_page=15')
@@ -207,10 +207,10 @@ export default class Cities extends React.Component {
                 <header className="section-header">
                   <h3 className="section-title">Cities</h3>
                 </header>
-
                 <div className="row portfolio-container">
                     {elements}
                 </div>
+                {MultiSelectFilter}
               </div>
             </section>
             <div style={{display: 'flex', justifyContent: 'center'}}>
