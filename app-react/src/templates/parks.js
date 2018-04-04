@@ -5,51 +5,11 @@ import axios from 'axios';
 import $ from 'jquery';
 import { Link } from 'react-router-dom';
 import Pagination from "react-js-pagination";
-
+import { DropdownButton, MenuItem } from "react-bootstrap";
 import createClass from 'create-react-class';
 import PropTypes from 'prop-types';
 import Select from 'react-select';
-// const DATA = require(park.designation);
-/*
-var MultiSelectFilter_State = createClass({
-    displayName: 'Filter',
-    propTypes:{
-        label: PropTypes.string,
-    },
-    getInitialState () {
-        return {
-            removeSelected: true,
-			disabled: false,
-			stayOpen: false,
-			value: [],
-        };
-    },
-    handleSelectChange (value) {
-		console.log('You\'ve selected:', value);
-		this.setState({ value });
-	},
-    render () {
-        const {disabled, stayOpen, value } = this.state;
-        const options = DATA;
-		return (
-			<div className="section">
-				<h4 className="section-heading">Filter</h4>
-				<Select
-					closeOnSelect={!stayOpen}
-					disabled={disabled}
-					multi
-					onChange={this.handleSelectChange}
-					ptions={options}
-					placeholder="State"
-          removeSelected={this.state.removeSelected}
-					simpleValue
-					value={value}
-				/>
-			</div>
-		);
-	}
-});
-*/
+
 var config = {
     headers: {'Access-Control-Allow-Origin': '*'}
 
@@ -62,13 +22,15 @@ export default class Parks extends React.Component {
         this.state = {
             totParks: 0,
             activePage: 1,
+            sort: {"field": "name", "direction": "asc"},
             parks: []
           }
           this.handlePageChange = this.handlePageChange.bind(this)
+          this.sortby = this.sortby.bind(this)
 
     }
-    getParks(page) {
-        axios.get('http://test.roadtripr.fun/park?page=' + page + '&results_per_page=15')
+    getParks(page, field, direction) {
+        axios.get('http://api.roadtripr.fun/park?page=' + page + '&results_per_page=15&q={"order_by":[{"field":"' + field + '","direction":"' + direction + '"}]}')
         .then(res => {
           this.setState({parks: res.data.objects, totParks:res.data.num_results})
         });
@@ -86,12 +48,9 @@ export default class Parks extends React.Component {
                 <div className="portfolio-wrap">
                     <figure>
                         <a href={"/parks/" + park.name}><img src={park.image} className="img-fluid" alt /></a>
-                        {/* <a href={park.image} data-lightbox="portfolio" data-title="park" className="link-preview" title="Preview"><i className="ion ion-eye" /></a>
-                        <a href={"parks/" + park.name} className="link-details" title="More Details"><i className="ion ion-android-open" /></a> */}
                     </figure>
                     <div className="portfolio-info">
                         <p><Link to={'/parks/' + park.name}>{park.name}</Link></p>
-                        {/* <a href="{park.website}" className="website">Website <i className="ion ion-android-open" /></a> */}
                         {park.states} | {park.designation}
                     </div>
                 </div>
@@ -102,11 +61,24 @@ export default class Parks extends React.Component {
 
     }
     componentDidMount(){
-         this.getParks(1);
+         this.getParks(1, "name", "asc");
     }
     handlePageChange(data){
         this.setState({activePage: data})
-        this.getParks(data)
+        var field = this.state.sort.field
+        var dir = this.state.sort.direction
+        this.getParks(data, field, dir)
+    }
+    sortby(key) {
+        var translation = {"1": {"field": "name", "direction": "asc"},
+                           "2": {"field": "name", "direction": "desc"},
+                           "3": {"field": "designation", "direction": "asc"},
+                           "4": {"field": "designation", "direction": "desc"},
+                           "5": {"field": "states", "direction": "asc"},
+                           "6": {"field": "states", "direction": "desc"}};
+        var values = translation[key];
+        this.setState({sort: values});
+        this.getParks(1, values.field, values.direction)
     }
 
     render() {
@@ -120,9 +92,19 @@ export default class Parks extends React.Component {
             <div>
                 <section id="portfolio" className="section-bg">
                 <div className="container">
-                    <header className="section-header">
-                    <h3 className="section-title">Parks</h3>
-                    </header>
+                <header className="section-header" style={{marginBottom:"60px"}}>
+                  <h3 style={{display:"inline"}}className="section-title">Parks</h3>
+                  <div style={{float:"right", display:"inline"}}>
+                    <DropdownButton class="sort-dropdown" title="Sort">
+                        <MenuItem eventKey="1" onSelect={this.sortby}>Name: A-Z</MenuItem>
+                        <MenuItem eventKey="2" onSelect={this.sortby}>Name: Z-A</MenuItem>
+                        <MenuItem eventKey="3" onSelect={this.sortby}>Designation: A-Z</MenuItem>
+                        <MenuItem eventKey="4" onSelect={this.sortby}>Designation: Z-A</MenuItem>
+                        <MenuItem eventKey="5" onSelect={this.sortby}>States: A-Z</MenuItem>
+                        <MenuItem eventKey="6" onSelect={this.sortby}>States: Z-A</MenuItem>
+                    </DropdownButton>
+                    </div>
+                </header>
                     <div className="row portfolio-container">
                     {/* <MultiSelectFilter_State/> */}
                         {elements}
