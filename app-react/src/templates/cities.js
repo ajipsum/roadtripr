@@ -10,6 +10,7 @@ import createClass from 'create-react-class';
 import PropTypes from 'prop-types';
 import Select from 'react-select';
 import Slider from 'rc-slider';
+import 'rc-slider/assets/index.css';
 
 /*
 Multiselect code taken from https://github.com/JedWatson/react-select
@@ -66,7 +67,7 @@ const STATES = [
     {label: 'WI', value:'Wisconsin'},
     {label: 'WY', value:'Wyoming'}
 ]
-
+/*
 var MultiSelectFilter_State = createClass({
     displayName: 'Filter',
     propTypes:{
@@ -104,50 +105,14 @@ var MultiSelectFilter_State = createClass({
 			</div>
 		);
 	}
-});
+});*/
 /*
-var MultiSelectFilter_Population = createClass({
-    displayName: 'Filter',
-    propTypes:{
-        label: PropTypes.string,
-    },
-    getInitialState () {
-        return {
-			value: {
-                min: 0,
-                max: 100000000
-            }
-        };
-    },
-    handleMaxChange (value) {
-		console.log('You\'ve selected:', value);
-		this.setState({ value });
-	},
-    render () {
-		return (
-        <div className="section">
-			<form className="form">
-                <InputRange
-                    draggableTrack
-                    maxValue={20}
-                    minValue={0}
-                    onChange={value => this.setState({ value: value })}
-                    onChangeComplete={value => console.log(value)}
-                    value={this.state.value}
-                />
-            </form>
-        </div>
-		);
-	}
-});
-*/
-
 const Range = Slider.Range;
 function log(value) {
     console.log(value); //eslint-disable-line
   }
 
-  class CustomizedRange extends React.Component {
+  class PopulationRange extends React.Component {
     constructor(props) {
       super(props);
       this.state = {
@@ -162,12 +127,6 @@ function log(value) {
     onUpperBoundChange = (e) => {
       this.setState({ upperBound: +e.target.value });
     }
-    onSliderChange = (value) => {
-      log(value);
-      this.setState({
-        value,
-      });
-    }
     handleApply = () => {
       const { lowerBound, upperBound } = this.state;
       this.setState({ value: [lowerBound, upperBound] });
@@ -181,12 +140,15 @@ function log(value) {
           <label>Max: </label>
           <input type="number" value={this.state.upperBound} onChange={this.onUpperBoundChange} />
           <button onClick={this.handleApply}>Apply</button>
-          <br /><br />
-          <Range allowCross={false} value={this.state.value} onChange={this.onSliderChange} />
         </div>
       );
     }
   }
+*/
+const Range = Slider.Range;
+function log(value) {
+    console.log(value); //eslint-disable-line
+}
 
 var config = {
     headers: {'Access-Control-Allow-Origin': '*'}
@@ -201,12 +163,12 @@ export default class Cities extends React.Component {
             totCities: 0,
             activePage: 1,
             sort: {"field": "population", "direction": "desc"},
-            cities: []
+            cities: [],
+            value:[]
           }
         this.handlePageChange = this.handlePageChange.bind(this)
         this.sortby = this.sortby.bind(this)
-
-       this.MultiSelectFilter_State = new MultiSelectFilter_State().render();
+        this.handleApply = this.handleApply.bind(this)
     }
     getCities(page, field, direction) {
         axios.get('http://api.roadtripr.fun/city?page=' + page + '&results_per_page=15&q={"order_by":[{"field":"' + field + '","direction":"' + direction + '"}]}')
@@ -245,7 +207,6 @@ export default class Cities extends React.Component {
       console.log(element)
       return element;
 
-
     }
     componentDidMount(){
         console.log("component");
@@ -271,12 +232,27 @@ export default class Cities extends React.Component {
         this.getCities(1, values.field, values.direction)
     }
 
+    handleSelectChange (value) {
+		console.log('You\'ve selected:', value);
+		this.setState({ value });
+    }
+    onLowerBoundChange = (e) => {
+        this.setState({ lowerBound: +e.target.value });
+      }
+    onUpperBoundChange = (e) => {
+        this.setState({ upperBound: +e.target.value });
+      }
+    handleApply = () => {
+        const { lowerBound, upperBound } = this.state;
+        this.setState({ value: [lowerBound, upperBound] });
+      }
     render() {
         var elements = []
         for(var city of this.state.cities){
             elements.push(this.renderCity(city));
 
         }
+        const {disabled, stayOpen, value } = this.state;
         return (
             <div>
             <section id="portfolio" className="section-bg">
@@ -293,8 +269,28 @@ export default class Cities extends React.Component {
                     </div>
                 </header>
                 <div className="row portfolio-container">
-                    <MultiSelectFilter_State/>
-                    <CustomizedRange/>
+                    <div className="section">
+                        <h4 className="section-heading">Filter</h4>
+                        <Select
+                        closeOnSelect={!stayOpen}
+                        disabled={disabled}
+                        multi
+                        onChange={this.handleSelectChange}
+                        options={STATES}
+                        placeholder="State"
+                        removeSelected={this.state.removeSelected}
+                        simpleValue
+                        value={value}
+                        />
+                    </div>
+                    <div>
+                        <h4 className="section-heading">Population</h4>
+                        <label>Min: </label>
+                        <input type="number" value={this.state.lowerBound} onChange={this.onLowerBoundChange} />
+                        <label>Max: </label>
+                        <input type="number" value={this.state.upperBound} onChange={this.onUpperBoundChange} />
+                        <button onClick={this.handleApply}>Apply</button>
+                    </div>
                     {elements}
                 </div>
               </div>

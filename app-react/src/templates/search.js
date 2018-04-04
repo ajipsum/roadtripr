@@ -25,12 +25,12 @@ export default class Search extends React.Component {
 
     }
     search(){
-        var query = "\"%" + this.state.query + "%\"";
+        var query = "\"%25" + this.state.query + "%25\"";
         var numQuery = ""
         var moneyQuery = "\"" + this.state.query + "\""
         if(this.state.query.charAt(0)==="$"){
             console.log(this.state.query.charAt(0))
-            axios.get('http://test.roadtripr.fun/restaurant?page=1&&results_per_page=100&q={"filters":[{"or": [{"name":"pricing","op":"eq","val":' + moneyQuery + '}]}]}')
+            axios.get('http://api.roadtripr.fun/restaurant?page=1&&results_per_page=1000&q={"filters":[{"or": [{"name":"pricing","op":"eq","val":' + moneyQuery + '}]}]}')
             .then(res => {
                 console.log(res)
                 for (var obj of res.data.objects){
@@ -48,7 +48,7 @@ export default class Search extends React.Component {
         }
         else if(!isNaN(this.state.query)){
             numQuery = this.state.query
-            axios.get('http://test.roadtripr.fun/city?q={"filters":[{"or": [{"name":"population","op":"like","val":' + numQuery + '}]}]}')
+            axios.get('http://api.roadtripr.fun/city?page=1&&results_per_page=100&q={"filters":[{"or": [{"name":"population","op":"like","val":' + numQuery + '}]}]}')
             .then(res => {
                 for (var obj of res.data.objects){
                     this.state.tot.push(obj)}
@@ -56,22 +56,23 @@ export default class Search extends React.Component {
             })
         }
         else{
-            axios.get('http://test.roadtripr.fun/city?q={"filters":[{"or": [{"name":"name","op":"like","val":' + query + '},{"name":"population","op":"like","val":' + query + '}]}]}')
+            axios.get('http://api.roadtripr.fun/city?page=1&&results_per_page=100&q={"filters":[{"or": [{"name":"name","op":"like","val":' + query + '},{"name":"population","op":"like","val":' + query + '}]}]}')
             .then(res => {
                 for (var obj of res.data.objects){
                     this.state.tot.push(obj)}
-                axios.get('http://test.roadtripr.fun/restaurant?q={"filters":[{"or": [{"name":"name","op":"like","val":' + query + '},{"name":"rating","op":"like","val":' + query + '}, {"name":"cuisine","op":"like","val":' + query + '}, {"name":"pricing","op":"like","val":' + query + '}]}]}')
+                axios.get('http://api.roadtripr.fun/restaurant?page=1&&results_per_page=100&q={"filters":[{"or": [{"name":"name","op":"like","val":' + query + '},{"name":"rating","op":"like","val":' + query + '}, {"name":"cuisine","op":"like","val":' + query + '}, {"name":"pricing","op":"like","val":' + query + '}]}]}')
                     .then(res => {
                         console.log(res)
                         for (var obj of res.data.objects){
                             this.state.tot.push(obj)}
-                        axios.get('http://test.roadtripr.fun/park?q={"filters":[{"or": [{"name":"name","op":"like","val":' + query + '},{"name":"designation","op":"like","val":' + query + '}, {"name":"states","op":"like","val":' + query + '}]}]}')
+                        axios.get('http://api.roadtripr.fun/park?page=1&&results_per_page=100&q={"filters":[{"or": [{"name":"name","op":"like","val":' + query + '},{"name":"designation","op":"like","val":' + query + '}, {"name":"states","op":"like","val":' + query + '}]}]}')
                             .then(res => {
                                 for (var obj of res.data.objects){
                                     this.state.tot.push(obj)}
                                 this.setState({results: this.state.tot.length, tot: _.shuffle(this.state.tot)})
                                 var temp=[]
-                                var max = this.state.results>15?15:this.state.results
+                                var max = this.state.results>15 ? 15:this.state.results
+                                console.log("max " + max + "results: " + this.state.results)
                                 for(var i=0; i<max; i++){
 
                                     temp.push(this.state.tot[i])
