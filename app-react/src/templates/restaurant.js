@@ -17,9 +17,9 @@ export default class Restaurant extends React.Component {
     getRestaurant() {
         console.log(this.props.restaurant)
        //var res = $.getJSON('http://api.roadtripr.fun/cities/?latitude=32.7791&longitude=-96.8003&length=10');
-       axios.get('http://api.roadtripr.fun/restaurants/?name=' + this.props.match.params.restaurant)
+       axios.get('http://api.roadtripr.fun/restaurant?q={"filters":[{"name":"name","op":"equals","val":"' + this.props.match.params.restaurant  + '"}]}')
         .then(res => {
-            this.setState({restaurant: res.data.data[0]})
+            this.setState({restaurant: res.data.objects[0]})
             console.log(this.state.restaurant)
             axios.get('http://api.roadtripr.fun/parks/?latitude=' + this.state.restaurant.latitude + '&longitude=' + this.state.restaurant.longitude + '&length=4')
                 .then(parkData => {

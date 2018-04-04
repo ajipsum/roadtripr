@@ -17,16 +17,16 @@ export default class Cities extends React.Component {
     getCity() {
         console.log(this.props.match.params.city)
        //var res = $.getJSON('http://api.roadtripr.fun/cities/?latitude=32.7791&longitude=-96.8003&length=10');
-       axios.get('http://api.roadtripr.fun/cities/?name=' + this.props.match.params.city)
+       axios.get('http://api.roadtripr.fun/city?q={"filters":[{"name":"name","op":"equals","val":"' + this.props.match.params.city  + '"}]}')
        .then(res => {
-           this.setState({city: res.data.data[0]})
+           this.setState({city:  res.data.objects[0]})
            console.log(this.state.city)
-           axios.get('http://api.roadtripr.fun/parks/?latitude=' + this.state.city.latitude + '&longitude=' + this.state.city.longitude + '&length=4')
+           axios.get('http://api.roadtripr.fun/park/nearby?latitude=' + this.state.city.latitude + '&longitude=' + this.state.city.longitude + '&length=4')
                .then(parkData => {
                this.setState({parks: parkData.data.data})
                //console.log(data.data)
                console.log(this.state.restaurants)
-               axios.get('http://api.roadtripr.fun/restaurants/?latitude=' + this.state.city.latitude + '&longitude=' + this.state.city.longitude + '&length=4')
+               axios.get('http://api.roadtripr.fun/restaurant/nearby?latitude=' + this.state.city.latitude + '&longitude=' + this.state.city.longitude + '&length=4')
                    .then(restData => {
                        console.log(restData.data)
                        this.setState({restaurants: restData.data.data})
