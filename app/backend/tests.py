@@ -8,11 +8,7 @@ from main import app
 #from scraperestaurants import *
 
 class Test(unittest.TestCase):
- 
-    def setUp(self):
-        app.config[‘TESTING’] = True
-        self.app = app.test_client()
-
+ 	
     def test_website(self):
         r = requests.get('http://www.roadtripr.fun')
         self.assertEqual(r.status_code, 200)
@@ -33,6 +29,11 @@ class Test(unittest.TestCase):
     	r = requests.get('http://www.roadtripr.fun/restaurants')
         self.assertEqual(r.status_code, 200)
 
+    """
+    def setUp(self):
+        app.config[‘TESTING’] = True
+        self.app = app.test_client()
+	"""
 
 if __name__ == '__main__':
     unittest.main()
