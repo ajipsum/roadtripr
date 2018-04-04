@@ -10,6 +10,7 @@ import createClass from 'create-react-class';
 import PropTypes from 'prop-types';
 import Select from 'react-select';
 import Slider from 'rc-slider';
+import 'rc-slider/assets/index.css';
 
 /*
 Multiselect code taken from https://github.com/JedWatson/react-select
@@ -105,42 +106,6 @@ var MultiSelectFilter_State = createClass({
 		);
 	}
 });
-/*
-var MultiSelectFilter_Population = createClass({
-    displayName: 'Filter',
-    propTypes:{
-        label: PropTypes.string,
-    },
-    getInitialState () {
-        return {
-			value: {
-                min: 0,
-                max: 100000000
-            }
-        };
-    },
-    handleMaxChange (value) {
-		console.log('You\'ve selected:', value);
-		this.setState({ value });
-	},
-    render () {
-		return (
-        <div className="section">
-			<form className="form">
-                <InputRange
-                    draggableTrack
-                    maxValue={20}
-                    minValue={0}
-                    onChange={value => this.setState({ value: value })}
-                    onChangeComplete={value => console.log(value)}
-                    value={this.state.value}
-                />
-            </form>
-        </div>
-		);
-	}
-});
-*/
 
 const Range = Slider.Range;
 function log(value) {
@@ -181,8 +146,7 @@ function log(value) {
           <label>Max: </label>
           <input type="number" value={this.state.upperBound} onChange={this.onUpperBoundChange} />
           <button onClick={this.handleApply}>Apply</button>
-          <br /><br />
-          <Range allowCross={false} value={this.state.value} onChange={this.onSliderChange} />
+          <br/>
         </div>
       );
     }
@@ -204,7 +168,7 @@ export default class Cities extends React.Component {
           }
           this.handlePageChange = this.handlePageChange.bind(this)
 
-       this.MultiSelectFilter_State = new MultiSelectFilter_State().render();
+       this.MultiSelectFilter_State = new MultiSelectFilter_State();
     }
     getCities(page) {
         axios.get('http://test.roadtripr.fun/city?page=' + page + '&results_per_page=15')
