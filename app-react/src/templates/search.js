@@ -5,6 +5,7 @@ import axios from 'axios';
 import $ from 'jquery';
 import { Link } from 'react-router-dom';
 import Pagination from "react-js-pagination";
+import _ from 'lodash'
 import Mark from 'mark.js';
 
 export default class Search extends React.Component {
@@ -14,47 +15,73 @@ export default class Search extends React.Component {
 
         this.state = {
             query:this.props.match.params.term,
-            restaurants: [],
             activePage: 1,
-            cities: [],
             results: 0,
-            parks: []
+            elem: [],
+            active:[],
+            tot: []
           }
           this.handlePageChange = this.handlePageChange.bind(this)
+          
     }
-    search(page){
+    search(){
         var query = "\"%" + this.state.query + "%\"";
         var numQuery = ""
-        var nan = isNaN(this.state.query)
-        if(!isNaN(this.state.query)){
+        var moneyQuery = "\"" + this.state.query + "\""
+        if(this.state.query.charAt(0)==="$"){
+            console.log(this.state.query.charAt(0))
+            axios.get('http://test.roadtripr.fun/restaurant?page=1&&results_per_page=100&q={"filters":[{"or": [{"name":"pricing","op":"eq","val":' + moneyQuery + '}]}]}')
+            .then(res => {
+                console.log(res)
+                for (var obj of res.data.objects){
+                    this.state.tot.push(obj)
+                
+                } 
+                this.setState({results: this.state.tot.length, tot: _.shuffle(this.state.tot)})
+                var temp=[]
+                var max = this.state.results>15?15:this.state.results
+                for(var i=0; i<max; i++){
+                    temp.push(this.state.tot[i]) 
+                }
+                this.setState({active: temp})}
+            )
+        }
+        else if(!isNaN(this.state.query)){
             numQuery = this.state.query
             axios.get('http://test.roadtripr.fun/city?q={"filters":[{"or": [{"name":"population","op":"like","val":' + numQuery + '}]}]}')
             .then(res => {
-                this.setState({cities: res.data.objects, results:this.state.results + res.data.num_results})
+                for (var obj of res.data.objects){
+                    this.state.tot.push(obj)}
+                
             })
         }
         else{
-            axios.get('http://test.roadtripr.fun/city?page=' + page + '&results_per_page=5&q={"filters":[{"or": [{"name":"name","op":"like","val":' + query + '},{"name":"population","op":"like","val":' + query + '}]}]}')
+            axios.get('http://test.roadtripr.fun/city?q={"filters":[{"or": [{"name":"name","op":"like","val":' + query + '},{"name":"population","op":"like","val":' + query + '}]}]}')
             .then(res => {
-                this.setState({cities: res.data.objects, results:this.state.results + res.data.num_results})
-                axios.get('http://test.roadtripr.fun/restaurant?page=' + page + '&results_per_page=5&q={"filters":[{"or": [{"name":"name","op":"like","val":' + query + '},{"name":"rating","op":"like","val":' + query + '}, {"name":"cuisine","op":"like","val":' + query + '}, {"name":"pricing","op":"like","val":' + query + '}]}]}')
+                for (var obj of res.data.objects){
+                    this.state.tot.push(obj)}
+                axios.get('http://test.roadtripr.fun/restaurant?q={"filters":[{"or": [{"name":"name","op":"like","val":' + query + '},{"name":"rating","op":"like","val":' + query + '}, {"name":"cuisine","op":"like","val":' + query + '}, {"name":"pricing","op":"like","val":' + query + '}]}]}')
                     .then(res => {
-                        this.setState({restaurants: res.data.objects});
-                            axios.get('http://test.roadtripr.fun/park?page=' + page + '&results_per_page=5&q={"filters":[{"or": [{"name":"name","op":"like","val":' + query + '},{"name":"designation","op":"like","val":' + query + '}, {"name":"states","op":"like","val":' + query + '}]}]}')
+                        console.log(res)
+                        for (var obj of res.data.objects){
+                            this.state.tot.push(obj)}
+                        axios.get('http://test.roadtripr.fun/park?q={"filters":[{"or": [{"name":"name","op":"like","val":' + query + '},{"name":"designation","op":"like","val":' + query + '}, {"name":"states","op":"like","val":' + query + '}]}]}')
                             .then(res => {
-                                this.setState({parks: res.data.objects, results:this.state.results + res.data.num_results})
+                                for (var obj of res.data.objects){
+                                    this.state.tot.push(obj)}
+                                this.setState({results: this.state.tot.length, tot: _.shuffle(this.state.tot)})
+                                var temp=[]
+                                var max = this.state.results>15?15:this.state.results
+                                for(var i=0; i<max; i++){
+
+                                    temp.push(this.state.tot[i]) 
+                                }
+                                this.setState({active: temp})
+                                console.log(this.state.active)
                             });
-
                     });
-
             });}
-        var cities = this.state.cities.length
-        var parks = this.state.parks.length
-        var restaurants = this.state.restaurants.length
-        this.setState({results: cities + parks + restaurants})
-
-
-
+        console.log(this.state.results)
     }
     renderPark(park){
         const element = (
@@ -122,37 +149,55 @@ export default class Search extends React.Component {
     }
     handlePageChange(data){
         this.setState({activePage: data})
-        this.search(data)
+        this.setState({active: []});
+        var temp = []
+        for(var i=0; i<15; i++){
+            temp.push(this.state.tot[i*data])
+        }
+        this.setState({active:temp})
     }
     componentDidMount(){
-        this.search(1)
+        this.search()
     }
-    render(){
-        var elements = []
-
-        var cityCount = 0;
+    highlight(){  
         var context = document.getElementById("portfolio");
         var instance = new Mark(context);
         instance.mark([this.state.query], {
             separateWordSearch: false,
-        });
+        });}
+    render(){
+        var elements = []
+        var cityCount = 0;
+      
+        console.log(this.state.active)
+        for(var element of this.state.active){
+            if(element.hasOwnProperty('population')){
+                elements.push(this.renderCity(element))
+            }
+            if(element.hasOwnProperty('cuisine')){
+                elements.push(this.renderRestaurant(element))
+            }
+            else
+                elements.push(this.renderPark(element))
+            
+         }
+         this.highlight()
 
-
-        if(this.state.cities.length!=0){
-            for(var city of this.state.cities){
-                elements.push(this.renderCity(city))
-            }
-        }
-        if(this.state.restaurants.length!=0){
-            for(var rest of this.state.restaurants){
-                elements.push(this.renderRestaurant(rest))
-            }
-        }
-        if(this.state.parks.length!=0){
-            for(var park of this.state.parks){
-                elements.push(this.renderPark(park))
-            }
-        }
+        // if(this.state.cities.length!=0){
+        //     for(var city of this.state.cities){
+        //         elements.push(this.renderCity(city))
+        //     }
+        // }
+        // if(this.state.restaurants.length!=0){
+        //     for(var rest of this.state.restaurants){
+        //         elements.push(this.renderRestaurant(rest))
+        //     }
+        // }
+        // if(this.state.parks.length!=0){
+        //     for(var park of this.state.parks){
+        //         elements.push(this.renderPark(park))
+        //     }
+        // }
 
         return(
 
