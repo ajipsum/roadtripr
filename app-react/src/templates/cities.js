@@ -149,11 +149,11 @@ export default class Cities extends React.Component {
             this.setState({cities: res.data.objects, totCities:res.data.num_results})
             console.log(this.state.cities)
             console.log(this.state.totCities)
-         
+
         });
     }
     renderCities(){
-        console.log("in rendercities"); 
+        console.log("in rendercities");
         for (var city of this.state.cities){
             this.renderPark(city);
         }
@@ -171,8 +171,7 @@ export default class Cities extends React.Component {
             </figure>
             <div className="portfolio-info">
                 <p><Link to={'/city/' + city.name}>{cityName}</Link></p>
-                <p>{state}</p>
-                Population: {city.population}
+                {state} | Pop: {city.population}
             </div>
             </div>
         </div>)
@@ -215,7 +214,7 @@ export default class Cities extends React.Component {
               </div>
             </section>
             <div style={{display: 'flex', justifyContent: 'center'}}>
-                <Pagination 
+                <Pagination
                 totalItemsCount={this.state.totCities}
                 activePage={this.state.activePage}
                 itemsCountPerPage={15}
