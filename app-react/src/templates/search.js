@@ -208,7 +208,7 @@ export default class Search extends React.Component {
                 <h3 className="section-title">Search</h3>
                 </header>
                 <div className="row portfolio-container">
-                    {elements}
+                    {elements.length ? elements : <p className="noresults">No results found.</p>}
                 </div>
             </div>
             <div style={{display: 'flex', justifyContent: 'center'}}>
