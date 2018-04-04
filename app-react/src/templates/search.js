@@ -22,7 +22,7 @@ export default class Search extends React.Component {
             tot: []
           }
           this.handlePageChange = this.handlePageChange.bind(this)
-          
+
     }
     search(){
         var query = "\"%25" + this.state.query + "%25\"";
@@ -35,13 +35,13 @@ export default class Search extends React.Component {
                 console.log(res)
                 for (var obj of res.data.objects){
                     this.state.tot.push(obj)
-                
-                } 
+
+                }
                 this.setState({results: this.state.tot.length, tot: _.shuffle(this.state.tot)})
                 var temp=[]
                 var max = this.state.results>15?15:this.state.results
                 for(var i=0; i<max; i++){
-                    temp.push(this.state.tot[i]) 
+                    temp.push(this.state.tot[i])
                 }
                 this.setState({active: temp})}
             )
@@ -52,7 +52,7 @@ export default class Search extends React.Component {
             .then(res => {
                 for (var obj of res.data.objects){
                     this.state.tot.push(obj)}
-                
+
             })
         }
         else{
@@ -75,7 +75,7 @@ export default class Search extends React.Component {
                                 console.log("max " + max + "results: " + this.state.results)
                                 for(var i=0; i<max; i++){
 
-                                    temp.push(this.state.tot[i]) 
+                                    temp.push(this.state.tot[i])
                                 }
                                 this.setState({active: temp})
                                 console.log(this.state.active)
@@ -89,7 +89,7 @@ export default class Search extends React.Component {
             <div className="col-lg-4 col-md-6 portfolio-item filter-app wow">
                 <div className="portfolio-wrap">
                     <figure>
-                        <a href={"parks/" + park.name}><img src={park.image} className="img-fluid" alt /></a>
+                        <a href={"/parks/" + park.name}><img src={park.image} className="img-fluid" alt /></a>
                         {/* <a href={park.image} data-lightbox="portfolio" data-title="park" className="link-preview" title="Preview"><i className="ion ion-eye" /></a>
                         <a href={"parks/" + park.name} className="link-details" title="More Details"><i className="ion ion-android-open" /></a> */}
                     </figure>
@@ -134,7 +134,7 @@ export default class Search extends React.Component {
         <div className="col-lg-4 col-md-6 portfolio-item filter-app wow">
         <div className="portfolio-wrap">
           <figure>
-            <a href={"restaurants/" + restaurant.name}><img src={restaurant.image} className="img-fluid" alt /></a>
+            <a href={"/restaurants/" + restaurant.name}><img src={restaurant.image} className="img-fluid" alt /></a>
             {/* <a href={restaurant.image} data-lightbox="portfolio" data-title="restaurant" className="link-preview" title="Preview"><i className="ion ion-eye" /></a>
             <a href={"restaurants/" + restaurant.name} className="link-details" title="More Details"><i className="ion ion-android-open" /></a> */}
           </figure>
@@ -160,7 +160,7 @@ export default class Search extends React.Component {
     componentDidMount(){
         this.search()
     }
-    highlight(){  
+    highlight(){
         var context = document.getElementById("portfolio");
         var instance = new Mark(context);
         instance.mark([this.state.query], {
@@ -169,7 +169,7 @@ export default class Search extends React.Component {
     render(){
         var elements = []
         var cityCount = 0;
-      
+
         console.log(this.state.active)
         for(var element of this.state.active){
             if(element.hasOwnProperty('population')){
@@ -180,7 +180,7 @@ export default class Search extends React.Component {
             }
             else
                 elements.push(this.renderPark(element))
-            
+
          }
          this.highlight()
 
