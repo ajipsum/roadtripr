@@ -67,7 +67,7 @@ const STATES = [
     {label: 'WI', value:'Wisconsin'},
     {label: 'WY', value:'Wyoming'}
 ]
-
+/*
 var MultiSelectFilter_State = createClass({
     displayName: 'Filter',
     propTypes:{
@@ -105,8 +105,8 @@ var MultiSelectFilter_State = createClass({
 			</div>
 		);
 	}
-});
-
+});*/
+/*
 const Range = Slider.Range;
 function log(value) {
     console.log(value); //eslint-disable-line
@@ -127,12 +127,6 @@ function log(value) {
     onUpperBoundChange = (e) => {
       this.setState({ upperBound: +e.target.value });
     }
-    onSliderChange = (value) => {
-      log(value);
-      this.setState({
-        value,
-      });
-    }
     handleApply = () => {
       const { lowerBound, upperBound } = this.state;
       this.setState({ value: [lowerBound, upperBound] });
@@ -150,6 +144,11 @@ function log(value) {
       );
     }
   }
+*/
+const Range = Slider.Range;
+function log(value) {
+    console.log(value); //eslint-disable-line
+}
 
 var config = {
     headers: {'Access-Control-Allow-Origin': '*'}
@@ -163,11 +162,12 @@ export default class Cities extends React.Component {
         this.state = {
             totCities: 0,
             activePage: 1,
-            cities: []
+            cities: [],
+            value:[],
           }
           this.handlePageChange = this.handlePageChange.bind(this)
-
-       this.MultiSelectFilter_State = new MultiSelectFilter_State();
+          this.handleSelectChange = this.handleSelectChange.bind(this)
+          this.handleApply = this.handleApply.bind(this)
     }
     getCities(page) {
         axios.get('http://test.roadtripr.fun/city?page=' + page + '&results_per_page=15')
@@ -206,7 +206,6 @@ export default class Cities extends React.Component {
       console.log(element)
       return element;
 
-
     }
     componentDidMount(){
         console.log("component");
@@ -218,6 +217,20 @@ export default class Cities extends React.Component {
         this.getCities(data)
 
     }
+    handleSelectChange (value) {
+		console.log('You\'ve selected:', value);
+		this.setState({ value });
+    }
+    onLowerBoundChange = (e) => {
+        this.setState({ lowerBound: +e.target.value });
+      }
+    onUpperBoundChange = (e) => {
+        this.setState({ upperBound: +e.target.value });
+      }
+    handleApply = () => {
+        const { lowerBound, upperBound } = this.state;
+        this.setState({ value: [lowerBound, upperBound] });
+      }
     render() {
         //var cities = this.renderCities()
         var elements = []
@@ -225,6 +238,7 @@ export default class Cities extends React.Component {
             elements.push(this.renderCity(city));
 
         }
+        const {disabled, stayOpen, value } = this.state;        
         //console.log("cities + ")
         //console.log(cities)
         return (
@@ -235,8 +249,28 @@ export default class Cities extends React.Component {
                   <h3 className="section-title">Cities</h3>
                 </header>
                 <div className="row portfolio-container">
-                    <MultiSelectFilter_State/>
-                    <PopulationRange/>
+                    <div className="section">
+                        <h4 className="section-heading">Filter</h4>
+                        <Select
+                        closeOnSelect={!stayOpen}
+                        disabled={disabled}
+                        multi
+                        onChange={this.handleSelectChange}
+                        options={STATES}
+                        placeholder="State"
+                        removeSelected={this.state.removeSelected}
+                        simpleValue
+                        value={value}
+                        />
+                    </div>
+                    <div>
+                        <h4 className="section-heading">Population</h4>  
+                        <label>Min: </label>
+                        <input type="number" value={this.state.lowerBound} onChange={this.onLowerBoundChange} />
+                        <label>Max: </label>
+                        <input type="number" value={this.state.upperBound} onChange={this.onUpperBoundChange} />
+                        <button onClick={this.handleApply}>Apply</button>
+                    </div>
                     {elements}
                 </div>
               </div>

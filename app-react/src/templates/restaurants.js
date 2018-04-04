@@ -51,7 +51,6 @@ const CUISINE = [
     {label: 'Tapas/Small Plates', value: 'Tapas/Small Plates'},
     {label: 'Bars', value: 'Bars'},
     {label: 'Gastropubs', value: 'Gastropubs'},
-    {label: 'Parks', value: 'Parks'},
     {label: 'Steakhouses', value: 'Steakhouses'},
     {label: 'Hot Dogs', value: 'Hot Dogs'},
     {label: 'Cafes', value: 'Cafes'},
@@ -82,7 +81,6 @@ const CUISINE = [
     {label: 'Comfort Food', value: 'Comfort Food'},
     {label: 'Ice Cream & Frozen Yogurt', value: 'Ice Cream & Frozen Yogurt'},
     {label: 'Cheesesteaks', value: 'Cheesesteaks'},
-    {label: 'Local Flavor', value: 'Local Flavor'},
     {label: 'Vegetarian', value: 'Vegetarian'},
     {label: 'Belgian', value: 'Belgian'},
     {label: 'Gluten-Free', value: 'Gluten-Free'},
@@ -237,121 +235,6 @@ const RATING = [
     {label: '\u2605\u2605\u2605\u2605\u2605', value: '\u2605\u2605\u2605\u2605\u2605'}
 ]
 
-var MultiSelectFilter_Type = createClass({
-    displayName: 'Filter',
-    propTypes:{
-        label: PropTypes.string,
-    },
-    getInitialState () {
-        return {
-            removeSelected: true,
-			disabled: false,
-			stayOpen: false,
-			value: [],
-        };
-    },
-    handleSelectChange (value) {
-		console.log('You\'ve selected:', value);
-		this.setState({ value });
-	},
-    render () {
-        const {disabled, stayOpen, value } = this.state;
-        const options = CUISINE;
-		return (
-			<div className="section">
-				<h4 className="section-heading">Filter</h4>
-				<Select
-					closeOnSelect={!stayOpen}
-					disabled={disabled}
-					multi
-					onChange={this.handleSelectChange}
-					options={options}
-					placeholder="Cuisine"
-          removeSelected={this.state.removeSelected}
-					simpleValue
-					value={value}
-				/>
-			</div>
-		);
-	}
-});
-
-var MultiSelectFilter_Price = createClass({
-    displayName: 'Filter',
-    propTypes:{
-        label: PropTypes.string,
-    },
-    getInitialState () {
-        return {
-            removeSelected: true,
-			disabled: false,
-			stayOpen: false,
-			value: [],
-        };
-    },
-    handleSelectChange (value) {
-		console.log('You\'ve selected:', value);
-		this.setState({ value });
-	},
-    render () {
-        const {disabled, stayOpen, value } = this.state;
-        const options = PRICING;
-		return (
-			<div className="section">
-				<Select
-					closeOnSelect={!stayOpen}
-					disabled={disabled}
-					multi
-					onChange={this.handleSelectChange}
-					options={options}
-					placeholder="Price"
-          removeSelected={this.state.removeSelected}
-					simpleValue
-					value={value}
-				/>
-			</div>
-		);
-	}
-});
-
-var MultiSelectFilter_Rating = createClass({
-    displayName: 'Filter',
-    propTypes:{
-        label: PropTypes.string,
-    },
-    getInitialState () {
-        return {
-            removeSelected: true,
-			disabled: false,
-			stayOpen: false,
-			value: [],
-        };
-    },
-    handleSelectChange (value) {
-		console.log('You\'ve selected:', value);
-		this.setState({ value });
-	},
-    render () {
-        const {disabled, stayOpen, value } = this.state;
-        const options = RATING;
-		return (
-			<div className="section">
-				<Select
-					closeOnSelect={!stayOpen}
-					disabled={disabled}
-					multi
-					onChange={this.handleSelectChange}
-					options={options}
-					placeholder="Rating"
-          removeSelected={this.state.removeSelected}
-					simpleValue
-					value={value}
-				/>
-			</div>
-		);
-	}
-});
-
 var config = {
     headers: {'Access-Control-Allow-Origin': '*'}
 
@@ -364,10 +247,12 @@ export default class Restaurants extends React.Component {
         this.state = {
             totRestaurants: 0,
             activePage: 1,
-            restaurants: []
+            restaurants: [],
+            value: []
           }
           this.handlePageChange = this.handlePageChange.bind(this)
-
+          this.handleSelectChange = this.handleSelectChange.bind(this)
+          this.handleApply = this.handleApply.bind(this)
     }
     getRestaurants(page) {
         axios.get('http://test.roadtripr.fun/restaurant?page=' + page + '&results_per_page=15')
@@ -415,6 +300,14 @@ export default class Restaurants extends React.Component {
         this.setState({activePage: data})
         this.getRestaurants(data)
     }
+    handleSelectChange (value) {
+		console.log('You\'ve selected:', value);
+		this.setState({ value });
+    }
+    handleApply = () => {
+        const { lowerBound, upperBound } = this.state;
+        this.setState({ value: [lowerBound, upperBound] });
+      }
     render() {
         var elements = []
         var i = 0
@@ -422,6 +315,8 @@ export default class Restaurants extends React.Component {
             console.log(restaurant)
             elements.push(this.renderRestaurant(restaurant));
         }
+
+        const {disabled, stayOpen, value } = this.state;
 
         return (
             <div>
@@ -431,9 +326,47 @@ export default class Restaurants extends React.Component {
                   <h3 className="section-title">Restaurants</h3>
                 </header>
                 <div className="row portfolio-container">
-                <MultiSelectFilter_Type/>
-                <MultiSelectFilter_Price/>
-                <MultiSelectFilter_Rating/>
+                <div className="section">
+                    <h4 className="section-heading">Filter</h4>
+                    <Select
+                        closeOnSelect={!stayOpen}
+                        disabled={disabled}
+                        multi
+                        onChange={this.handleSelectChange}
+                        options={CUISINE}
+                        placeholder="Cuisine"
+                        removeSelected={this.state.removeSelected}
+                        simpleValue
+                        value={value}
+                    />
+			    </div>
+                <div className="section">
+                    <Select
+                        closeOnSelect={!stayOpen}
+                        disabled={disabled}
+                        multi
+                        onChange={this.handleSelectChange}
+                        options={PRICING}
+                        placeholder="Price"
+                        removeSelected={this.state.removeSelected}
+                        simpleValue
+                        value={value}
+                    />
+                </div>
+                <div className="section">
+                    <Select
+                        closeOnSelect={!stayOpen}
+                        disabled={disabled}
+                        multi
+                        onChange={this.handleSelectChange}
+                        options={RATING}
+                        placeholder="Rating"
+                        removeSelected={this.state.removeSelected}
+                        simpleValue
+                        value={value}
+                    />
+                    <button onClick={this.handleApply}>Apply</button>
+                </div>
                     {elements}
                 </div>
               </div>
