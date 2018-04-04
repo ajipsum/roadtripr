@@ -45,12 +45,12 @@ export default class Restaurants extends React.Component {
     renderRestaurant(restaurant){
         var num = Math.round(restaurant.rating);
         var stars = "\u2605".repeat(num);
-        
+
         const element = (
         <div className="col-lg-4 col-md-6 portfolio-item filter-app wow">
         <div className="portfolio-wrap">
           <figure>
-            <a href={"restaurants/" + restaurant.name}><img src={restaurant.image} className="img-fluid" alt /></a>
+            <a href={"/restaurants/" + restaurant.name}><img src={restaurant.image} className="img-fluid" alt /></a>
             {/* <a href={restaurant.image} data-lightbox="portfolio" data-title="restaurant" className="link-preview" title="Preview"><i className="ion ion-eye" /></a>
             <a href={"restaurants/" + restaurant.name} className="link-details" title="More Details"><i className="ion ion-android-open" /></a> */}
           </figure>
@@ -92,7 +92,7 @@ export default class Restaurants extends React.Component {
               </div>
             </section>
             <div style={{display: 'flex', justifyContent: 'center'}}>
-                <Pagination 
+                <Pagination
                 totalItemsCount={this.state.totRestaurants}
                 activePage={this.state.activePage}
                 itemsCountPerPage={15}
