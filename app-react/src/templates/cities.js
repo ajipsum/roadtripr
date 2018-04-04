@@ -9,7 +9,11 @@ import Pagination from "react-js-pagination";
 import createClass from 'create-react-class';
 import PropTypes from 'prop-types';
 import Select from 'react-select';
+import Slider from 'rc-slider';
 
+/*
+Multiselect code taken from https://github.com/JedWatson/react-select
+*/
 const STATES = [
     {label: 'AL', value: 'Alabama'},
     {label: 'AK', value:'Alaska'},
@@ -63,7 +67,7 @@ const STATES = [
     {label: 'WY', value:'Wyoming'}
 ]
 
-var MultiSelectFilter = createClass({
+var MultiSelectFilter_State = createClass({
     displayName: 'Filter',
     propTypes:{
         label: PropTypes.string,
@@ -80,49 +84,109 @@ var MultiSelectFilter = createClass({
 		console.log('You\'ve selected:', value);
 		this.setState({ value });
 	},
-	toggleCheckbox (e) {
-		this.setState({
-			[e.target.name]: e.target.checked,
-		});
-	},
     render () {
         const {disabled, stayOpen, value } = this.state;
         const options = STATES;
 		return (
 			<div className="section">
-				<h3 className="section-heading">Filter</h3>
+				<h4 className="section-heading">Filter</h4>
 				<Select
 					closeOnSelect={!stayOpen}
 					disabled={disabled}
 					multi
 					onChange={this.handleSelectChange}
 					options={options}
-					placeholder="Select your favourite(s)"
+					placeholder="State"
           removeSelected={this.state.removeSelected}
-					rtl={this.state.rtl}
 					simpleValue
 					value={value}
 				/>
-
-				<div className="checkbox-list">
-					<label className="checkbox">
-						<input type="checkbox" className="checkbox-control" name="removeSelected" checked={this.state.removeSelected} onChange={this.toggleCheckbox} />
-						<span className="checkbox-label">Remove selected options</span>
-					</label>
-					<label className="checkbox">
-						<input type="checkbox" className="checkbox-control" name="disabled" checked={this.state.disabled} onChange={this.toggleCheckbox} />
-						<span className="checkbox-label">Disable the control</span>
-					</label>
-					<label className="checkbox">
-						<input type="checkbox" className="checkbox-control" name="stayOpen" checked={stayOpen} onChange={this.toggleCheckbox}/>
-						<span className="checkbox-label">Stay open when an Option is selected</span>
-					</label>
-				</div>
 			</div>
 		);
 	}
 });
+/*
+var MultiSelectFilter_Population = createClass({
+    displayName: 'Filter',
+    propTypes:{
+        label: PropTypes.string,
+    },
+    getInitialState () {
+        return {
+			value: {
+                min: 0,
+                max: 100000000
+            }
+        };
+    },
+    handleMaxChange (value) {
+		console.log('You\'ve selected:', value);
+		this.setState({ value });
+	},
+    render () {
+		return (
+        <div className="section">
+			<form className="form">
+                <InputRange
+                    draggableTrack
+                    maxValue={20}
+                    minValue={0}
+                    onChange={value => this.setState({ value: value })}
+                    onChangeComplete={value => console.log(value)}
+                    value={this.state.value}
+                />
+            </form>
+        </div>
+		);
+	}
+});
+*/
 
+const Range = Slider.Range;
+function log(value) {
+    console.log(value); //eslint-disable-line
+  }
+
+  class CustomizedRange extends React.Component {
+    constructor(props) {
+      super(props);
+      this.state = {
+        lowerBound: 0,
+        upperBound: 1000000000,
+        value: [0, 1000000000],
+      };
+    }
+    onLowerBoundChange = (e) => {
+      this.setState({ lowerBound: +e.target.value });
+    }
+    onUpperBoundChange = (e) => {
+      this.setState({ upperBound: +e.target.value });
+    }
+    onSliderChange = (value) => {
+      log(value);
+      this.setState({
+        value,
+      });
+    }
+    handleApply = () => {
+      const { lowerBound, upperBound } = this.state;
+      this.setState({ value: [lowerBound, upperBound] });
+    }
+    render() {
+      return (
+        <div>
+          <h4 className="section-heading">Population</h4>  
+          <label>Min: </label>
+          <input type="number" value={this.state.lowerBound} onChange={this.onLowerBoundChange} />
+          <label>Max: </label>
+          <input type="number" value={this.state.upperBound} onChange={this.onUpperBoundChange} />
+          <button onClick={this.handleApply}>Apply</button>
+          <br /><br />
+          <Range allowCross={false} value={this.state.value} onChange={this.onSliderChange} />
+        </div>
+      );
+    }
+  }
 
 var config = {
     headers: {'Access-Control-Allow-Origin': '*'}
@@ -140,7 +204,7 @@ export default class Cities extends React.Component {
           }
           this.handlePageChange = this.handlePageChange.bind(this)
 
-       this.MultiSelectFilter = new MultiSelectFilter().render();
+       this.MultiSelectFilter_State = new MultiSelectFilter_State().render();
     }
     getCities(page) {
         axios.get('http://test.roadtripr.fun/city?page=' + page + '&results_per_page=15')
@@ -208,9 +272,10 @@ export default class Cities extends React.Component {
                   <h3 className="section-title">Cities</h3>
                 </header>
                 <div className="row portfolio-container">
+                    <MultiSelectFilter_State/>
+                    <CustomizedRange/>
                     {elements}
                 </div>
-                {MultiSelectFilter}
               </div>
             </section>
             <div style={{display: 'flex', justifyContent: 'center'}}>

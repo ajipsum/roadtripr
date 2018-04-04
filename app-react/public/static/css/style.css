@@ -1802,10 +1802,6 @@ body.mobile-nav-active #mobile-nav-toggle {
   margin-left:10px;
   padding:0
 }
-.Select--multi.Select--rtl .Select-input{
-  margin-left:0;
-  margin-right:10px
-}
 .Select--multi.has-value .Select-input{
   margin-left:5px
 }
@@ -1931,4 +1927,13 @@ body.mobile-nav-active #mobile-nav-toggle {
 }
 .virtual-scroll{
   z-index:1
+}
+.form {
+  margin: 0 auto;
+  padding: 100px 30px 0;
+}
+@media (min-width: 800px) {
+  .form {
+    max-width: 60%;
+  }
 }
