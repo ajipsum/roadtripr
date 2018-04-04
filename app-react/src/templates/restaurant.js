@@ -21,13 +21,13 @@ export default class Restaurant extends React.Component {
         .then(res => {
             this.setState({restaurant: res.data.objects[0]})
             console.log(this.state.restaurant)
-            axios.get('http://api.roadtripr.fun/park/?latitude=' + this.state.restaurant.latitude + '&longitude=' + this.state.restaurant.longitude + '&length=4')
+            axios.get('http://api.roadtripr.fun/park/nearby?latitude=' + this.state.restaurant.latitude + '&longitude=' + this.state.restaurant.longitude + '&length=4')
                 .then(parkData => {
                 this.setState({parks: parkData.data.data})
                 //console.log(data.data)
             });
             console.log(this.state.restaurants)
-                axios.get('http://api.roadtripr.fun/city/?latitude=' + this.state.restaurant.latitude + '&longitude=' + this.state.restaurant.longitude + '&length=4')
+                axios.get('http://api.roadtripr.fun/city/nearby?latitude=' + this.state.restaurant.latitude + '&longitude=' + this.state.restaurant.longitude + '&length=4')
                     .then(cityData => {
                         //console.log(data2.data)
                         this.setState({cities: cityData.data.data})
