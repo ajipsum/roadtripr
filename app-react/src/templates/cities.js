@@ -67,6 +67,84 @@ const STATES = [
     {label: 'WI', value:'Wisconsin'},
     {label: 'WY', value:'Wyoming'}
 ]
+/*
+var MultiSelectFilter_State = createClass({
+    displayName: 'Filter',
+    propTypes:{
+        label: PropTypes.string,
+    },
+    getInitialState () {
+        return {
+            removeSelected: true,
+			disabled: false,
+			stayOpen: false,
+			value: [],
+        };
+    },
+    handleSelectChange (value) {
+		console.log('You\'ve selected:', value);
+		this.setState({ value });
+	},
+    render () {
+        const {disabled, stayOpen, value } = this.state;
+        const options = STATES;
+		return (
+			<div className="section">
+				<h4 className="section-heading">Filter</h4>
+				<Select
+					closeOnSelect={!stayOpen}
+					disabled={disabled}
+					multi
+					onChange={this.handleSelectChange}
+					options={options}
+					placeholder="State"
+          removeSelected={this.state.removeSelected}
+					simpleValue
+					value={value}
+				/>
+			</div>
+		);
+	}
+});*/
+/*
+const Range = Slider.Range;
+function log(value) {
+    console.log(value); //eslint-disable-line
+  }
+
+  class PopulationRange extends React.Component {
+    constructor(props) {
+      super(props);
+      this.state = {
+        lowerBound: 0,
+        upperBound: 1000000000,
+        value: [0, 1000000000],
+      };
+    }
+    onLowerBoundChange = (e) => {
+      this.setState({ lowerBound: +e.target.value });
+    }
+    onUpperBoundChange = (e) => {
+      this.setState({ upperBound: +e.target.value });
+    }
+    handleApply = () => {
+      const { lowerBound, upperBound } = this.state;
+      this.setState({ value: [lowerBound, upperBound] });
+    }
+    render() {
+      return (
+        <div>
+          <h4 className="section-heading">Population</h4>  
+          <label>Min: </label>
+          <input type="number" value={this.state.lowerBound} onChange={this.onLowerBoundChange} />
+          <label>Max: </label>
+          <input type="number" value={this.state.upperBound} onChange={this.onUpperBoundChange} />
+          <button onClick={this.handleApply}>Apply</button>
+        </div>
+      );
+    }
+  }
+*/
 const Range = Slider.Range;
 function log(value) {
     console.log(value); //eslint-disable-line
@@ -84,10 +162,12 @@ export default class Cities extends React.Component {
         this.state = {
             totCities: 0,
             activePage: 1,
-            cities: []
+            cities: [],
+            value:[],
           }
           this.handlePageChange = this.handlePageChange.bind(this)
-
+          this.handleSelectChange = this.handleSelectChange.bind(this)
+          this.handleApply = this.handleApply.bind(this)
     }
     getCities(page) {
         axios.get('http://test.roadtripr.fun/city?page=' + page + '&results_per_page=15')
@@ -126,7 +206,6 @@ export default class Cities extends React.Component {
       console.log(element)
       return element;
 
-
     }
     componentDidMount(){
         console.log("component");
@@ -159,6 +238,7 @@ export default class Cities extends React.Component {
             elements.push(this.renderCity(city));
 
         }
+        const {disabled, stayOpen, value } = this.state;        
         //console.log("cities + ")
         //console.log(cities)
         return (
@@ -172,13 +252,15 @@ export default class Cities extends React.Component {
                     <div className="section">
                         <h4 className="section-heading">Filter</h4>
                         <Select
+                        closeOnSelect={!stayOpen}
+                        disabled={disabled}
                         multi
                         onChange={this.handleSelectChange}
                         options={STATES}
                         placeholder="State"
                         removeSelected={this.state.removeSelected}
                         simpleValue
-                    // value={value}
+                        value={value}
                         />
                     </div>
                     <div>

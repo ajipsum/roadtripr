@@ -210,10 +210,12 @@ export default class Parks extends React.Component {
         this.state = {
             totParks: 0,
             activePage: 1,
-            parks: []
+            parks: [],
+            value: []
           }
           this.handlePageChange = this.handlePageChange.bind(this)
-
+          this.handleSelectChange = this.handleSelectChange.bind(this)
+          this.handleApply = this.handleApply.bind(this)
     }
     getParks(page) {
         axios.get('http://test.roadtripr.fun/park?page=' + page + '&results_per_page=15')
@@ -259,13 +261,19 @@ export default class Parks extends React.Component {
     handleSelectChange (value) {
 		console.log('You\'ve selected:', value);
 		this.setState({ value });
-	}
+    }
+    handleApply = () => {
+        const { lowerBound, upperBound } = this.state;
+        this.setState({ value: [lowerBound, upperBound] });
+      }
     render() {
         var elements = []
         // var i = 0
         for(var park of this.state.parks){
             elements.push(this.renderPark(park));
         }
+
+        const {disabled, stayOpen, value } = this.state; 
 
         return (
             <div>
@@ -278,25 +286,33 @@ export default class Parks extends React.Component {
                     <div className="section">
                         <h4 className="section-heading">Filter</h4>
                         <Select
+                            closeOnSelect={!stayOpen}
+                            disabled={disabled}
                             multi
                             onChange={this.handleSelectChange}
                             options={STATES}
                             placeholder="State"
                             removeSelected={this.state.removeSelected}
                             simpleValue
+                            value={value}
                         />
                     </div>
                     <div className="section">
                         <Select
+                            closeOnSelect={!stayOpen}
+                            disabled={disabled}
                             multi
                             onChange={this.handleSelectChange}
                             options={DESIGNATION}
                             placeholder="Designation"
                             removeSelected={this.state.removeSelected}
                             simpleValue
+                            value={value}
                         />
+                        <button onClick={this.handleApply}>Apply</button>
                     </div>
                         {elements}
+                        
                     </div>
                 </div>
                 </section>
