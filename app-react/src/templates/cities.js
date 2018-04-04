@@ -112,7 +112,7 @@ function log(value) {
     console.log(value); //eslint-disable-line
   }
 
-  class CustomizedRange extends React.Component {
+  class PopulationRange extends React.Component {
     constructor(props) {
       super(props);
       this.state = {
@@ -146,7 +146,6 @@ function log(value) {
           <label>Max: </label>
           <input type="number" value={this.state.upperBound} onChange={this.onUpperBoundChange} />
           <button onClick={this.handleApply}>Apply</button>
-          <br/>
         </div>
       );
     }
@@ -171,7 +170,7 @@ export default class Cities extends React.Component {
        this.MultiSelectFilter_State = new MultiSelectFilter_State();
     }
     getCities(page) {
-        axios.get('http://test.roadtripr.fun/city?page=' + page + '&results_per_page=15&q={"order_by":[{"field" : "name","direction":"asc"}]}')
+        axios.get('http://test.roadtripr.fun/city?page=' + page + '&results_per_page=15')
         .then(res => {
             console.log(res);
             this.setState({cities: res.data.objects, totCities:res.data.num_results})
@@ -237,7 +236,7 @@ export default class Cities extends React.Component {
                 </header>
                 <div className="row portfolio-container">
                     <MultiSelectFilter_State/>
-                    <CustomizedRange/>
+                    <PopulationRange/>
                     {elements}
                 </div>
               </div>
