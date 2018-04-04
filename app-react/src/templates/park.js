@@ -26,7 +26,7 @@ export default class Park extends React.Component {
                 this.setState({restaurants: restData.data.data})
                 //console.log(data.data)
                 console.log(this.state.restaurants)
-                axios.get('http://api.roadtripr.fun/citie/nearby?latitude=' + this.state.park.latitude + '&longitude=' + this.state.park.longitude + '&length=4')
+                axios.get('http://api.roadtripr.fun/city/nearby?latitude=' + this.state.park.latitude + '&longitude=' + this.state.park.longitude + '&length=4')
                     .then(cityData => {
                         //console.log(data2.data)
                         this.setState({cities: cityData.data.data})
