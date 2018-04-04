@@ -9,7 +9,7 @@ import Highlight from 'react-highlighter';
 
 export default class Search extends React.Component {
     constructor(props) {
-        
+
         super(props)
 
         this.state = {
@@ -38,23 +38,23 @@ export default class Search extends React.Component {
             .then(res => {
                 this.setState({cities: res.data.objects, results:this.state.results + res.data.num_results})
                 axios.get('http://test.roadtripr.fun/restaurant?page=' + page + '&results_per_page=5&q={"filters":[{"or": [{"name":"name","op":"like","val":' + query + '},{"name":"rating","op":"like","val":' + query + '}, {"name":"cuisine","op":"like","val":' + query + '}, {"name":"pricing","op":"like","val":' + query + '}]}]}')
-                    .then(res => { 
-                        this.setState({restaurants: res.data.objects}); 
+                    .then(res => {
+                        this.setState({restaurants: res.data.objects});
                             axios.get('http://test.roadtripr.fun/park?page=' + page + '&results_per_page=5&q={"filters":[{"or": [{"name":"name","op":"like","val":' + query + '},{"name":"designation","op":"like","val":' + query + '}, {"name":"states","op":"like","val":' + query + '}]}]}')
-                            .then(res => { 
+                            .then(res => {
                                 this.setState({parks: res.data.objects, results:this.state.results + res.data.num_results})
                             });
-                    
+
                     });
-                
+
             });}
         var cities = this.state.cities.length
         var parks = this.state.parks.length
         var restaurants = this.state.restaurants.length
         this.setState({results: cities + parks + restaurants})
-       
-        
-        
+
+
+
     }
     renderPark(park){
         const element = (
@@ -67,7 +67,8 @@ export default class Search extends React.Component {
                     </figure>
                     <div className="portfolio-info">
                         <p><Link to={'/parks/' + park.name}>{park.name}</Link></p>
-                        <a href="{park.website}" className="website">Website <i className="ion ion-android-open" /></a>
+                        {/* <a href="{park.website}" className="website">Website <i className="ion ion-android-open" /></a> */}
+                        {park.states} | {park.designation}
                     </div>
                 </div>
             </div>)
@@ -76,8 +77,8 @@ export default class Search extends React.Component {
 
     }
     renderCity(city){
-        var cityName = city.name//.split(",")[0]
-        var state = city.name//.split(",")[1]
+        var cityName = city.name.split(",")[0]
+        var state = city.name.split(",")[1]
         const element = (
             <div className="col-lg-4 col-md-6 portfolio-item filter-app wow">
             <div className="portfolio-wrap">
@@ -87,8 +88,7 @@ export default class Search extends React.Component {
             </figure>
             <div className="portfolio-info">
                 <p><Link to={'/city/' + city.name}>{cityName}</Link></p>
-                <p>{state}</p>
-                Population: {city.population}
+                {state} | Pop: {city.population}
             </div>
             </div>
         </div>)
@@ -101,7 +101,7 @@ export default class Search extends React.Component {
     renderRestaurant(restaurant){
         var num = Math.round(restaurant.rating);
         var stars = "\u2605".repeat(num);
-        
+
         const element = (
         <div className="col-lg-4 col-md-6 portfolio-item filter-app wow">
         <div className="portfolio-wrap">
@@ -129,7 +129,7 @@ export default class Search extends React.Component {
     }
     render(){
         var elements = []
-        
+
         var cityCount = 0;
         var context = document.getElementById("portfolio");
         // var instance = new Mark(context);
@@ -153,10 +153,10 @@ export default class Search extends React.Component {
             for(var park of this.state.parks){
                 elements.push(this.renderPark(park))
             }
-        }   
+        }
 
         return(
-            
+
             <section id="portfolio" className="section-bg">
             <div className="container">
                 <header className="section-header">
@@ -167,7 +167,7 @@ export default class Search extends React.Component {
                 </div>
             </div>
             <div style={{display: 'flex', justifyContent: 'center'}}>
-                <Pagination 
+                <Pagination
                 totalItemsCount={this.state.results}
                 activePage={this.state.activePage}
                 itemsCountPerPage={15}

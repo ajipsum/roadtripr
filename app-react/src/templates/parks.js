@@ -49,7 +49,8 @@ export default class Parks extends React.Component {
                     </figure>
                     <div className="portfolio-info">
                         <p><Link to={'/parks/' + park.name}>{park.name}</Link></p>
-                        <a href="{park.website}" className="website">Website <i className="ion ion-android-open" /></a>
+                        {/* <a href="{park.website}" className="website">Website <i className="ion ion-android-open" /></a> */}
+                        {park.states} | {park.designation}
                     </div>
                 </div>
             </div>)
@@ -86,7 +87,7 @@ export default class Parks extends React.Component {
                 </div>
                 </section>
             <div style={{display: 'flex', justifyContent: 'center'}}>
-                <Pagination 
+                <Pagination
                 totalItemsCount={this.state.totParks}
                 activePage={this.state.activePage}
                 itemsCountPerPage={15}
