@@ -6,50 +6,8 @@ import $ from 'jquery';
 import { Link } from 'react-router-dom';
 import Pagination from "react-js-pagination";
 
-import createClass from 'create-react-class';
-import PropTypes from 'prop-types';
-import Select from 'react-select';
-// const DATA = require(park.designation);
-/*
-var MultiSelectFilter_State = createClass({
-    displayName: 'Filter',
-    propTypes:{
-        label: PropTypes.string,
-    },
-    getInitialState () {
-        return {
-            removeSelected: true,
-			disabled: false,
-			stayOpen: false,
-			value: [],
-        };
-    },
-    handleSelectChange (value) {
-		console.log('You\'ve selected:', value);
-		this.setState({ value });
-	},
-    render () {
-        const {disabled, stayOpen, value } = this.state;
-        const options = DATA;
-		return (
-			<div className="section">
-				<h4 className="section-heading">Filter</h4>
-				<Select
-					closeOnSelect={!stayOpen}
-					disabled={disabled}
-					multi
-					onChange={this.handleSelectChange}
-					ptions={options}
-					placeholder="State"
-          removeSelected={this.state.removeSelected}
-					simpleValue
-					value={value}
-				/>
-			</div>
-		);
-	}
-});
-*/
+
+
 var config = {
     headers: {'Access-Control-Allow-Origin': '*'}
 
@@ -85,7 +43,7 @@ export default class Parks extends React.Component {
             <div className="col-lg-4 col-md-6 portfolio-item filter-app wow">
                 <div className="portfolio-wrap">
                     <figure>
-                        <a href={"/parks/" + park.name}><img src={park.image} className="img-fluid" alt /></a>
+                        <a href={"parks/" + park.name}><img src={park.image} className="img-fluid" alt /></a>
                         {/* <a href={park.image} data-lightbox="portfolio" data-title="park" className="link-preview" title="Preview"><i className="ion ion-eye" /></a>
                         <a href={"parks/" + park.name} className="link-details" title="More Details"><i className="ion ion-android-open" /></a> */}
                     </figure>
@@ -124,7 +82,6 @@ export default class Parks extends React.Component {
                     <h3 className="section-title">Parks</h3>
                     </header>
                     <div className="row portfolio-container">
-                    {/* <MultiSelectFilter_State/> */}
                         {elements}
                     </div>
                 </div>
