@@ -171,7 +171,7 @@ export default class Cities extends React.Component {
        this.MultiSelectFilter_State = new MultiSelectFilter_State();
     }
     getCities(page) {
-        axios.get('http://test.roadtripr.fun/city?page=' + page + '&results_per_page=15')
+        axios.get('http://test.roadtripr.fun/city?page=' + page + '&results_per_page=15&q={"order_by":[{"field" : "name","direction":"asc"}]}')
         .then(res => {
             console.log(res);
             this.setState({cities: res.data.objects, totCities:res.data.num_results})
