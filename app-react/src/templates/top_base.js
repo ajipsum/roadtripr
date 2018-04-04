@@ -1,6 +1,6 @@
 import React from 'react';
 import { Link, Redirect } from 'react-router-dom'
-import { Form, Button } from 'react-bootstrap'
+import { Form, Button, Glyphicon } from 'react-bootstrap'
 import axios from 'axios';
 
 
@@ -73,8 +73,8 @@ export default class TopBase extends React.Component {
                 <li><a href="/restaurants">Restaurants</a></li>
                 <li>
                   <form onSubmit={this.handleSubmit}>
-                    <input type="text" placeholder="Search" value={this.state.query} onChange={this.handleChange}/>
-                    <Button type="submit" value="Submit">Search</Button>
+                      <input class="search-input" type="search" placeholder="" value={this.state.query} onChange={this.handleChange}/>
+                      <button class="btn btn-default search-button" type="submit" value="Submit"><Glyphicon glyph="search"/></button>
                   </form>
                 </li>
               </ul>
