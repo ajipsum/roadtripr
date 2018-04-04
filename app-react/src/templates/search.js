@@ -5,6 +5,7 @@ import axios from 'axios';
 import $ from 'jquery';
 import { Link } from 'react-router-dom';
 import Pagination from "react-js-pagination";
+import Highlight from 'react-highlighter';
 
 export default class Search extends React.Component {
     constructor(props) {
@@ -14,12 +15,14 @@ export default class Search extends React.Component {
         this.state = {
             query:this.props.match.params.term,
             restaurants: [],
+            activePage: 1,
             cities: [],
-            results: [],
+            results: 0,
             parks: []
           }
+          this.handlePageChange = this.handlePageChange.bind(this)
     }
-    search(){
+    search(page){
         var query = "\"%" + this.state.query + "%\"";
         var numQuery = ""
         var nan = isNaN(this.state.query)
@@ -27,30 +30,28 @@ export default class Search extends React.Component {
             numQuery = this.state.query
             axios.get('http://test.roadtripr.fun/city?q={"filters":[{"or": [{"name":"population","op":"like","val":' + numQuery + '}]}]}')
             .then(res => {
-                this.setState({cities: res.data.objects})
-                console.log(res.data.objects)
-                console.log(this.state.cities)
+                this.setState({cities: res.data.objects, results:this.state.results + res.data.num_results})
             })
         }
         else{
-            axios.get('http://test.roadtripr.fun/city?q={"filters":[{"or": [{"name":"name","op":"like","val":' + query + '},{"name":"population","op":"like","val":' + query + '}]}]}')
+            axios.get('http://test.roadtripr.fun/city?page=' + page + '&results_per_page=5&q={"filters":[{"or": [{"name":"name","op":"like","val":' + query + '},{"name":"population","op":"like","val":' + query + '}]}]}')
             .then(res => {
-                this.setState({cities: res.data.objects})
-                console.log(res.data.objects)
-                console.log(this.state.cities)
-                axios.get('http://test.roadtripr.fun/restaurant?q={"filters":[{"or": [{"name":"name","op":"like","val":' + query + '},{"name":"rating","op":"like","val":' + query + '}, {"name":"cuisine","op":"like","val":' + query + '}, {"name":"pricing","op":"like","val":' + query + '}]}]}')
+                this.setState({cities: res.data.objects, results:this.state.results + res.data.num_results})
+                axios.get('http://test.roadtripr.fun/restaurant?page=' + page + '&results_per_page=5&q={"filters":[{"or": [{"name":"name","op":"like","val":' + query + '},{"name":"rating","op":"like","val":' + query + '}, {"name":"cuisine","op":"like","val":' + query + '}, {"name":"pricing","op":"like","val":' + query + '}]}]}')
                     .then(res => { 
                         this.setState({restaurants: res.data.objects}); 
-                        console.log(res.data.objects);
-                            axios.get('http://test.roadtripr.fun/park?q={"filters":[{"or": [{"name":"name","op":"like","val":' + query + '},{"name":"designation","op":"like","val":' + query + '}, {"name":"states","op":"like","val":' + query + '}]}]}')
+                            axios.get('http://test.roadtripr.fun/park?page=' + page + '&results_per_page=5&q={"filters":[{"or": [{"name":"name","op":"like","val":' + query + '},{"name":"designation","op":"like","val":' + query + '}, {"name":"states","op":"like","val":' + query + '}]}]}')
                             .then(res => { 
-                                this.setState({parks: res.data.objects})
-                                console.log('Park results: ' + this.state.results);
+                                this.setState({parks: res.data.objects, results:this.state.results + res.data.num_results})
                             });
                     
                     });
                 
             });}
+        var cities = this.state.cities.length
+        var parks = this.state.parks.length
+        var restaurants = this.state.restaurants.length
+        this.setState({results: cities + parks + restaurants})
        
         
         
@@ -70,14 +71,11 @@ export default class Search extends React.Component {
                     </div>
                 </div>
             </div>)
-      console.log(element);
       return element;
 
 
     }
     renderCity(city){
-        console.log("city")
-        console.log(city)
         var cityName = city.name//.split(",")[0]
         var state = city.name//.split(",")[1]
         const element = (
@@ -122,53 +120,61 @@ export default class Search extends React.Component {
 
 
     }
+    handlePageChange(data){
+        this.setState({activePage: data})
+        this.search(data)
+    }
     componentDidMount(){
-        this.search()
+        this.search(1)
     }
     render(){
         var elements = []
+        
         var cityCount = 0;
+        var context = document.getElementById("portfolio");
+        // var instance = new Mark(context);
+        // instance.mark([this.state.query], {
+        //     accuracy: "exactly",
+        //     separateWordSearch: false,
+        // });
+
+
         if(this.state.cities.length!=0){
             for(var city of this.state.cities){
-                
-                cityCount++;
-                if(cityCount>5)
-                    break;
                 elements.push(this.renderCity(city))
             }
         }
-        var restCount = 0;
         if(this.state.restaurants.length!=0){
             for(var rest of this.state.restaurants){
-                restCount++;
-                if(restCount>5)
-                    break;
                 elements.push(this.renderRestaurant(rest))
             }
         }
-        var parkCount = 0;
         if(this.state.parks.length!=0){
             for(var park of this.state.parks){
-                parkCount++;
-                if(parkCount>5)
-                    break;
                 elements.push(this.renderPark(park))
             }
         }   
 
         return(
-            <div>
-                <section id="portfolio" className="section-bg">
-                <div className="container">
-                    <header className="section-header">
-                    <h3 className="section-title">Search</h3>
-                    </header>
-                    <div className="row portfolio-container">
-                        {elements}
-                    </div>
+            
+            <section id="portfolio" className="section-bg">
+            <div className="container">
+                <header className="section-header">
+                <h3 className="section-title">Search</h3>
+                </header>
+                <div className="row portfolio-container">
+                    {elements}
                 </div>
-                </section>
             </div>
+            <div style={{display: 'flex', justifyContent: 'center'}}>
+                <Pagination 
+                totalItemsCount={this.state.results}
+                activePage={this.state.activePage}
+                itemsCountPerPage={15}
+                pageRangeDisplayed={5}
+                onChange={this.handlePageChange} />
+            </div>
+            </section>
         );
     }
 }
