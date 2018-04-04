@@ -1306,7 +1306,7 @@ small,
 }
 mark,
 .mark {
-  padding: .2em;
+  /* padding: .2em; */
   background-color: #fcf8e3;
 }
 .text-left {

@@ -5,7 +5,7 @@ import axios from 'axios';
 import $ from 'jquery';
 import { Link } from 'react-router-dom';
 import Pagination from "react-js-pagination";
-import Highlight from 'react-highlighter';
+import Mark from 'mark.js';
 
 export default class Search extends React.Component {
     constructor(props) {
@@ -132,11 +132,10 @@ export default class Search extends React.Component {
 
         var cityCount = 0;
         var context = document.getElementById("portfolio");
-        // var instance = new Mark(context);
-        // instance.mark([this.state.query], {
-        //     accuracy: "exactly",
-        //     separateWordSearch: false,
-        // });
+        var instance = new Mark(context);
+        instance.mark([this.state.query], {
+            separateWordSearch: false,
+        });
 
 
         if(this.state.cities.length!=0){
