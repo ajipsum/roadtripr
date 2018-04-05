@@ -1,5 +1,5 @@
 import React from 'react'
-import { Switch, Route } from 'react-router-dom'
+import {Switch, Route} from 'react-router-dom'
 import Home from './home'
 import CityMapper from './citymapper'
 import ParkMapper from './parkmapper';
@@ -9,12 +9,10 @@ import City from './city';
 import About from './about'
 import Search from './search'
 
-
-// The Main component renders one of the three provided
-// Routes (provided that one matches). Both the /roster
-// and /schedule routes will match any pathname that starts
-// with /roster or /schedule. The / route will only match
-// when the pathname is exactly the string "/"
+// The Main component renders one of the three provided Routes (provided that
+// one matches). Both the /roster and /schedule routes will match any pathname
+// that starts with /roster or /schedule. The / route will only match when the
+// pathname is exactly the string "/"
 const Main = () => (
   <main>
     <Switch>
@@ -24,7 +22,7 @@ const Main = () => (
       <Route path='/parks' component={ParkMapper}/>
       <Route path='/restaurants' component={RestaurantMapper}/>
       <Route path='/about' component={About}/>
-      <Route path='/search/:term' component={Search} />
+      <Route path='/search/:term' component={Search}/>
     </Switch>
   </main>
 )

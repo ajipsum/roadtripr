@@ -4,8 +4,8 @@ import Main from './main'
 
 const App = () => (
   <div>
-    <TopBase />
-    <Main />
+    <TopBase/>
+    <Main/>
   </div>
 )
 
