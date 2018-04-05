@@ -256,7 +256,7 @@ export default class Cities extends React.Component {
     }
     componentDidMount() {
         console.log("component");
-        this.getCities(1, "population", "desc");
+        this.getCities(1, "population", "desc", this.state.filters);
 
     }
     handlePageChange(data) {
@@ -265,7 +265,7 @@ export default class Cities extends React.Component {
         var dir = this.state.sort.direction
         var filter = this.state.filters
         console.log(filter)
-        this.getCities(data, field, dir) 
+        this.getCities(data, field, dir, this.state.filters) 
 
     }
     sortby(key) {
