@@ -367,57 +367,49 @@ export default class Cities extends React.Component {
             <div>
                 <section id="portfolio" className="section-bg">
                     <div className="container">
-                        <header
-                            className="section-header"
-                            style={{
-                            marginBottom: "60px"
-                        }}>
-                            <h3
-                                style={{
-                                display: "inline"
-                            }}className="section-title">Cities</h3>
-                            <div
-                                style={{
-                                float: "right",
-                                display: "inline"
-                            }}>
-                                <DropdownButton class="sort-dropdown" title="Sort">
-                                    <MenuItem eventKey="1" onSelect={this.sortby}>Name: A-Z</MenuItem>
-                                    <MenuItem eventKey="2" onSelect={this.sortby}>Name: Z-A</MenuItem>
-                                    <MenuItem eventKey="3" onSelect={this.sortby}>Population: High-Low</MenuItem>
-                                    <MenuItem eventKey="4" onSelect={this.sortby}>Population: Low-High</MenuItem>
-                                </DropdownButton>
-                            </div>
+                        <header className="section-header" style={{marginBottom: "60px"}}>
+                            <h3 className="section-title">Cities</h3>
+
                         </header>
                         <div className="row portfolio-container">
                             <div className="section">
-                                <h4 className="section-heading">Filter</h4>
-                                <Select
-                                    closeOnSelect={!stayOpen}
-                                    disabled={disabled}
-                                    multi
-                                    onChange={this.handleSelectChange}
-                                    options={STATES}
-                                    placeholder="State"
-                                    removeSelected={this.state.removeSelected}
-                                    simpleValue
-                                    value={value}/>
-                            </div>
-                            <div>
-                                <h4 className="section-heading">Population</h4>
-                                <label>Min:
-                                </label>
-                                <input
-                                    type="number"
-                                    value={this.state.lowerBound}
-                                    onChange={this.onLowerBoundChange}/>
-                                <label>Max:
-                                </label>
-                                <input
-                                    type="number"
-                                    value={this.state.upperBound}
-                                    onChange={this.onUpperBoundChange}/>
-                                <button onClick={this.buildFilters}>Apply</button>
+                                <div className="selector-small">
+                                    <Select
+                                        closeOnSelect={!stayOpen}
+                                        disabled={disabled}
+                                        multi
+                                        onChange={this.handleSelectChange}
+                                        options={STATES}
+                                        placeholder="State"
+                                        removeSelected={this.state.removeSelected}
+                                        simpleValue
+                                        value={value}/>
+                                </div>
+                                <div>
+                                    <label style={{float: "left", display: "inline"}}>Min Pop:</label>
+                                    <div className="selector-small">
+                                        <input
+                                            type="number"
+                                            value={this.state.lowerBound}
+                                            onChange={this.onLowerBoundChange}/>
+                                    </div>
+                                    <label style={{float: "left", display: "inline"}}>Max Pop:</label>
+                                    <div class="selector-small">
+                                        <input
+                                            type="number"
+                                            value={this.state.upperBound}
+                                            onChange={this.onUpperBoundChange}/>
+                                    </div>
+                                </div>
+                                <button className="btn btn-default filter-btn" onClick={this.buildFilters}>Filter</button>
+                                <div style={{float: "right", display: "inline"}}>
+                                    <DropdownButton class="sort-dropdown" title="Sort">
+                                        <MenuItem eventKey="1" onSelect={this.sortby}>Name: A-Z</MenuItem>
+                                        <MenuItem eventKey="2" onSelect={this.sortby}>Name: Z-A</MenuItem>
+                                        <MenuItem eventKey="3" onSelect={this.sortby}>Population: High-Low</MenuItem>
+                                        <MenuItem eventKey="4" onSelect={this.sortby}>Population: Low-High</MenuItem>
+                                    </DropdownButton>
+                                </div>
                             </div>
                             {elements}
                         </div>
