@@ -62,14 +62,31 @@ body {
   color:white;
 }
 
-button.dropdown-toggle.btn.btn-default {
+.btn-default {
   background: #18d26e;
   color: white;
 }
 
 .btn-default:active:hover, .btn-default.active:hover, .open > .dropdown-toggle.btn-default:hover, .btn-default:active:focus, .btn-default.active:focus, .open > .dropdown-toggle.btn-default:focus, .btn-default:active.focus, .btn-default.active.focus, .open > .dropdown-toggle.btn-default.focus {
+
   background: #12964f;
   color: white;
+}
+
+.filter-btn {
+  margin-left: 10px;
+}
+
+.selector-small {
+  width: 200px;
+  float: left;
+  margin-left: 10px;
+}
+
+.selector-medium {
+  width: 400px;
+  float: left;
+  margin-left: 10px;
 }
 
 .noresults {

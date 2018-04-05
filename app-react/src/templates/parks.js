@@ -606,51 +606,46 @@ export default class Parks extends React.Component {
                             style={{
                             marginBottom: "60px"
                         }}>
-                            <h3
-                                style={{
-                                display: "inline"
-                            }}className="section-title">Parks</h3>
-                            <div
-                                style={{
-                                float: "right",
-                                display: "inline"
-                            }}>
-                                <DropdownButton class="sort-dropdown" title="Sort">
-                                    <MenuItem eventKey="1" onSelect={this.sortby}>Name: A-Z</MenuItem>
-                                    <MenuItem eventKey="2" onSelect={this.sortby}>Name: Z-A</MenuItem>
-                                    <MenuItem eventKey="3" onSelect={this.sortby}>Designation: A-Z</MenuItem>
-                                    <MenuItem eventKey="4" onSelect={this.sortby}>Designation: Z-A</MenuItem>
-                                    <MenuItem eventKey="5" onSelect={this.sortby}>States: A-Z</MenuItem>
-                                    <MenuItem eventKey="6" onSelect={this.sortby}>States: Z-A</MenuItem>
-                                </DropdownButton>
-                            </div>
+                        <h3 className="section-title">Parks</h3>
                         </header>
                         <div className="row portfolio-container">
                             <div className="section">
-                                <h4 className="section-heading">Filter</h4>
-                                <Select
-                                    closeOnSelect={!stayOpen}
-                                    disabled={disabled}
-                                    multi
-                                    onChange={this.handleStateChange}
-                                    options={STATES}
-                                    placeholder="State"
-                                    removeSelected={this.state.removeSelected}
-                                    simpleValue
-                                    value={states}/>
-                            </div>
-                            <div className="section">
-                                <Select
-                                    closeOnSelect={!stayOpen}
-                                    disabled={disabled}
-                                    multi
-                                    onChange={this.handleDesigChange}
-                                    options={DESIGNATION}
-                                    placeholder="Designation"
-                                    removeSelected={this.state.removeSelected}
-                                    simpleValue
-                                    value={desigs}/>
-                                <button onClick={this.buildFilters}>Apply</button>
+                                <div className="selector-small">
+                                    <Select
+                                        closeOnSelect={!stayOpen}
+                                        disabled={disabled}
+                                        multi
+                                        onChange={this.handleStateChange}
+                                        options={STATES}
+                                        placeholder="State"
+                                        removeSelected={this.state.removeSelected}
+                                        simpleValue
+                                        value={states}/>
+                                </div>
+                                <div className="selector-medium">
+                                    <Select
+                                        closeOnSelect={!stayOpen}
+                                        disabled={disabled}
+                                        multi
+                                        onChange={this.handleDesigChange}
+                                        options={DESIGNATION}
+                                        placeholder="Designation"
+                                        removeSelected={this.state.removeSelected}
+                                        simpleValue
+                                        value={desigs}/>
+                                </div>
+                                <button className="btn btn-default filter-btn" onClick={this.buildFilters}>Filter</button>
+                                <div style={{float: "right", display: "inline"}}>
+                                    <DropdownButton class="sort-dropdown" title="Sort">
+                                        <MenuItem eventKey="1" onSelect={this.sortby}>Name: A-Z</MenuItem>
+                                        <MenuItem eventKey="2" onSelect={this.sortby}>Name: Z-A</MenuItem>
+                                        <MenuItem eventKey="3" onSelect={this.sortby}>Designation: A-Z</MenuItem>
+                                        <MenuItem eventKey="4" onSelect={this.sortby}>Designation: Z-A</MenuItem>
+                                        <MenuItem eventKey="5" onSelect={this.sortby}>States: A-Z</MenuItem>
+                                        <MenuItem eventKey="6" onSelect={this.sortby}>States: Z-A</MenuItem>
+                                    </DropdownButton>
+                                </div>
+
                             </div>
                             {elements}
 
