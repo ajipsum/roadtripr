@@ -240,14 +240,12 @@ export default class Cities extends React.Component {
                 <div className="portfolio-wrap">
                     <figure>
                         <a href={"/city/" + city.name}><img src={city.image} className="img-fluid" alt/></a>
-                        {/* <a href={city.image} data-lightbox="portfolio" data-title="city" className="link-preview" title="Preview"><i className="ion ion-eye" /></a> */}
                     </figure>
                     <div className="portfolio-info">
                         <p>
                             <Link to={'/city/' + city.name}>{cityName}</Link>
                         </p>
-                        {state}
-                        | Pop: {city.population}
+                        {state} | Pop: {city.population}
                     </div>
                 </div>
             </div>

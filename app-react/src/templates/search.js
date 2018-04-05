@@ -137,8 +137,7 @@ export default class Search extends React.Component {
                         <p>
                             <Link to={'/parks/' + park.name}>{park.name}</Link>
                         </p>
-                        {park.states}
-                        | {park.designation}
+                        {park.states} | {park.designation}
                     </div>
                 </div>
             </div>
@@ -163,8 +162,7 @@ export default class Search extends React.Component {
                         <p>
                             <Link to={'/city/' + city.name}>{cityName}</Link>
                         </p>
-                        {state}
-                        | Pop: {city.population}
+                        {state} | Pop: {city.population}
                     </div>
                 </div>
             </div>
@@ -186,9 +184,7 @@ export default class Search extends React.Component {
                         <p>
                             <Link to={'/restaurants/' + restaurant.name}>{restaurant.name}</Link>
                         </p>
-                        {restaurant.pricing}
-                        | {restaurant.cuisine}
-                        | {stars}
+                        {restaurant.pricing} | {restaurant.cuisine} | {stars}
                     </div>
                 </div>
             </div>
