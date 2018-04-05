@@ -709,8 +709,8 @@ export default class Restaurants extends React.Component {
         this.handleRatingChange = this
             .handleRatingChange
             .bind(this)
-        this.handleApply = this
-            .handleApply
+        this.buildFilters = this
+            .buildFilters
             .bind(this)
 
     }
@@ -807,6 +807,7 @@ export default class Restaurants extends React.Component {
     }
     handleRatingChange(value) {
         console.log('You\'ve selected:', value);
+        var len = value.length
         this.setState({ratingVal: value});
     }
     handlePriceChange(value) {
@@ -815,16 +816,67 @@ export default class Restaurants extends React.Component {
     }
     handleCuisineChange(value) {
         console.log('You\'ve selected:', value);
-        this
-            .state
-            .cuisineVal
-            .push(value);
+        this.setState({cuisineVal: value});
     }
-    handleApply = () => {
-        const {lowerBound, upperBound} = this.state;
-        this.setState({
-            value: [lowerBound, upperBound]
+    buildFilters(){
+
+        //&q={"filters":[{"or": [{"name":"name","op":"like","val":' + query + '},{"name":"population","op":"like","val":' + query + '}]}]}
+        var filter = 'http://api.roadtripr.fun/restaurant?q={"filters":[{"and":['
+        filter= filter + '{"or":['
+        if(this.state.ratingVal.length){
+            var ratingFilters = this.state.ratingVal.split(',')
+            if(ratingFilters.length){
+                for(var i = 0; i<ratingFilters.length; i++){
+                    var filt = ratingFilters[i].length
+                    if(i!=ratingFilters.length-1){
+                        filter = filter +('{"name":"rating","op":"like","val":"' + filt + '"},');
+                    }
+                    else{
+                        filter = filter + ('{"name":"rating","op":"like","val":"' + filt + '"}');
+                    }
+                }}
+        }
+        filter=filter+"]},"
+        filter= filter + '{"or":['
+        if(this.state.priceVal.length){
+            var priceFilters = this.state.priceVal.split(',')
+            if(priceFilters.length){
+                for(var i = 0; i<priceFilters.length; i++){
+                    var filt = priceFilters[i]
+                    if(i!=priceFilters.length-1){
+                        filter = filter + ('{"name":"pricing","op":"like","val":"' + filt + '"},');
+                    }
+                    else{
+                        filter = filter +('{"name":"pricing","op":"like","val":"' + filt + '"}');
+                    }
+                }}
+        }
+        filter=filter+"]},"
+        filter= filter + '{"or":['
+        if(this.state.cuisineVal.length){
+            console.log(this.state.cuisineVal)
+            var cuisineFilter = this.state.cuisineVal.split(',')
+            if(cuisineFilter.length){
+                for(var i = 0; i<cuisineFilter.length; i++){
+                    var filt = cuisineFilter[i]
+                    if(i!=cuisineFilter.length-1){
+                        filter = filter + ('{"name":"cuisine","op":"like","val":"' + filt + '"},');
+                    }
+                    else{
+                        filter = filter +('{"name":"cuisine","op":"like","val":"' + filt + '"}');
+                    }
+                }}
+        }
+       
+        
+       
+       
+        filter=filter+"]}]}]}"
+        axios.get(filter)
+        .then(res => {
+          this.setState({restaurants: res.data.objects, totRestaurants:res.data.num_results})
         });
+        
     }
     render() {
         var elements = []
@@ -907,9 +959,11 @@ export default class Restaurants extends React.Component {
                                     removeSelected={this.state.removeSelected}
                                     simpleValue
                                     value={ratingV}/>
-                                <button onClick={this.handleApply}>Apply</button>
+                                <button onClick={this.buildFilters}>Apply</button>
                             </div>
-                            {elements}
+                            {elements.length
+                            ? elements
+                            : <p className="noresults">No results found.</p>}
                         </div>
                     </div>
                 </section>

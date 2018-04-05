@@ -193,7 +193,9 @@ export default class Cities extends React.Component {
                 "direction": "desc"
             },
             cities: [],
-            value: []
+            value: [],
+            lowerBound: 0,
+            upperBound: 0
         }
         this.handlePageChange = this
             .handlePageChange
@@ -201,8 +203,11 @@ export default class Cities extends React.Component {
         this.sortby = this
             .sortby
             .bind(this)
-        this.handleApply = this
-            .handleApply
+        this.buildFilters = this
+            .buildFilters
+            .bind(this)
+        this.handleSelectChange = this
+            .handleSelectChange
             .bind(this)
     }
     getCities(page, field, direction) {
@@ -298,7 +303,7 @@ export default class Cities extends React.Component {
 
     handleSelectChange(value) {
         console.log('You\'ve selected:', value);
-        this.setState({value});
+        this.setState({value:value});
     }
     onLowerBoundChange = (e) => {
         this.setState({
@@ -310,11 +315,40 @@ export default class Cities extends React.Component {
             upperBound: + e.target.value
         });
     }
-    handleApply = () => {
-        const {lowerBound, upperBound} = this.state;
-        this.setState({
-            value: [lowerBound, upperBound]
-        });
+    buildFilters(){
+        var filter = 'http://api.roadtripr.fun/city?q={"filters":[{"and":['
+        filter = filter + '{"or":['
+        if (this.state.value.length) {
+            var states = this
+                .state
+                .value
+                .split(',')
+            if (states.length) {
+                for (var i = 0; i < states.length; i++) {
+                    var filt = states[i]
+                    if (i != states.length - 1) {
+                        filter = filter + ('{"name":"name","op":"like","val":"' + filt + '"},');
+                    } else {
+                        filter = filter + ('{"name":"name","op":"like","val":"' + filt + '"}');
+                    }
+                }
+            }
+        }
+        console.log(this.state.lowerBound)
+        console.log(this.state.upperBound)
+        filter = filter + "]},"
+        filter = filter + '{"and":['
+        filter = filter + '{"name":"population","op":"gt","val":"' + this.state.lowerBound + '"},'
+        filter = filter + '{"name":"population","op":"lt","val":' + this.state.upperBound + '}'
+        filter = filter + "]}]}]}"
+        console.log(filter)
+        axios
+            .get(filter)
+            .then(res => {
+                this.setState({cities: res.data.objects, totCities: res.data.num_results})
+            });
+
+
     }
     render() {
         var elements = []
@@ -377,7 +411,7 @@ export default class Cities extends React.Component {
                                     type="number"
                                     value={this.state.upperBound}
                                     onChange={this.onUpperBoundChange}/>
-                                <button onClick={this.handleApply}>Apply</button>
+                                <button onClick={this.buildFilters}>Apply</button>
                             </div>
                             {elements}
                         </div>
