@@ -72,6 +72,12 @@ button.dropdown-toggle.btn.btn-default {
   color: white;
 }
 
+.noresults {
+  text-align: center;
+  margin-top: 30px;
+  color: red;
+}
+
 a {
   color: #18d26e;
   transition: 0.5s;
