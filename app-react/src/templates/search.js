@@ -8,6 +8,7 @@ import Pagination from "react-js-pagination";
 import _ from 'lodash'
 import Mark from 'mark.js';
 
+
 export default class Search extends React.Component {
     constructor(props) {
 
@@ -235,14 +236,15 @@ export default class Search extends React.Component {
             } else {
                 elements.push(this.renderPark(element))
             }
-
         }
-        // var context = document.getElementById("portfolio"); var instance = new
-        // Mark(context); instance.mark([this.state.query], {separateWordSearch:
-        // false});
+
+        //This code for some reason adds data and we do not know why
+        var context = document.getElementById("portfolio"); var instance = new
+         Mark(context); instance.mark([this.state.query], {separateWordSearch:
+        false});
 
         return (
-
+            
             <section id="portfolio" className="section-bg">
                 <div className="container">
                     <header className="section-header">
