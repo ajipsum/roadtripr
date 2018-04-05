@@ -194,8 +194,9 @@ export default class Cities extends React.Component {
             },
             cities: [],
             value: [],
+            filters: '',
             lowerBound: 0,
-            upperBound: 0
+            upperBound: 10000000
         }
         this.handlePageChange = this
             .handlePageChange
@@ -210,14 +211,12 @@ export default class Cities extends React.Component {
             .handleSelectChange
             .bind(this)
     }
-    getCities(page, field, direction) {
+    getCities(page, field, direction, filters) {
         axios
-            .get('http://api.roadtripr.fun/city?page=' + page + '&results_per_page=15&q={"order_by":[{"field":"' + field + '","direction":"' + direction + '"}]}')
+            .get('http://api.roadtripr.fun/city?page=' + page + '&results_per_page=15&q={' + filters + '"order_by":[{"field":"' + field + '","direction":"' + direction + '"}]}')
             .then(res => {
-                console.log(res);
                 this.setState({cities: res.data.objects, totCities: res.data.num_results})
-                console.log(this.state.cities)
-                console.log(this.state.totCities)
+
 
             });
     }
@@ -251,7 +250,7 @@ export default class Cities extends React.Component {
             </div>
         )
 
-        console.log(element)
+        
         return element;
 
     }
@@ -264,7 +263,9 @@ export default class Cities extends React.Component {
         this.setState({activePage: data})
         var field = this.state.sort.field
         var dir = this.state.sort.direction
-        this.getCities(data, field, dir)
+        var filter = this.state.filters
+        console.log(filter)
+        this.getCities(data, field, dir) 
 
     }
     sortby(key) {
@@ -296,11 +297,10 @@ export default class Cities extends React.Component {
         };
         var values = translation[key];
         this.setState({sort: values});
-        this.getCities(1, values.field, values.direction)
+        this.getCities(1, values.field, values.direction, this.state.filters)
     }
 
     handleSelectChange(value) {
-        console.log('You\'ve selected:', value);
         this.setState({value:value});
     }
     onLowerBoundChange = (e) => {
@@ -314,7 +314,7 @@ export default class Cities extends React.Component {
         });
     }
     buildFilters(){
-        var filter = 'http://api.roadtripr.fun/city?q={"filters":[{"and":['
+        var filter = '"filters":[{"and":['
         filter = filter + '{"or":['
         if (this.state.value.length) {
             var states = this
@@ -332,8 +332,6 @@ export default class Cities extends React.Component {
                 }
             }
         }
-        console.log(this.state.lowerBound)
-        console.log(this.state.upperBound)
         filter = filter + "]}"
         if(this.state.upperBound===0){
             filter = filter + ',{"and":['
@@ -344,15 +342,13 @@ export default class Cities extends React.Component {
             filter = filter + ',{"and":['
             filter = filter + '{"name":"population","op":"gt","val":"' + this.state.lowerBound + '"},'
             filter = filter + '{"name":"population","op":"lt","val":' + this.state.upperBound + '}'
-            filter = filter + "]}]}]}"
+            filter = filter + "]}]}],"
         }
 
         console.log(filter)
-        axios
-            .get(filter)
-            .then(res => {
-                this.setState({cities: res.data.objects, totCities: res.data.num_results})
-            });
+        this.setState({filters: filter})
+        
+        this.getCities(1, this.state.sort.field, this.state.sort.direction, filter)
 
 
     }
