@@ -747,9 +747,7 @@ export default class Restaurants extends React.Component {
                         <p>
                             <Link to={'/restaurants/' + restaurant.name}>{restaurant.name}</Link>
                         </p>
-                        {restaurant.pricing}
-                        | {restaurant.cuisine}
-                        | {stars}
+                        {restaurant.pricing} | {restaurant.cuisine} | {stars}
                     </div>
                 </div>
             </div>

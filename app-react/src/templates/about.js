@@ -85,13 +85,8 @@ export default class About extends React.Component {
                     Jonathan Brewer</h2>
                   <p>Jon is a computer science student at UT.</p>
                   <p>Major responsibilities: Full Stack</p>
-                  <p>Commits:
-                    <span data-toggle="counter-up">{this.state.commits['jonbrew']}</span>
-                  </p>
-                  <p>Issues:
-                    <span data-toggle="counter-up">{this.state.issues['jonbrew']}
-                    </span>
-                  </p>
+                  <p>Commits: <span data-toggle="counter-up">{this.state.commits['jonbrew']}</span></p>
+                  <p>Issues: <span data-toggle="counter-up">{this.state.issues['jonbrew']}</span></p>
                   <p>Unit tests: 0</p>
                 </div>
               </div>
@@ -110,13 +105,8 @@ export default class About extends React.Component {
                     Matthew Savignano</h2>
                   <p>Matt is a computer science student at UT.</p>
                   <p>Major responsibilities: Full Stack</p>
-                  <p>Commits:
-                    <span data-toggle="counter-up">{this.state.commits['savi975']}</span>
-                  </p>
-                  <p>Issues:
-                    <span data-toggle="counter-up">{this.state.issues['savi975']}
-                    </span>
-                  </p>
+                  <p>Commits: <span data-toggle="counter-up">{this.state.commits['savi975']}</span></p>
+                  <p>Issues: <span data-toggle="counter-up">{this.state.issues['savi975']}</span></p>
                   <p>Unit tests: 0</p>
                 </div>
               </div>
@@ -135,13 +125,8 @@ export default class About extends React.Component {
                     Jose Magana</h2>
                   <p>Jose is a computer science student at UT.</p>
                   <p>Major responsibilities: Full Stack</p>
-                  <p>Commits:
-                    <span data-toggle="counter-up">{this.state.commits['Magana']}</span>
-                  </p>
-                  <p>Issues:
-                    <span data-toggle="counter-up">{this.state.issues['Magana']}
-                    </span>
-                  </p>
+                  <p>Commits: <span data-toggle="counter-up">{this.state.commits['Magana']}</span></p>
+                  <p>Issues: <span data-toggle="counter-up">{this.state.issues['Magana']}</span></p>
                   <p>Unit tests: 0</p>
                 </div>
               </div>
@@ -160,13 +145,8 @@ export default class About extends React.Component {
                     Yvonne Huang</h2>
                   <p>Yvonne is a computer science student at UT.</p>
                   <p>Major responsibilities: Full Stack</p>
-                  <p>Commits:
-                    <span data-toggle="counter-up">{this.state.commits['huangyvonnee']}</span>
-                  </p>
-                  <p>Issues:
-                    <span data-toggle="counter-up">{this.state.issues['huangyvonnee']}
-                    </span>
-                  </p>
+                  <p>Commits: <span data-toggle="counter-up">{this.state.commits['huangyvonnee']}</span></p>
+                  <p>Issues: <span data-toggle="counter-up">{this.state.issues['huangyvonnee']}</span></p>
                   <p>Unit tests: 0</p>
                 </div>
               </div>

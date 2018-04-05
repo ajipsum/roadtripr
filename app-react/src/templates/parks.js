@@ -476,8 +476,7 @@ export default class Parks extends React.Component {
                         <p>
                             <Link to={'/parks/' + park.name}>{park.name}</Link>
                         </p>
-                        {park.states}
-                        | {park.designation}
+                        {park.states} | {park.designation}
                     </div>
                 </div>
             </div>
