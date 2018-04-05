@@ -250,11 +250,15 @@ export default class Restaurants extends React.Component {
             activePage: 1,
             sort: {"field": "rating", "direction": "desc"},
             restaurants: [],
-            value: []
+            cuisineVal: [],
+            priceVal: [],
+            ratingVal: []
           }
           this.handlePageChange = this.handlePageChange.bind(this)
           this.sortby = this.sortby.bind(this)
-          this.handleSelectChange = this.handleSelectChange.bind(this)
+          this.handleCuisineChange = this.handleCuisineChange.bind(this)
+          this.handlePriceChange = this.handlePriceChange.bind(this)
+          this.handleRatingChange = this.handleRatingChange.bind(this)
           this.handleApply = this.handleApply.bind(this)
 
     }
@@ -319,9 +323,17 @@ export default class Restaurants extends React.Component {
         this.setState({sort: values});
         this.getRestaurants(1, values.field, values.direction)
     }
-    handleSelectChange (value) {
+    handleRatingChange (value) {
 		console.log('You\'ve selected:', value);
-		this.setState({ value });
+		this.setState({ ratingVal:value });
+    }
+    handlePriceChange (value) {
+		console.log('You\'ve selected:', value);
+		this.setState({ priceVal:value });
+    }
+    handleCuisineChange (value) {
+		console.log('You\'ve selected:', value);
+		this.state.cuisineVal.push(value);
     }
     handleApply = () => {
         const { lowerBound, upperBound } = this.state;
@@ -336,6 +348,9 @@ export default class Restaurants extends React.Component {
         }
 
         const {disabled, stayOpen, value } = this.state;
+        const cuisineV = this.state.cuisineVal
+        const priceV = this.state.priceVal
+        const ratingV = this.state.ratingVal
 
         return (
             <div>
@@ -364,12 +379,12 @@ export default class Restaurants extends React.Component {
                         closeOnSelect={!stayOpen}
                         disabled={disabled}
                         multi
-                        onChange={this.handleSelectChange}
+                        onChange={this.handleCuisineChange}
                         options={CUISINE}
                         placeholder="Cuisine"
                         removeSelected={this.state.removeSelected}
                         simpleValue
-                        value={value}
+                        value={cuisineV}
                     />
 			    </div>
                 <div className="section">
@@ -377,12 +392,12 @@ export default class Restaurants extends React.Component {
                         closeOnSelect={!stayOpen}
                         disabled={disabled}
                         multi
-                        onChange={this.handleSelectChange}
+                        onChange={this.handlePriceChange}
                         options={PRICING}
                         placeholder="Price"
                         removeSelected={this.state.removeSelected}
                         simpleValue
-                        value={value}
+                        value={priceV}
                     />
                 </div>
                 <div className="section">
@@ -390,12 +405,12 @@ export default class Restaurants extends React.Component {
                         closeOnSelect={!stayOpen}
                         disabled={disabled}
                         multi
-                        onChange={this.handleSelectChange}
+                        onChange={this.handleRatingChange}
                         options={RATING}
                         placeholder="Rating"
                         removeSelected={this.state.removeSelected}
                         simpleValue
-                        value={value}
+                        value={ratingV}
                     />
                     <button onClick={this.handleApply}>Apply</button>
                 </div>
