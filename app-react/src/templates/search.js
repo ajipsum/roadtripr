@@ -22,14 +22,15 @@ export default class Search extends React.Component {
             tot: []
           }
           this.handlePageChange = this.handlePageChange.bind(this)
+          this.startSearch = this.startSearch.bind(this)
 
     }
-    search(){
-        var query = "\"%25" + this.state.query + "%25\"";
+    search(word){
+        var query = "\"%25" + word + "%25\"";
         var numQuery = ""
-        var moneyQuery = "\"" + this.state.query + "\""
-        if(this.state.query.charAt(0)==="$"){
-            console.log(this.state.query.charAt(0))
+        var moneyQuery = "\"" + word + "\""
+        if(word.charAt(0)==="$"){
+            console.log(word.charAt(0))
             axios.get('http://api.roadtripr.fun/restaurant?page=1&&results_per_page=1000&q={"filters":[{"or": [{"name":"pricing","op":"eq","val":' + moneyQuery + '}]}]}')
             .then(res => {
                 console.log(res)
@@ -46,8 +47,8 @@ export default class Search extends React.Component {
                 this.setState({active: temp})}
             )
         }
-        else if(!isNaN(this.state.query)){
-            numQuery = this.state.query
+        else if(!isNaN(word)){
+            numQuery = word
             axios.get('http://api.roadtripr.fun/city?page=1&&results_per_page=100&q={"filters":[{"or": [{"name":"population","op":"like","val":' + numQuery + '}]}]}')
             .then(res => {
                 for (var obj of res.data.objects){
@@ -157,15 +158,21 @@ export default class Search extends React.Component {
         }
         this.setState({active:temp})
     }
-    componentDidMount(){
-        this.search()
+    startSearch(){
+        var q = this.state.query
+        if(q.indexOf(" ")>=0){
+            var words = q.split(" ")
+            for(var word of words){
+                this.search(word);
+            }
+        }
+        else{
+            this.search(this.state.query);
+        }
     }
-    highlight(){
-        var context = document.getElementById("portfolio");
-        var instance = new Mark(context);
-        instance.mark([this.state.query], {
-            separateWordSearch: false,
-        });}
+    componentDidMount(){
+        this.startSearch()
+    }   
     render(){
         var elements = []
         var cityCount = 0;
@@ -182,7 +189,11 @@ export default class Search extends React.Component {
                 elements.push(this.renderPark(element))
 
          }
-         this.highlight()
+        var context = document.getElementById("portfolio");
+        var instance = new Mark(context);
+        instance.mark([this.state.query], {
+            separateWordSearch: false,
+        });
 
         // if(this.state.cities.length!=0){
         //     for(var city of this.state.cities){
