@@ -325,20 +325,28 @@ export default class Cities extends React.Component {
                 for (var i = 0; i < states.length; i++) {
                     var filt = states[i]
                     if (i != states.length - 1) {
-                        filter = filter + ('{"name":"name","op":"like","val":"' + filt + '"},');
+                        filter = filter + ('{"name":"name","op":"like","val":"%25' + filt + '"},');
                     } else {
-                        filter = filter + ('{"name":"name","op":"like","val":"' + filt + '"}');
+                        filter = filter + ('{"name":"name","op":"like","val":"%25' + filt + '"}');
                     }
                 }
             }
         }
         console.log(this.state.lowerBound)
         console.log(this.state.upperBound)
-        filter = filter + "]},"
-        filter = filter + '{"and":['
-        filter = filter + '{"name":"population","op":"gt","val":"' + this.state.lowerBound + '"},'
-        filter = filter + '{"name":"population","op":"lt","val":' + this.state.upperBound + '}'
-        filter = filter + "]}]}]}"
+        filter = filter + "]}"
+        if(this.state.upperBound===0){
+            filter = filter + ',{"and":['
+            filter = filter + '{"name":"population","op":"gt","val":"' + this.state.lowerBound + '"},'
+            filter = filter + '{"name":"population","op":"lt","val":' + 10000000 + '}'
+            filter = filter + "]}]}]}"
+        } else{
+            filter = filter + ',{"and":['
+            filter = filter + '{"name":"population","op":"gt","val":"' + this.state.lowerBound + '"},'
+            filter = filter + '{"name":"population","op":"lt","val":' + this.state.upperBound + '}'
+            filter = filter + "]}]}]}"
+        }
+        
         console.log(filter)
         axios
             .get(filter)
