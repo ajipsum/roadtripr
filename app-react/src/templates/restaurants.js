@@ -865,16 +865,16 @@ export default class Restaurants extends React.Component {
                     }
                 }}
         }
-       
-        
-       
-       
+
+
+
+
         filter=filter+"]}]}]}"
         axios.get(filter)
         .then(res => {
           this.setState({restaurants: res.data.objects, totRestaurants:res.data.num_results})
         });
-        
+
     }
     render() {
         var elements = []
@@ -893,71 +893,61 @@ export default class Restaurants extends React.Component {
             <div>
                 <section id="portfolio" className="section-bg">
                     <div className="container">
-                        <header
-                            className="section-header"
-                            style={{
-                            marginBottom: "60px"
-                        }}>
-                            <h3
-                                style={{
-                                display: "inline"
-                            }}className="section-title">Restaurants</h3>
-                            <div
-                                style={{
-                                float: "right",
-                                display: "inline"
-                            }}>
-                                <DropdownButton class="sort-dropdown" title="Sort">
-                                    <MenuItem eventKey="1" onSelect={this.sortby}>Name: A-Z</MenuItem>
-                                    <MenuItem eventKey="2" onSelect={this.sortby}>Name: Z-A</MenuItem>
-                                    <MenuItem eventKey="3" onSelect={this.sortby}>Cuisine: A-Z</MenuItem>
-                                    <MenuItem eventKey="4" onSelect={this.sortby}>Cuisine: Z-A</MenuItem>
-                                    <MenuItem eventKey="5" onSelect={this.sortby}>Pricing: $$$$-$</MenuItem>
-                                    <MenuItem eventKey="6" onSelect={this.sortby}>Pricing: $-$$$$</MenuItem>
-                                    <MenuItem eventKey="7" onSelect={this.sortby}>Rating: High-Low</MenuItem>
-                                    <MenuItem eventKey="8" onSelect={this.sortby}>Rating: Low-High</MenuItem>
-                                </DropdownButton>
-                            </div>
+                        <header className="section-header" style={{marginBottom: "60px"}}>
+                            <h3 className="section-title">Restaurants</h3>
                         </header>
 
                         <div className="row portfolio-container">
                             <div className="section">
-                                <h4 className="section-heading">Filter</h4>
-                                <Select
-                                    closeOnSelect={!stayOpen}
-                                    disabled={disabled}
-                                    multi
-                                    onChange={this.handleCuisineChange}
-                                    options={CUISINE}
-                                    placeholder="Cuisine"
-                                    removeSelected={this.state.removeSelected}
-                                    simpleValue
-                                    value={cuisineV}/>
-                            </div>
-                            <div className="section">
-                                <Select
-                                    closeOnSelect={!stayOpen}
-                                    disabled={disabled}
-                                    multi
-                                    onChange={this.handlePriceChange}
-                                    options={PRICING}
-                                    placeholder="Price"
-                                    removeSelected={this.state.removeSelected}
-                                    simpleValue
-                                    value={priceV}/>
-                            </div>
-                            <div className="section">
-                                <Select
-                                    closeOnSelect={!stayOpen}
-                                    disabled={disabled}
-                                    multi
-                                    onChange={this.handleRatingChange}
-                                    options={RATING}
-                                    placeholder="Rating"
-                                    removeSelected={this.state.removeSelected}
-                                    simpleValue
-                                    value={ratingV}/>
-                                <button onClick={this.buildFilters}>Apply</button>
+                                <div className="selector-medium">
+                                    <Select
+                                        closeOnSelect={!stayOpen}
+                                        disabled={disabled}
+                                        multi
+                                        onChange={this.handleCuisineChange}
+                                        options={CUISINE}
+                                        placeholder="Cuisine"
+                                        removeSelected={this.state.removeSelected}
+                                        simpleValue
+                                        value={cuisineV}/>
+                                </div>
+                                <div className="selector-small">
+                                    <Select
+                                        closeOnSelect={!stayOpen}
+                                        disabled={disabled}
+                                        multi
+                                        onChange={this.handlePriceChange}
+                                        options={PRICING}
+                                        placeholder="Price"
+                                        removeSelected={this.state.removeSelected}
+                                        simpleValue
+                                        value={priceV}/>
+                                </div>
+                                <div className="selector-small">
+                                    <Select
+                                        closeOnSelect={!stayOpen}
+                                        disabled={disabled}
+                                        multi
+                                        onChange={this.handleRatingChange}
+                                        options={RATING}
+                                        placeholder="Rating"
+                                        removeSelected={this.state.removeSelected}
+                                        simpleValue
+                                        value={ratingV}/>
+                                </div>
+                                <button className="btn btn-default filter-btn" onClick={this.buildFilters}>Filter</button>
+                                <div style={{float: "right", display: "inline"}}>
+                                    <DropdownButton class="sort-dropdown" title="Sort">
+                                        <MenuItem eventKey="1" onSelect={this.sortby}>Name: A-Z</MenuItem>
+                                        <MenuItem eventKey="2" onSelect={this.sortby}>Name: Z-A</MenuItem>
+                                        <MenuItem eventKey="3" onSelect={this.sortby}>Cuisine: A-Z</MenuItem>
+                                        <MenuItem eventKey="4" onSelect={this.sortby}>Cuisine: Z-A</MenuItem>
+                                        <MenuItem eventKey="5" onSelect={this.sortby}>Pricing: $$$$-$</MenuItem>
+                                        <MenuItem eventKey="6" onSelect={this.sortby}>Pricing: $-$$$$</MenuItem>
+                                        <MenuItem eventKey="7" onSelect={this.sortby}>Rating: High-Low</MenuItem>
+                                        <MenuItem eventKey="8" onSelect={this.sortby}>Rating: Low-High</MenuItem>
+                                    </DropdownButton>
+                                </div>
                             </div>
                             {elements.length
                             ? elements

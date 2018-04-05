@@ -50,6 +50,17 @@ body {
   background: rgb(41, 41, 41);
 }
 
+.btn-default {
+  background: #18d26e;
+  color: white;
+}
+
+.btn-default:active:hover, .btn-default.active:hover, .open > .dropdown-toggle.btn-default:hover, .btn-default:active:focus, .btn-default.active:focus, .open > .dropdown-toggle.btn-default:focus, .btn-default:active.focus, .btn-default.active.focus, .open > .dropdown-toggle.btn-default.focus {
+
+  background: #12964f;
+  color: white;
+}
+
 .search-button {
   margin-left: -20px !important;
   border-radius: 2px;
@@ -60,17 +71,6 @@ body {
 .search-button:hover {
   background: rgb(41, 41, 41);
   color:white;
-}
-
-.btn-default {
-  background: #18d26e;
-  color: white;
-}
-
-.btn-default:active:hover, .btn-default.active:hover, .open > .dropdown-toggle.btn-default:hover, .btn-default:active:focus, .btn-default.active:focus, .open > .dropdown-toggle.btn-default:focus, .btn-default:active.focus, .btn-default.active.focus, .open > .dropdown-toggle.btn-default.focus {
-
-  background: #12964f;
-  color: white;
 }
 
 .filter-btn {

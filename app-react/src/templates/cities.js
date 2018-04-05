@@ -346,7 +346,7 @@ export default class Cities extends React.Component {
             filter = filter + '{"name":"population","op":"lt","val":' + this.state.upperBound + '}'
             filter = filter + "]}]}]}"
         }
-        
+
         console.log(filter)
         axios
             .get(filter)
