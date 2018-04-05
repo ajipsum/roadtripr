@@ -429,6 +429,7 @@ export default class Parks extends React.Component {
                 "direction": "asc"
             },
             parks: [],
+            filters: "",
             stateVal: [],
             desigVal: []
         }
@@ -452,9 +453,9 @@ export default class Parks extends React.Component {
             .bind(this)
 
     }
-    getParks(page, field, direction) {
+    getParks(page, field, direction, filters) {
         axios
-            .get('http://api.roadtripr.fun/park?page=' + page + '&results_per_page=15&q={"order_by":[{"field":"' + field + '","direction":"' + direction + '"}]}')
+            .get('http://api.roadtripr.fun/park?page=' + page + '&results_per_page=15&q={' + filters + '"order_by":[{"field":"' + field + '","direction":"' + direction + '"}]}')
             .then(res => {
                 this.setState({parks: res.data.objects, totParks: res.data.num_results})
             });
@@ -485,13 +486,13 @@ export default class Parks extends React.Component {
 
     }
     componentDidMount() {
-        this.getParks(1, "name", "asc");
+        this.getParks(1, "name", "asc", this.state.filters);
     }
     handlePageChange(data) {
         this.setState({activePage: data})
         var field = this.state.sort.field
         var dir = this.state.sort.direction
-        this.getParks(data, field, dir)
+        this.getParks(data, field, dir, this.state.filters)
     }
     sortby(key) {
         var translation = {
@@ -522,7 +523,7 @@ export default class Parks extends React.Component {
         };
         var values = translation[key];
         this.setState({sort: values});
-        this.getParks(1, values.field, values.direction)
+        this.getParks(1, values.field, values.direction, this.state.filters)
     }
     handleStateChange(value) {
         this.setState({stateVal: value});
@@ -541,7 +542,7 @@ export default class Parks extends React.Component {
 
         // &q={"filters":[{"or": [{"name":"name","op":"like","val":' + query +
         // '},{"name":"population","op":"like","val":' + query + '}]}]}
-        var filter = 'http://api.roadtripr.fun/park?q={"filters":[{"and":['
+        var filter = '"filters":[{"and":['
         filter = filter + '{"or":['
         if (this.state.stateVal.length) {
             var stateFilters = this
@@ -578,12 +579,9 @@ export default class Parks extends React.Component {
             }
         }
 
-        filter = filter + "]}]}]}"
-        axios
-            .get(filter)
-            .then(res => {
-                this.setState({parks: res.data.objects, totParks: res.data.num_results})
-            });
+        filter = filter + "]}]}],"
+        this.setState({filters: filter})
+        this.getParks(1, this.state.sort.field, this.state.sort.direction, filter)
 
     }
     render() {

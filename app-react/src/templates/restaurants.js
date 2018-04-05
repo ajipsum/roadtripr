@@ -692,6 +692,7 @@ export default class Restaurants extends React.Component {
             restaurants: [],
             cuisineVal: [],
             priceVal: [],
+            filters: "",
             ratingVal: []
         }
         this.handlePageChange = this
@@ -714,9 +715,9 @@ export default class Restaurants extends React.Component {
             .bind(this)
 
     }
-    getRestaurants(page, field, direction) {
+    getRestaurants(page, field, direction, filter) {
         axios
-            .get('http://api.roadtripr.fun/restaurant?page=' + page + '&results_per_page=15&q={"order_by":[{"field":"' + field + '","direction":"' + direction + '"}]}')
+            .get('http://api.roadtripr.fun/restaurant?page=' + page + '&results_per_page=15&q={' + filter +  '"order_by":[{"field":"' + field + '","direction":"' + direction + '"}]}')
             .then(res => {
                 console.log(res)
                 this.setState({restaurants: res.data.objects, totRestaurants: res.data.num_results})
@@ -756,13 +757,13 @@ export default class Restaurants extends React.Component {
 
     }
     componentDidMount() {
-        this.getRestaurants(1, "rating", "desc");
+        this.getRestaurants(1, "rating", "desc", this.state.filters);
     }
     handlePageChange(data) {
         this.setState({activePage: data})
         var field = this.state.sort.field
         var dir = this.state.sort.direction
-        this.getRestaurants(data, field, dir)
+        this.getRestaurants(data, field, dir, this.state.filters)
     }
     sortby(key) {
         var translation = {
@@ -801,7 +802,7 @@ export default class Restaurants extends React.Component {
         };
         var values = translation[key];
         this.setState({sort: values});
-        this.getRestaurants(1, values.field, values.direction)
+        this.getRestaurants(1, values.field, values.direction, this.state.filters)
     }
     handleRatingChange(value) {
         console.log('You\'ve selected:', value);
@@ -819,7 +820,7 @@ export default class Restaurants extends React.Component {
     buildFilters(){
 
         //&q={"filters":[{"or": [{"name":"name","op":"like","val":' + query + '},{"name":"population","op":"like","val":' + query + '}]}]}
-        var filter = 'http://api.roadtripr.fun/restaurant?q={"filters":[{"and":['
+        var filter = '"filters":[{"and":['
         filter= filter + '{"or":['
         if(this.state.ratingVal.length){
             var ratingFilters = this.state.ratingVal.split(',')
@@ -869,11 +870,9 @@ export default class Restaurants extends React.Component {
 
 
 
-        filter=filter+"]}]}]}"
-        axios.get(filter)
-        .then(res => {
-          this.setState({restaurants: res.data.objects, totRestaurants:res.data.num_results})
-        });
+        filter=filter+"]}]}],"
+        this.setState({filters:filter})
+        this.getRestaurants(1, this.state.sort.field, this.state.sort.direction, filter)
 
     }
     render() {
