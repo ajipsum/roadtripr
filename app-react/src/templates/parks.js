@@ -212,11 +212,14 @@ export default class Parks extends React.Component {
             activePage: 1,
             sort: {"field": "name", "direction": "asc"},
             parks: [],
-            value: []
+            stateVal: [],
+            desigVal: []
           }
           this.handlePageChange = this.handlePageChange.bind(this)
           this.sortby = this.sortby.bind(this)
-          this.handleSelectChange = this.handleSelectChange.bind(this)
+          this.handleDesigChange = this.handleDesigChange.bind(this)
+          this.handleStateChange = this.handleStateChange.bind(this)
+          this.buildFilters=this.buildFilters.bind(this)
           this.handleApply = this.handleApply.bind(this)
 
     }
@@ -227,7 +230,6 @@ export default class Parks extends React.Component {
         });
     }
     renderParks(){
-        console.log("in renderparks")
         for (var park of this.state.parks){
             this.renderPark(park);
         }
@@ -246,7 +248,6 @@ export default class Parks extends React.Component {
                     </div>
                 </div>
             </div>)
-      console.log(element);
       return element;
 
 
@@ -271,14 +272,61 @@ export default class Parks extends React.Component {
         this.setState({sort: values});
         this.getParks(1, values.field, values.direction)
     }
-    handleSelectChange (value) {
-		console.log('You\'ve selected:', value);
-		this.setState({ value });
+    handleStateChange (value) {
+		this.setState({ stateVal:value });
+    }
+    handleDesigChange (value) {
+		this.setState({ desigVal:value });
     }
     handleApply = () => {
         const { lowerBound, upperBound } = this.state;
         this.setState({ value: [lowerBound, upperBound] });
+
       }
+    buildFilters(){
+
+        //&q={"filters":[{"or": [{"name":"name","op":"like","val":' + query + '},{"name":"population","op":"like","val":' + query + '}]}]}
+        var filter = 'http://api.roadtripr.fun/park?q={"filters":[{"and":['
+        filter= filter + '{"or":['
+        if(this.state.stateVal.length){
+            var stateFilters = this.state.stateVal.split(',')
+            if(stateFilters.length){
+                for(var i = 0; i<stateFilters.length; i++){
+                    var filt = stateFilters[i]
+                    if(i!=stateFilters.length-1){
+                        filter = filter +('{"name":"states","op":"like","val":"' + filt + '"},');
+                    }
+                    else{
+                        filter = filter + ('{"name":"states","op":"like","val":"' + filt + '"}');
+                    }
+                }}
+        }
+        filter=filter+"]},"
+        filter= filter + '{"or":['
+        if(this.state.desigVal.length){
+            var desigFilters = this.state.desigVal.split(',')
+            if(desigFilters.length){
+                for(var i = 0; i<desigFilters.length; i++){
+                    var filt = desigFilters[i]
+                    if(i!=desigFilters.length-1){
+                        filter = filter + ('{"name":"designation","op":"like","val":"' + filt + '"},');
+                    }
+                    else{
+                        filter = filter +('{"name":"designation","op":"like","val":"' + filt + '"}');
+                    }
+                }}
+        }
+       
+        
+       
+       
+        filter=filter+"]}]}]}"
+        axios.get(filter)
+        .then(res => {
+          this.setState({parks: res.data.objects, totParks:res.data.num_results})
+        });
+        
+    }
     render() {
         var elements = []
         // var i = 0
@@ -287,6 +335,8 @@ export default class Parks extends React.Component {
         }
 
         const {disabled, stayOpen, value } = this.state;
+        const states = this.state.stateVal;
+        const desigs = this.state.desigVal
 
         return (
             <div>
@@ -312,12 +362,12 @@ export default class Parks extends React.Component {
                             closeOnSelect={!stayOpen}
                             disabled={disabled}
                             multi
-                            onChange={this.handleSelectChange}
+                            onChange={this.handleStateChange}
                             options={STATES}
                             placeholder="State"
                             removeSelected={this.state.removeSelected}
                             simpleValue
-                            value={value}
+                            value={states}
                         />
                     </div>
                     <div className="section">
@@ -325,14 +375,14 @@ export default class Parks extends React.Component {
                             closeOnSelect={!stayOpen}
                             disabled={disabled}
                             multi
-                            onChange={this.handleSelectChange}
+                            onChange={this.handleDesigChange}
                             options={DESIGNATION}
                             placeholder="Designation"
                             removeSelected={this.state.removeSelected}
                             simpleValue
-                            value={value}
+                            value={desigs}
                         />
-                        <button onClick={this.handleApply}>Apply</button>
+                        <button onClick={this.buildFilters}>Apply</button>
                     </div>
                         {elements}
 
