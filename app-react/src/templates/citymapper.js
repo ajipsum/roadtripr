@@ -1,5 +1,5 @@
 import React from 'react'
-import { Switch, Route } from 'react-router-dom'
+import {Switch, Route} from 'react-router-dom'
 import Cities from './cities'
 import City from './city'
 
@@ -9,6 +9,5 @@ const CityMapper = () => (
     <Route path='/cities/:city' component={City}/>
   </Switch>
 )
-
 
 export default CityMapper
