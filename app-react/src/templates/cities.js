@@ -373,7 +373,7 @@ export default class Cities extends React.Component {
                                             onChange={this.onLowerBoundChange}/>
                                     </div>
                                     <label className="selector-label">–</label>
-                                    <div class="selector-very-small">
+                                    <div className="selector-very-small">
                                         <input
                                             type="number"
                                             className="form-control"
@@ -383,7 +383,7 @@ export default class Cities extends React.Component {
                                 </div>
                                 <button className="btn btn-default filter-btn" onClick={this.buildFilters}>Filter</button>
                                 <div style={{float: "right", display: "inline"}}>
-                                    <DropdownButton class="sort-dropdown" title="Sort">
+                                    <DropdownButton className="sort-dropdown" title="Sort">
                                         <MenuItem eventKey="1" onSelect={this.sortby}>Name: A-Z</MenuItem>
                                         <MenuItem eventKey="2" onSelect={this.sortby}>Name: Z-A</MenuItem>
                                         <MenuItem eventKey="3" onSelect={this.sortby}>Population: High-Low</MenuItem>
