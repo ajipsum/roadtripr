@@ -75,7 +75,7 @@ export default class About extends React.Component {
                   <div className="img">
                     <img
                       src={jon}
-                      alt
+                      alt="Jon"
                       className="rounded mx-auto d-block"
                       style={{
                       maxHeight: 300
@@ -95,7 +95,7 @@ export default class About extends React.Component {
                   <div className="img">
                     <img
                       src={matt}
-                      alt
+                      alt="Matt"
                       className="rounded mx-auto d-block"
                       style={{
                       maxHeight: 300
@@ -115,7 +115,7 @@ export default class About extends React.Component {
                   <div className="img">
                     <img
                       src={jose}
-                      alt
+                      alt="Jose"
                       className="rounded mx-auto d-block"
                       style={{
                       maxHeight: 300
@@ -135,7 +135,7 @@ export default class About extends React.Component {
                   <div className="img">
                     <img
                       src={yvonne}
-                      alt
+                      alt="Yvonne"
                       className="rounded mx-auto d-block"
                       style={{
                       maxHeight: 300

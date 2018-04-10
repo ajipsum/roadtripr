@@ -1,8 +1,5 @@
 import React from 'react';
-import ReactDOM from 'react-dom';
-import {Switch, Route} from 'react-router-dom'
 import axios from 'axios';
-import $ from 'jquery';
 import {Link} from 'react-router-dom';
 import Pagination from "react-js-pagination";
 import _ from 'lodash'
@@ -132,7 +129,7 @@ export default class Search extends React.Component {
             <div className="col-lg-4 col-md-6 portfolio-item filter-app wow">
                 <div className="portfolio-wrap">
                     <figure>
-                        <a href={"/parks/" + park.name}><img src={park.image} className="img-fluid" alt/></a>
+                        <a href={"/parks/" + park.name}><img src={park.image} className="img-fluid" alt=""/></a>
                     </figure>
                     <div className="portfolio-info">
                         <p>
@@ -157,7 +154,7 @@ export default class Search extends React.Component {
             <div className="col-lg-4 col-md-6 portfolio-item filter-app wow">
                 <div className="portfolio-wrap">
                     <figure>
-                        <a href={"/city/" + city.name}><img src={city.image} className="img-fluid" alt/></a>
+                        <a href={"/city/" + city.name}><img src={city.image} className="img-fluid" alt=""/></a>
                     </figure>
                     <div className="portfolio-info">
                         <p>
@@ -179,7 +176,7 @@ export default class Search extends React.Component {
             <div className="col-lg-4 col-md-6 portfolio-item filter-app wow">
                 <div className="portfolio-wrap">
                     <figure>
-                        <a href={"/restaurants/" + restaurant.name}><img src={restaurant.image} className="img-fluid" alt/></a>
+                        <a href={"/restaurants/" + restaurant.name}><img src={restaurant.image} className="img-fluid" alt=""/></a>
                     </figure>
                     <div className="portfolio-info">
                         <p>
@@ -202,7 +199,7 @@ export default class Search extends React.Component {
                 temp.push(this.state.tot[i * data])
             }
         } else {
-            for (var i = 0; i < 15; i++) {
+            for (i = 0; i < 15; i++) {
                 temp.push(this.state.tot[i * data])
             }
         }
@@ -224,7 +221,6 @@ export default class Search extends React.Component {
     }
     render() {
         var elements = []
-        var cityCount = 0;
 
         console.log(this.state.active)
         for (var element of this.state.active) {
@@ -244,7 +240,7 @@ export default class Search extends React.Component {
         false});
 
         return (
-            
+
             <section id="portfolio" className="section-bg">
                 <div className="container">
                     <header className="section-header">

@@ -1,13 +1,8 @@
 import React from 'react';
-import ReactDOM from 'react-dom';
-import {Switch, Route} from 'react-router-dom'
 import axios from 'axios';
-import $ from 'jquery';
 import {Link} from 'react-router-dom';
 import Pagination from "react-js-pagination";
 import {DropdownButton, MenuItem} from "react-bootstrap";
-import createClass from 'create-react-class';
-import PropTypes from 'prop-types';
 import Select from 'react-select';
 
 const STATES = [
@@ -333,13 +328,6 @@ const DESIGNATION = [
     }
 ]
 
-var config = {
-    headers: {
-        'Access-Control-Allow-Origin': '*'
-    }
-
-};
-
 export default class Parks extends React.Component {
     constructor(props) {
         super(props)
@@ -394,7 +382,7 @@ export default class Parks extends React.Component {
             <div className="col-lg-4 col-md-6 portfolio-item filter-app wow">
                 <div className="portfolio-wrap">
                     <figure>
-                        <a href={"/parks/" + park.name}><img src={park.image} className="img-fluid" alt/></a>
+                        <a href={"/parks/" + park.name}><img src={park.image} className="img-fluid" alt=""/></a>
                     </figure>
                     <div className="portfolio-info">
                         <p>
@@ -475,7 +463,7 @@ export default class Parks extends React.Component {
             if (stateFilters.length) {
                 for (var i = 0; i < stateFilters.length; i++) {
                     var filt = stateFilters[i]
-                    if (i != stateFilters.length - 1) {
+                    if (i !== stateFilters.length - 1) {
                         filter = filter + ('{"name":"states","op":"like","val":"' + filt + '"},');
                     } else {
                         filter = filter + ('{"name":"states","op":"like","val":"' + filt + '"}');
@@ -491,9 +479,9 @@ export default class Parks extends React.Component {
                 .desigVal
                 .split(',')
             if (desigFilters.length) {
-                for (var i = 0; i < desigFilters.length; i++) {
-                    var filt = desigFilters[i]
-                    if (i != desigFilters.length - 1) {
+                for (i = 0; i < desigFilters.length; i++) {
+                    filt = desigFilters[i]
+                    if (i !== desigFilters.length - 1) {
                         filter = filter + ('{"name":"designation","op":"like","val":"' + filt + '"},');
                     } else {
                         filter = filter + ('{"name":"designation","op":"like","val":"' + filt + '"}');
@@ -514,7 +502,7 @@ export default class Parks extends React.Component {
             elements.push(this.renderPark(park));
         }
 
-        const {disabled, stayOpen, value} = this.state;
+        const {disabled, stayOpen} = this.state;
         const states = this.state.stateVal;
         const desigs = this.state.desigVal
 
@@ -557,7 +545,7 @@ export default class Parks extends React.Component {
                                 </div>
                                 <button className="btn btn-default filter-btn" onClick={this.buildFilters}>Filter</button>
                                 <div style={{float: "right", display: "inline"}}>
-                                    <DropdownButton class="sort-dropdown" title="Sort">
+                                    <DropdownButton className="sort-dropdown" title="Sort">
                                         <MenuItem eventKey="1" onSelect={this.sortby}>Name: A-Z</MenuItem>
                                         <MenuItem eventKey="2" onSelect={this.sortby}>Name: Z-A</MenuItem>
                                         <MenuItem eventKey="3" onSelect={this.sortby}>Designation: A-Z</MenuItem>

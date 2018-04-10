@@ -1,7 +1,6 @@
 import React from 'react';
 import {Link, Redirect} from 'react-router-dom'
-import {Form, Button, Glyphicon} from 'react-bootstrap'
-import axios from 'axios';
+import {Glyphicon} from 'react-bootstrap'
 
 export default class TopBase extends React.Component {
   constructor(props) {
@@ -89,12 +88,12 @@ export default class TopBase extends React.Component {
                 <li>
                   <form onSubmit={this.handleSubmit}>
                     <input
-                      class="search-input"
+                      className="search-input"
                       type="search"
                       placeholder=""
                       value={this.state.query}
                       onChange={this.handleChange}/>
-                    <button class="btn btn-default search-button" type="submit" value="Submit"><Glyphicon glyph="search"/></button>
+                    <button className="btn btn-default search-button" type="submit" value="Submit"><Glyphicon glyph="search"/></button>
                   </form>
                 </li>
               </ul>

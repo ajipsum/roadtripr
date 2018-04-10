@@ -1,5 +1,4 @@
 import React from 'react';
-import {Switch, Route} from 'react-router-dom'
 import axios from 'axios';
 
 export default class Restaurant extends React.Component {
@@ -86,7 +85,7 @@ export default class Restaurant extends React.Component {
                             <div className="col-md-6 wow" align="center">
                                 <div className="about-col">
                                     <div className="img">
-                                        <img src={restaurant.image} alt className="img-fluid"/>
+                                        <img src={restaurant.image} alt="" className="img-fluid"/>
                                     </div>
 
                                     <h2 className="title">{restaurant.name}</h2>

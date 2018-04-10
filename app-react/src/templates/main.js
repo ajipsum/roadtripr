@@ -1,7 +1,6 @@
 import React from 'react'
 import {Switch, Route} from 'react-router-dom'
 import Home from './home'
-import CityMapper from './citymapper'
 import ParkMapper from './parkmapper';
 import RestaurantMapper from './restaurantmapper';
 import Cities from './cities';

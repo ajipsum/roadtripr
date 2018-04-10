@@ -1,5 +1,4 @@
 import React from 'react';
-import {Switch, Route} from 'react-router-dom'
 import axios from 'axios';
 
 export default class Park extends React.Component {
@@ -86,7 +85,7 @@ export default class Park extends React.Component {
                             <div className="col-md-6 wow" align="center">
                                 <div className="about-col">
                                     <div className="img">
-                                        <img src={park.image} alt className="img-fluid"/>
+                                        <img src={park.image} alt="" className="img-fluid"/>
                                     </div>
                                     <h2 className="title">{park.name}</h2>
                                     <p>

@@ -1,5 +1,4 @@
 import React from 'react';
-import {Switch, Route} from 'react-router-dom'
 import axios from 'axios';
 
 export default class Cities extends React.Component {
@@ -76,7 +75,7 @@ export default class Cities extends React.Component {
                             <div className="col-md-6 wow" align="center">
                                 <div className="about-col">
                                     <div className="img">
-                                        <img src={city.image} alt className="img-fluid"/>
+                                        <img src={city.image} alt="" className="img-fluid"/>
                                     </div>
                                     <h2 className="title">{city.name}</h2>
                                     <p>Population: {city.population}</p>

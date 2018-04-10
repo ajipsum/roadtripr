@@ -1,15 +1,9 @@
 import React from 'react';
-import ReactDOM from 'react-dom';
-import {Switch, Route} from 'react-router-dom'
 import axios from 'axios';
-import $ from 'jquery';
 import {Link} from 'react-router-dom';
 import Pagination from "react-js-pagination";
 import {DropdownButton, MenuItem} from "react-bootstrap";
-import createClass from 'create-react-class';
-import PropTypes from 'prop-types';
 import Select from 'react-select';
-import Slider from 'rc-slider';
 import 'rc-slider/assets/index.css';
 
 /*
@@ -169,18 +163,6 @@ const STATES = [
     }
 ]
 
-const Range = Slider.Range;
-function log(value) {
-    console.log(value); //eslint-disable-line
-}
-
-var config = {
-    headers: {
-        'Access-Control-Allow-Origin': '*'
-    }
-
-};
-var self = this;
 export default class Cities extends React.Component {
     constructor(props) {
         super(props)
@@ -238,7 +220,7 @@ export default class Cities extends React.Component {
             <div className="col-lg-4 col-md-6 portfolio-item filter-app wow">
                 <div className="portfolio-wrap">
                     <figure>
-                        <a href={"/city/" + city.name}><img src={city.image} className="img-fluid" alt/></a>
+                        <a href={"/city/" + city.name}><img src={city.image} className="img-fluid" alt=""/></a>
                     </figure>
                     <div className="portfolio-info">
                         <p>
@@ -324,7 +306,7 @@ export default class Cities extends React.Component {
             if (states.length) {
                 for (var i = 0; i < states.length; i++) {
                     var filt = states[i]
-                    if (i != states.length - 1) {
+                    if (i !== states.length - 1) {
                         filter = filter + ('{"name":"name","op":"like","val":"%25' + filt + '"},');
                     } else {
                         filter = filter + ('{"name":"name","op":"like","val":"%25' + filt + '"}');

@@ -1,14 +1,8 @@
 import React from 'react';
-import ReactDOM from 'react-dom';
-import {Switch, Route} from 'react-router-dom'
 import axios from 'axios';
-import $ from 'jquery';
 import {Link} from 'react-router-dom';
 import Pagination from "react-js-pagination";
 import {DropdownButton, MenuItem} from "react-bootstrap";
-
-import createClass from 'create-react-class';
-import PropTypes from 'prop-types';
 import Select from 'react-select';
 
 const CUISINE = [
@@ -671,13 +665,6 @@ const RATING = [
     }
 ]
 
-var config = {
-    headers: {
-        'Access-Control-Allow-Origin': '*'
-    }
-
-};
-
 export default class Restaurants extends React.Component {
     constructor(props) {
         super(props)
@@ -740,9 +727,7 @@ export default class Restaurants extends React.Component {
             <div className="col-lg-4 col-md-6 portfolio-item filter-app wow">
                 <div className="portfolio-wrap">
                     <figure>
-                        <a href={"/restaurants/" + restaurant.name}><img src={restaurant.image} className="img-fluid" alt/></a>
-                        {/* <a href={restaurant.image} data-lightbox="portfolio" data-title="restaurant" className="link-preview" title="Preview"><i className="ion ion-eye" /></a>
-            <a href={"restaurants/" + restaurant.name} className="link-details" title="More Details"><i className="ion ion-android-open" /></a> */}
+                        <a href={"/restaurants/" + restaurant.name}><img src={restaurant.image} className="img-fluid" alt=""/></a>
                     </figure>
                     <div className="portfolio-info">
                         <p>
@@ -806,7 +791,6 @@ export default class Restaurants extends React.Component {
     }
     handleRatingChange(value) {
         console.log('You\'ve selected:', value);
-        var len = value.length
         this.setState({ratingVal: value});
     }
     handlePriceChange(value) {
@@ -821,50 +805,50 @@ export default class Restaurants extends React.Component {
 
         //&q={"filters":[{"or": [{"name":"name","op":"like","val":' + query + '},{"name":"population","op":"like","val":' + query + '}]}]}
         var filter = '"filters":[{"and":['
-        filter= filter + '{"or":['
-        if(this.state.ratingVal.length){
-            var ratingFilters = this.state.ratingVal.split(',')
-            if(ratingFilters.length){
-                for(var i = 0; i<ratingFilters.length; i++){
-                    var filt = ratingFilters[i].length
-                    if(i!=ratingFilters.length-1){
+        filter = filter + '{"or":['
+        if (this.state.ratingVal.length) {
+            var ratingFilters = this.state.ratingVal.split(',');
+            if (ratingFilters.length) {
+                for (var i = 0; i < ratingFilters.length; i++) {
+                    var filt = ratingFilters[i].length;
+                    if (i !== ratingFilters.length - 1) {
                         filter = filter +('{"name":"rating","op":"like","val":"' + filt + '"},');
-                    }
-                    else{
+                    } else {
                         filter = filter + ('{"name":"rating","op":"like","val":"' + filt + '"}');
                     }
-                }}
+                }
+            }
         }
         filter=filter+"]},"
         filter= filter + '{"or":['
-        if(this.state.priceVal.length){
-            var priceFilters = this.state.priceVal.split(',')
-            if(priceFilters.length){
-                for(var i = 0; i<priceFilters.length; i++){
-                    var filt = priceFilters[i]
-                    if(i!=priceFilters.length-1){
+        if (this.state.priceVal.length) {
+            var priceFilters = this.state.priceVal.split(',');
+            if (priceFilters.length) {
+                for (i = 0; i < priceFilters.length; i++) {
+                    filt = priceFilters[i];
+                    if (i !== priceFilters.length - 1) {
                         filter = filter + ('{"name":"pricing","op":"like","val":"' + filt + '"},');
-                    }
-                    else{
+                    } else {
                         filter = filter +('{"name":"pricing","op":"like","val":"' + filt + '"}');
                     }
-                }}
+                }
+            }
         }
         filter=filter+"]},"
         filter= filter + '{"or":['
-        if(this.state.cuisineVal.length){
+        if (this.state.cuisineVal.length) {
             console.log(this.state.cuisineVal)
             var cuisineFilter = this.state.cuisineVal.split(',')
-            if(cuisineFilter.length){
-                for(var i = 0; i<cuisineFilter.length; i++){
-                    var filt = cuisineFilter[i]
-                    if(i!=cuisineFilter.length-1){
+            if (cuisineFilter.length) {
+                for (i = 0; i < cuisineFilter.length; i++) {
+                    filt = cuisineFilter[i];
+                    if (i !== cuisineFilter.length - 1) {
                         filter = filter + ('{"name":"cuisine","op":"like","val":"' + filt + '"},');
-                    }
-                    else{
+                    } else {
                         filter = filter +('{"name":"cuisine","op":"like","val":"' + filt + '"}');
                     }
-                }}
+                }
+            }
         }
 
 
@@ -877,13 +861,12 @@ export default class Restaurants extends React.Component {
     }
     render() {
         var elements = []
-        var i = 0
         for (var restaurant of this.state.restaurants) {
             console.log(restaurant)
             elements.push(this.renderRestaurant(restaurant));
         }
 
-        const {disabled, stayOpen, value} = this.state;
+        const {disabled, stayOpen} = this.state;
         const cuisineV = this.state.cuisineVal
         const priceV = this.state.priceVal
         const ratingV = this.state.ratingVal
