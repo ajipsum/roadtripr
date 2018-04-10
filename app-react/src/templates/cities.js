@@ -250,7 +250,7 @@ export default class Cities extends React.Component {
             </div>
         )
 
-        
+
         return element;
 
     }
@@ -265,7 +265,7 @@ export default class Cities extends React.Component {
         var dir = this.state.sort.direction
         var filter = this.state.filters
         console.log(filter)
-        this.getCities(data, field, dir, this.state.filters) 
+        this.getCities(data, field, dir, this.state.filters)
 
     }
     sortby(key) {
@@ -347,7 +347,7 @@ export default class Cities extends React.Component {
 
         console.log(filter)
         this.setState({filters: filter})
-        
+
         this.getCities(1, this.state.sort.field, this.state.sort.direction, filter)
 
 
@@ -382,17 +382,19 @@ export default class Cities extends React.Component {
                                         value={value}/>
                                 </div>
                                 <div>
-                                    <label style={{float: "left", display: "inline"}}>Min Pop:</label>
-                                    <div className="selector-small">
+                                    <label className="selector-label">Population:</label>
+                                    <div className="selector-very-small">
                                         <input
                                             type="number"
+                                            className="form-control"
                                             value={this.state.lowerBound}
                                             onChange={this.onLowerBoundChange}/>
                                     </div>
-                                    <label style={{float: "left", display: "inline"}}>Max Pop:</label>
-                                    <div class="selector-small">
+                                    <label className="selector-label">–</label>
+                                    <div class="selector-very-small">
                                         <input
                                             type="number"
+                                            className="form-control"
                                             value={this.state.upperBound}
                                             onChange={this.onUpperBoundChange}/>
                                     </div>

@@ -77,6 +77,19 @@ body {
   margin-left: 10px;
 }
 
+.selector-label {
+  float: left;
+  margin-left: 10px;
+  line-height: 36px;
+  text-align: center;
+}
+
+.selector-very-small {
+  width: 120px;
+  float: left;
+  margin-left: 10px;
+}
+
 .selector-small {
   width: 200px;
   float: left;
