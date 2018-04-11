@@ -226,7 +226,7 @@ export default class Cities extends React.Component {
                         <p>
                             <Link to={'/city/' + city.name}>{cityName}</Link>
                         </p>
-                        {state} | Pop: {city.population.toLocaleString()}
+                        {state} | Pop. {city.population.toLocaleString()}
                     </div>
                 </div>
             </div>
