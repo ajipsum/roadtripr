@@ -556,8 +556,9 @@ export default class Parks extends React.Component {
                                 </div>
 
                             </div>
-                            {elements}
-
+                            {elements.length
+                                ? elements
+                                : <p className="noresults">No results found.</p>}
                         </div>
                     </div>
                 </section>

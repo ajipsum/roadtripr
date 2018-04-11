@@ -391,7 +391,9 @@ export default class Cities extends React.Component {
                                     </DropdownButton>
                                 </div>
                             </div>
-                            {elements}
+                            {elements.length
+                                ? elements
+                                : <p className="noresults">No results found.</p>}
                         </div>
                     </div>
                 </section>

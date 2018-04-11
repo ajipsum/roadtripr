@@ -932,8 +932,8 @@ export default class Restaurants extends React.Component {
                                 </div>
                             </div>
                             {elements.length
-                            ? elements
-                            : <p className="noresults">No results found.</p>}
+                                ? elements
+                                : <p className="noresults">No results found.</p>}
                         </div>
                     </div>
                 </section>
