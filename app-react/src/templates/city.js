@@ -62,6 +62,13 @@ export default class Cities extends React.Component {
         for (var park of this.state.parks) {
             parksEle.push(this.setParks(park.name))
         }
+
+        var pop = city.population;
+        var pop_formatted = 0;
+        if (pop) {
+            pop_formatted = city.population.toLocaleString();
+        }
+
         return (
             <div style ={{
                 align: "center"
@@ -78,7 +85,7 @@ export default class Cities extends React.Component {
                                         <img src={city.image} alt="" className="img-fluid"/>
                                     </div>
                                     <h2 className="title">{city.name}</h2>
-                                    <p>Population: {city.population}</p>
+                                    <p>Pop. {pop_formatted}</p>
                                     <hr/>
                                     <p>Nearby Restaurants</p>
                                     {restaurantEle}

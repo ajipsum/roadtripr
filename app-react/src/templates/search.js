@@ -160,7 +160,7 @@ export default class Search extends React.Component {
                         <p>
                             <Link to={'/city/' + city.name}>{cityName}</Link>
                         </p>
-                        {state} | Pop: {city.population}
+                        {state} | Pop. {city.population.toLocaleString()}
                     </div>
                 </div>
             </div>
