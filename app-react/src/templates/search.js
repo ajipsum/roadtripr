@@ -2,6 +2,7 @@ import React from 'react';
 import axios from 'axios';
 import {Link} from 'react-router-dom';
 import Pagination from "react-js-pagination";
+import Highlight from 'react-highlight-words'
 import _ from 'lodash'
 import Mark from 'mark.js';
 
@@ -133,9 +134,9 @@ export default class Search extends React.Component {
                     </figure>
                     <div className="portfolio-info">
                         <p>
-                            <Link to={'/parks/' + park.name}>{park.name}</Link>
+                            <Link to={'/parks/' + park.name}>{this.highlight(park.name)}</Link>
                         </p>
-                        {park.states} | {park.designation}
+                        {this.highlight(park.states)} | {this.highlight(park.designation)}
                     </div>
                 </div>
             </div>
@@ -158,9 +159,9 @@ export default class Search extends React.Component {
                     </figure>
                     <div className="portfolio-info">
                         <p>
-                            <Link to={'/city/' + city.name}>{cityName}</Link>
+                            <Link to={'/city/' + city.name}>{this.highlight(cityName)}</Link>
                         </p>
-                        {state} | Pop. {city.population.toLocaleString()}
+                        {this.highlight(state)} | Pop. {this.highlight(city.population.toLocaleString())}
                     </div>
                 </div>
             </div>
@@ -180,15 +181,23 @@ export default class Search extends React.Component {
                     </figure>
                     <div className="portfolio-info">
                         <p>
-                            <Link to={'/restaurants/' + restaurant.name}>{restaurant.name}</Link>
+                            <Link to={'/restaurants/' + restaurant.name}>{this.highlight(restaurant.name)}</Link>
                         </p>
-                        {restaurant.pricing} | {restaurant.cuisine} | {stars}
+                        {this.highlight(restaurant.pricing)} | {this.highlight(restaurant.cuisine)} | {this.highlight(stars)}
                     </div>
                 </div>
             </div>
         )
         return element;
 
+    }
+    highlight(term){
+        return (
+            <Highlight
+               searchWords = {this.state.query.split(" ")}
+               autoEscape={false}
+               textToHighlight= {term}
+            />)
     }
     handlePageChange(data) {
         this.setState({activePage: data})
@@ -217,6 +226,7 @@ export default class Search extends React.Component {
         }
     }
     componentDidMount() {
+        console.log("componentDidMount")
         this.startSearch()
     }
     render() {
@@ -233,12 +243,6 @@ export default class Search extends React.Component {
                 elements.push(this.renderPark(element))
             }
         }
-
-        //This code for some reason adds data and we do not know why
-        var context = document.getElementById("portfolio"); var instance = new
-         Mark(context); instance.mark([this.state.query], {separateWordSearch:
-        false});
-
         return (
 
             <section id="portfolio" className="section-bg">
