@@ -87,7 +87,7 @@ export default class About extends React.Component {
                   <p>Major responsibilities: Full Stack</p>
                   <p>Commits: <span data-toggle="counter-up">{this.state.commits['jonbrew']}</span></p>
                   <p>Issues: <span data-toggle="counter-up">{this.state.issues['jonbrew']}</span></p>
-                  <p>Unit tests: 0</p>
+                  <p>Unit tests: 24</p>
                 </div>
               </div>
               <div className="col-sm-3 wow" align="center">
@@ -147,7 +147,7 @@ export default class About extends React.Component {
                   <p>Major responsibilities: Full Stack</p>
                   <p>Commits: <span data-toggle="counter-up">{this.state.commits['huangyvonnee']}</span></p>
                   <p>Issues: <span data-toggle="counter-up">{this.state.issues['huangyvonnee']}</span></p>
-                  <p>Unit tests: 0</p>
+                  <p>Unit tests: 9</p>
                 </div>
               </div>
             </div>
@@ -168,7 +168,7 @@ export default class About extends React.Component {
                 <p>Total Issues</p>
               </div>
               <div className="col-lg-4 col-6 text-center">
-                <span data-toggle="counter-up">0</span>
+                <span data-toggle="counter-up">35</span>
                 <p>Total Tests</p>
               </div>
             </div>
