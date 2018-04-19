@@ -283,17 +283,19 @@ export default class Cities extends React.Component {
     }
 
     handleSelectChange(value) {
-        this.setState({value:value});
+        this.setState({value:value}, this.buildFilters);
     }
     onLowerBoundChange = (e) => {
         this.setState({
             lowerBound: + e.target.value
-        });
+        }, this.buildFilters
+        );
+        
     }
     onUpperBoundChange = (e) => {
         this.setState({
             upperBound: + e.target.value
-        });
+        }, this.buildFilters);
     }
     buildFilters(){
         var filter = '"filters":[{"and":['

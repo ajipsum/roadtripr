@@ -791,15 +791,15 @@ export default class Restaurants extends React.Component {
     }
     handleRatingChange(value) {
         console.log('You\'ve selected:', value);
-        this.setState({ratingVal: value});
+        this.setState({ratingVal: value}, this.buildFilters);
     }
     handlePriceChange(value) {
         console.log('You\'ve selected:', value);
-        this.setState({priceVal: value});
+        this.setState({priceVal: value}, this.buildFilters);
     }
     handleCuisineChange(value) {
         console.log('You\'ve selected:', value);
-        this.setState({cuisineVal: value});
+        this.setState({cuisineVal: value}, this.buildFilters);
     }
     buildFilters(){
 

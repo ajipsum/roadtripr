@@ -437,10 +437,10 @@ export default class Parks extends React.Component {
         this.getParks(1, values.field, values.direction, this.state.filters)
     }
     handleStateChange(value) {
-        this.setState({stateVal: value});
+        this.setState({stateVal: value}, this.buildFilters);
     }
     handleDesigChange(value) {
-        this.setState({desigVal: value});
+        this.setState({desigVal: value}, this.buildFilters);
     }
     handleApply = () => {
         const {lowerBound, upperBound} = this.state;
