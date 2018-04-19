@@ -79,12 +79,12 @@ export default class Park extends React.Component {
                 <section id="about">
                     <div className="container">
                         <header className="section-header">
-                            <h3>Parks</h3>
+                            <h3>{park.name}</h3>
                         </header>
                         <div className="row about-cols" align="center">
                             <div className="col-md-6 wow" align="center">
                                 <div className="about-col">
-                                    <div className="img">
+                                    <div style={{overflow: "auto"}}>
                                         <img src={park.image} alt="" className="img-fluid"/>
                                     </div>
                                     <h2 className="title">{park.name}</h2>

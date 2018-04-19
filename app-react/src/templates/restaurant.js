@@ -79,12 +79,12 @@ export default class Restaurant extends React.Component {
                 <section id="about">
                     <div className="container">
                         <header className="section-header">
-                            <h3>Restaurant</h3>
+                            <h3>{restaurant.name}</h3>
                         </header>
                         <div className="row about-cols" align="center">
                             <div className="col-md-6 wow" align="center">
                                 <div className="about-col">
-                                    <div className="img">
+                                    <div style={{overflow: "auto"}}>
                                         <img src={restaurant.image} alt="" className="img-fluid"/>
                                     </div>
 
