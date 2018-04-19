@@ -10,9 +10,9 @@ class DatabaseController(BaseController):
     def __init__(self):
         super(DatabaseController, self).__init__()
 
-        user = self._config['MYSQL']['USER']
-        password = self._config['MYSQL']['PASS']
-        db_name = self._config['MYSQL']['NAME']
+        user = 'root'
+        password = 'arewethereyet'
+        db_name = 'rtdb'
         self.engine = create_engine('mysql+pymysql://'+user+':'+password+'@localhost/'+db_name, pool_pre_ping=True)
         DBSession = sessionmaker(bind=self.engine, autocommit=True)
         self.session = DBSession()
