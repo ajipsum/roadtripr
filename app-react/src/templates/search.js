@@ -136,6 +136,8 @@ export default class Search extends React.Component {
             />)
     }
     handlePageChange(data) {
+        if (this.state.activePage === data) return;
+
         this.setState({activePage: data})
         this.setState({active: []});
         var temp = []
