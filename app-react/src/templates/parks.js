@@ -543,8 +543,7 @@ export default class Parks extends React.Component {
                                         simpleValue
                                         value={desigs}/>
                                 </div>
-                                <button className="btn btn-default filter-btn" onClick={this.buildFilters}>Filter</button>
-                                <div style={{float: "right", display: "inline"}}>
+                                <div className="sort-btn">
                                     <DropdownButton className="sort-dropdown" title="Sort">
                                         <MenuItem eventKey="1" onSelect={this.sortby}>Name: A-Z</MenuItem>
                                         <MenuItem eventKey="2" onSelect={this.sortby}>Name: Z-A</MenuItem>

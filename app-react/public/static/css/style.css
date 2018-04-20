@@ -73,8 +73,9 @@ body {
   color:white;
 }
 
-.filter-btn {
-  margin-left: 10px;
+.sort-btn {
+  margin-left: 30px;
+  display: inline;
 }
 
 .selector-label {
