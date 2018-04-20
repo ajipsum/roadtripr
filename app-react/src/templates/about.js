@@ -87,7 +87,7 @@ export default class About extends React.Component {
                   <p>Major responsibilities: Full Stack</p>
                   <p>Commits: <span data-toggle="counter-up">{this.state.commits['jonbrew']}</span></p>
                   <p>Issues: <span data-toggle="counter-up">{this.state.issues['jonbrew']}</span></p>
-                  <p>Unit tests: 24</p>
+                  <p>Unit tests: 11</p>
                 </div>
               </div>
               <div className="col-sm-3 wow" align="center">
@@ -107,7 +107,7 @@ export default class About extends React.Component {
                   <p>Major responsibilities: Full Stack</p>
                   <p>Commits: <span data-toggle="counter-up">{this.state.commits['savi975']}</span></p>
                   <p>Issues: <span data-toggle="counter-up">{this.state.issues['savi975']}</span></p>
-                  <p>Unit tests: 0</p>
+                  <p>Unit tests: 8</p>
                 </div>
               </div>
               <div className="col-sm-3 wow" align="center">
@@ -127,7 +127,7 @@ export default class About extends React.Component {
                   <p>Major responsibilities: Full Stack</p>
                   <p>Commits: <span data-toggle="counter-up">{this.state.commits['Magana']}</span></p>
                   <p>Issues: <span data-toggle="counter-up">{this.state.issues['Magana']}</span></p>
-                  <p>Unit tests: 0</p>
+                  <p>Unit tests: 8</p>
                 </div>
               </div>
               <div className="col-sm-3 wow" align="center">
@@ -147,7 +147,7 @@ export default class About extends React.Component {
                   <p>Major responsibilities: Full Stack</p>
                   <p>Commits: <span data-toggle="counter-up">{this.state.commits['huangyvonnee']}</span></p>
                   <p>Issues: <span data-toggle="counter-up">{this.state.issues['huangyvonnee']}</span></p>
-                  <p>Unit tests: 9</p>
+                  <p>Unit tests: 8</p>
                 </div>
               </div>
             </div>
