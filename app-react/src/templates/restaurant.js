@@ -80,9 +80,11 @@ export default class Restaurant extends React.Component {
                                     </div>
 
                                     <h2 className="title">{restaurant.name}</h2>
-                                    <p>Type: {restaurant.cuisine}</p>
-                                    <p>{stars}</p>
-                                    <p>Pricing: {restaurant.pricing}</p>
+                                    <p> {stars}</p>
+                                    <p> {restaurant.cuisine}<br/>
+                                        {restaurant.pricing}<br/>
+                                        <a href={restaurant.website}>View on Yelp</a>
+                                    </p>
                                 </div>
                             </div>
                         </div>
