@@ -719,7 +719,7 @@ export default class Restaurants extends React.Component {
         }
 
     }
-    renderRestaurant(restaurant) {
+    static renderRestaurant(restaurant) {
         var num = Math.round(restaurant.rating);
         var stars = "\u2605".repeat(num);
 
@@ -863,7 +863,7 @@ export default class Restaurants extends React.Component {
         var elements = []
         for (var restaurant of this.state.restaurants) {
             console.log(restaurant)
-            elements.push(this.renderRestaurant(restaurant));
+            elements.push(Restaurants.renderRestaurant(restaurant));
         }
 
         const {disabled, stayOpen} = this.state;

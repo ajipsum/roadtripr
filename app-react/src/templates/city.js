@@ -1,6 +1,7 @@
 import React from 'react';
 import axios from 'axios';
-import {Link} from 'react-router-dom';
+import Restaurants from './restaurants';
+import Parks from './parks';
 
 export default class Cities extends React.Component {
     constructor(props) {
@@ -40,57 +41,16 @@ export default class Cities extends React.Component {
     componentDidMount() {
         this.getCity();
     }
-    renderRestaurant(restaurant) {
-        var num = Math.round(restaurant.rating);
-        var stars = "\u2605".repeat(num);
-
-        const element = (
-            <div className="col-lg-4 col-md-6 portfolio-item filter-app wow">
-                <div className="portfolio-wrap">
-                    <figure>
-                        <a href={"/restaurants/" + restaurant.name}><img src={restaurant.image} className="img-fluid" alt=""/></a>
-                    </figure>
-                    <div className="portfolio-info">
-                        <p>
-                            <Link to={'/restaurants/' + restaurant.name}>{restaurant.name}</Link>
-                        </p>
-                        {restaurant.pricing} | {restaurant.cuisine} | {stars}
-                    </div>
-                </div>
-            </div>
-        )
-        return element;
-
-    }
-    renderPark(park) {
-        const element = (
-            <div className="col-lg-4 col-md-6 portfolio-item filter-app wow">
-                <div className="portfolio-wrap">
-                    <figure>
-                        <a href={"/parks/" + park.name}><img src={park.image} className="img-fluid" alt=""/></a>
-                    </figure>
-                    <div className="portfolio-info">
-                        <p>
-                            <Link to={'/parks/' + park.name}>{park.name}</Link>
-                        </p>
-                        {park.states} | {park.designation}
-                    </div>
-                </div>
-            </div>
-        )
-        return element;
-
-    }
     render() {
         var city = this.state.city
 
         var parksEle = []
         var restaurantEle = []
         for (var restaurant of this.state.restaurants) {
-            restaurantEle.push(this.renderRestaurant(restaurant))
+            restaurantEle.push(Restaurants.renderRestaurant(restaurant))
         }
         for (var park of this.state.parks) {
-            parksEle.push(this.renderPark(park))
+            parksEle.push(Parks.renderPark(park))
         }
 
         var pop = city.population;

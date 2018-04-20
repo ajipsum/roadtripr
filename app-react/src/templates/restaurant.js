@@ -1,6 +1,7 @@
 import React from 'react';
 import axios from 'axios';
-import {Link} from 'react-router-dom';
+import Cities from './cities';
+import Parks from './parks';
 
 
 export default class Restaurant extends React.Component {
@@ -50,48 +51,6 @@ export default class Restaurant extends React.Component {
     componentDidMount() {
         this.getRestaurant();
     }
-    renderPark(park) {
-        const element = (
-            <div className="col-lg-4 col-md-6 portfolio-item filter-app wow">
-                <div className="portfolio-wrap">
-                    <figure>
-                        <a href={"/parks/" + park.name}><img src={park.image} className="img-fluid" alt=""/></a>
-                    </figure>
-                    <div className="portfolio-info">
-                        <p>
-                            <Link to={'/parks/' + park.name}>{park.name}</Link>
-                        </p>
-                        {park.states} | {park.designation}
-                    </div>
-                </div>
-            </div>
-        )
-        return element;
-    }
-    renderCity(city) {
-        var cityName = city
-            .name
-            .split(",")[0]
-        var state = city
-            .name
-            .split(",")[1]
-        const element = (
-            <div className="col-lg-4 col-md-6 portfolio-item filter-app wow">
-                <div className="portfolio-wrap">
-                    <figure>
-                        <a href={"/city/" + city.name}><img src={city.image} className="img-fluid" alt=""/></a>
-                    </figure>
-                    <div className="portfolio-info">
-                        <p>
-                            <Link to={'/city/' + city.name}>{cityName}</Link>
-                        </p>
-                        {state} | Pop. {city.population.toLocaleString()}
-                    </div>
-                </div>
-            </div>
-        )
-        return element;
-    }
     render() {
         var restaurant = this.state.restaurant
         var stars = "\u2605".repeat(restaurant.rating);
@@ -99,10 +58,10 @@ export default class Restaurant extends React.Component {
         var cityEle = []
         var parkEle = []
         for (var park of this.state.parks) {
-            parkEle.push(this.renderPark(park))
+            parkEle.push(Parks.renderPark(park))
         }
         for (var city of this.state.cities) {
-            cityEle.push(this.renderCity(city))
+            cityEle.push(Cities.renderCity(city))
         }
         return (
             <div style ={{

@@ -209,7 +209,7 @@ export default class Cities extends React.Component {
         }
 
     }
-    renderCity(city) {
+    static renderCity(city) {
         var cityName = city
             .name
             .split(",")[0]
@@ -231,10 +231,7 @@ export default class Cities extends React.Component {
                 </div>
             </div>
         )
-
-
         return element;
-
     }
     componentDidMount() {
         console.log("component");
@@ -339,7 +336,7 @@ export default class Cities extends React.Component {
     render() {
         var elements = []
         for (var city of this.state.cities) {
-            elements.push(this.renderCity(city));
+            elements.push(Cities.renderCity(city));
 
         }
         const {disabled, stayOpen, value} = this.state;

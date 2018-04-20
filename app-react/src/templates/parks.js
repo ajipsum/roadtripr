@@ -377,7 +377,7 @@ export default class Parks extends React.Component {
         }
 
     }
-    renderPark(park) {
+    static renderPark(park) {
         const element = (
             <div className="col-lg-4 col-md-6 portfolio-item filter-app wow">
                 <div className="portfolio-wrap">
@@ -499,7 +499,7 @@ export default class Parks extends React.Component {
         var elements = []
         // var i = 0
         for (var park of this.state.parks) {
-            elements.push(this.renderPark(park));
+            elements.push(Parks.renderPark(park));
         }
 
         const {disabled, stayOpen} = this.state;

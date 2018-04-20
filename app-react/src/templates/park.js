@@ -1,6 +1,7 @@
 import React from 'react';
 import axios from 'axios';
-import {Link} from 'react-router-dom';
+import Restaurants from './restaurants';
+import Cities from './cities';
 
 
 export default class Park extends React.Component {
@@ -50,62 +51,16 @@ export default class Park extends React.Component {
     componentDidMount() {
         this.getPark();
     }
-    renderRestaurant(restaurant) {
-        var num = Math.round(restaurant.rating);
-        var stars = "\u2605".repeat(num);
-
-        const element = (
-            <div className="col-lg-4 col-md-6 portfolio-item filter-app wow">
-                <div className="portfolio-wrap">
-                    <figure>
-                        <a href={"/restaurants/" + restaurant.name}><img src={restaurant.image} className="img-fluid" alt=""/></a>
-                    </figure>
-                    <div className="portfolio-info">
-                        <p>
-                            <Link to={'/restaurants/' + restaurant.name}>{restaurant.name}</Link>
-                        </p>
-                        {restaurant.pricing} | {restaurant.cuisine} | {stars}
-                    </div>
-                </div>
-            </div>
-        )
-        return element;
-
-    }
-    renderCity(city) {
-        var cityName = city
-            .name
-            .split(",")[0]
-        var state = city
-            .name
-            .split(",")[1]
-        const element = (
-            <div className="col-lg-4 col-md-6 portfolio-item filter-app wow">
-                <div className="portfolio-wrap">
-                    <figure>
-                        <a href={"/city/" + city.name}><img src={city.image} className="img-fluid" alt=""/></a>
-                    </figure>
-                    <div className="portfolio-info">
-                        <p>
-                            <Link to={'/city/' + city.name}>{cityName}</Link>
-                        </p>
-                        {state} | Pop. {city.population.toLocaleString()}
-                    </div>
-                </div>
-            </div>
-        )
-        return element;
-    }
     render() {
         var park = this.state.park
 
         var cityEle = []
         var restaurantEle = []
         for (var restaurant of this.state.restaurants) {
-            restaurantEle.push(this.renderRestaurant(restaurant))
+            restaurantEle.push(Restaurants.renderRestaurant(restaurant))
         }
         for (var city of this.state.cities) {
-            cityEle.push(this.renderCity(city))
+            cityEle.push(Cities.renderCity(city))
         }
         return (
             <div style ={{

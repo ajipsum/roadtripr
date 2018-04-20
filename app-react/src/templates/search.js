@@ -1,9 +1,12 @@
 import React from 'react';
 import axios from 'axios';
-import {Link} from 'react-router-dom';
 import Pagination from "react-js-pagination";
-import Highlight from 'react-highlight-words'
-import _ from 'lodash'
+import Highlight from 'react-highlight-words';
+import _ from 'lodash';
+import Cities from './cities';
+import Restaurants from './restaurants';
+import Parks from './parks';
+
 
 
 export default class Search extends React.Component {
@@ -124,72 +127,6 @@ export default class Search extends React.Component {
         }
         console.log(this.state.results)
     }
-    renderPark(park) {
-        const element = (
-            <div className="col-lg-4 col-md-6 portfolio-item filter-app wow">
-                <div className="portfolio-wrap">
-                    <figure>
-                        <a href={"/parks/" + park.name}><img src={park.image} className="img-fluid" alt=""/></a>
-                    </figure>
-                    <div className="portfolio-info">
-                        <p>
-                            <Link to={'/parks/' + park.name}>{this.highlight(park.name)}</Link>
-                        </p>
-                        {this.highlight(park.states)} | {this.highlight(park.designation)}
-                    </div>
-                </div>
-            </div>
-        )
-        return element;
-
-    }
-    renderCity(city) {
-        var cityName = city
-            .name
-            .split(",")[0]
-        var state = city
-            .name
-            .split(",")[1]
-        const element = (
-            <div className="col-lg-4 col-md-6 portfolio-item filter-app wow">
-                <div className="portfolio-wrap">
-                    <figure>
-                        <a href={"/city/" + city.name}><img src={city.image} className="img-fluid" alt=""/></a>
-                    </figure>
-                    <div className="portfolio-info">
-                        <p>
-                            <Link to={'/city/' + city.name}>{this.highlight(cityName)}</Link>
-                        </p>
-                        {this.highlight(state)} | Pop. {this.highlight(city.population.toLocaleString())}
-                    </div>
-                </div>
-            </div>
-        )
-        return element;
-
-    }
-    renderRestaurant(restaurant) {
-        var num = Math.round(restaurant.rating);
-        var stars = "\u2605".repeat(num);
-
-        const element = (
-            <div className="col-lg-4 col-md-6 portfolio-item filter-app wow">
-                <div className="portfolio-wrap">
-                    <figure>
-                        <a href={"/restaurants/" + restaurant.name}><img src={restaurant.image} className="img-fluid" alt=""/></a>
-                    </figure>
-                    <div className="portfolio-info">
-                        <p>
-                            <Link to={'/restaurants/' + restaurant.name}>{this.highlight(restaurant.name)}</Link>
-                        </p>
-                        {this.highlight(restaurant.pricing)} | {this.highlight(restaurant.cuisine)} | {this.highlight(stars)}
-                    </div>
-                </div>
-            </div>
-        )
-        return element;
-
-    }
     highlight(term){
         return (
             <Highlight
@@ -235,11 +172,11 @@ export default class Search extends React.Component {
         for (var element of this.state.active) {
             if (element.hasOwnProperty('population')) {
                 console.log(element.name);
-                elements.push(this.renderCity(element))
+                elements.push(Cities.renderCity(element))
             } else if (element.hasOwnProperty('cuisine')) {
-                elements.push(this.renderRestaurant(element))
+                elements.push(Restaurants.renderRestaurant(element))
             } else {
-                elements.push(this.renderPark(element))
+                elements.push(Parks.renderPark(element))
             }
         }
         return (
