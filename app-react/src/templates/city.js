@@ -41,6 +41,12 @@ export default class Cities extends React.Component {
     componentDidMount() {
         this.getCity();
     }
+
+    googleMaps(lat, long) {
+        var link = "https://www.google.com/maps/?q=" + lat + "," + long;
+        return link;
+    }
+
     render() {
         var city = this.state.city
 
@@ -76,6 +82,7 @@ export default class Cities extends React.Component {
                                     </div>
                                     <h2 className="title">{city.name}</h2>
                                     <p>Pop. {pop_formatted}</p>
+                                    <p><a href={this.googleMaps(city.latitude, city.longitude)} target="#">View on Google Maps</a></p>
                                 </div>
                             </div>
                         </div>
