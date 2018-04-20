@@ -4,7 +4,6 @@ import {Link} from 'react-router-dom';
 import Pagination from "react-js-pagination";
 import Highlight from 'react-highlight-words'
 import _ from 'lodash'
-import Mark from 'mark.js';
 
 
 export default class Search extends React.Component {
