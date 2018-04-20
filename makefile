@@ -4,7 +4,7 @@ SHELL := /bin/bash
 
 GithubID = Magana
 RepoName = roadtripr
-SHA 	 = TODO
+SHA 	 = 930e01071f54215013ed61a9cfa89d3a9b9e3572
 
 githubid:
 	@echo "${GithubID}"
