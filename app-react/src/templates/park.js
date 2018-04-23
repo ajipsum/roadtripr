@@ -79,7 +79,7 @@ export default class Park extends React.Component {
                                     </div>
                                     <h2 className="title">{park.name}</h2>
                                     <p>
-                                        <a href={park.website}>Website</a>
+                                        <a href={park.website} target="#">Website</a>
                                     </p>
                                 </div>
                             </div>
