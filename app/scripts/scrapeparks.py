@@ -22,22 +22,44 @@ db = DatabaseController()
 session = db.get_session()
 
 for park in parks:
-    name = park['fullName']
+    name = park['name']
+    print(name)
     website = park['url']
     latlong = park['latLong'].replace('lat:', '').replace('long:', '')
     lat = lng = None
+    des = None
+    states = None
+    cost = None
     if latlong:
         lat, lng = map(float, latlong.split(','))
+    
+    try:
+        des = park['designation']
+    except:
+	pass
+
+    try:
+	states = park['states']
+    except:
+	pass
+
+    try:
+        cost = park['cost']
+    except:
+        pass
 
     try:
         place_id = google.get_park_info(name)
         image_url = images.get_image(place_id)
     except:
-        print("No images for ", name)
+	pass
 
-    entry = Park(name=name, latitude=lat, longitude=lng, website=website, image=image_url)
+
+    entry = Park(name=name, latitude=lat, longitude=lng, website=website, image=image_url,
+		 designation=des, states=states, cost=cost)
     try:
         session.add(entry)
-        session.commit()
+	session.commit()
     except sqlalchemy.exc.IntegrityError:
         session.rollback()
+
