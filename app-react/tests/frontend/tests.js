@@ -13,7 +13,6 @@ import Restaurants from '../../src/templates/restaurants.js'
 //import Restaurant from '../src/templates/restaurant.js'
 
 
-
 describe('Test About Page', () => {
     before(function() {
       this.jsdom = require('jsdom-global')();
@@ -90,4 +89,4 @@ describe("Test Park", function() {
     const wrapper = mount(<Park restaurants={{state: {restaurants: ['McDonalds']}}} />);
     expect(wrapper.state().restaurants).contains({restaurants: ['McDonalds']});
   });
-});
+}); 

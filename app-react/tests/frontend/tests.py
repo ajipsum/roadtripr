@@ -43,7 +43,7 @@ class Test(unittest.TestCase):
         cities_page.click()
         cities = driver.find_element_by_xpath("//*[@id='portfolio']/div/div/div[2]/div/div/p/a")
         cities.click()
-        assert "Population" in driver.page_source
+        assert "Pop." in driver.page_source
         assert "Nearby Restaurants" in driver.page_source
         assert "Nearby Parks" in driver.page_source
 
@@ -56,7 +56,7 @@ class Test(unittest.TestCase):
         park.click()
         cities = driver.find_element_by_xpath("//*[@id='about']/div/div/div/div/p[8]/a")
         cities.click()
-        assert "Population" in driver.page_source
+        assert "Pop." in driver.page_source
         assert "Nearby Restaurants" in driver.page_source
         assert "Nearby Parks" in driver.page_source
 
