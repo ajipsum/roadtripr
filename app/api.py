@@ -171,6 +171,10 @@ def get_nearby_cities():
     session.close()
     return jsonify({'total': len(cities), 'data': cities})
 
+@app.route('/visualization')
+def visualization():
+    return render_template("d3visualization.html")
+
 if __name__ == '__main__':
     app.run(use_reloader=True, threaded=True, host="0.0.0.0", port=80)
     # app.run(use_reloader=True, threaded=True)

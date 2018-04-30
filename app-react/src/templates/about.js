@@ -224,6 +224,9 @@ export default class About extends React.Component {
                   <p>
                     <a href="https://gitpitch.com/Magana/roadtripr/master">GitPitch</a>
                   </p>
+                  <p>
+                  <a href="https://huangyvonnee.github.io/visualization.html">D3 Visualization</a>
+               </p>
                 </div>
               </div>
             </div>
