@@ -2,7 +2,7 @@ import json, unittest, sys, os
 sys.path.insert(1, os.path.join(sys.path[0], '../app'))
 from controllers.databasecontroller import DatabaseController
 from utils import miles_distance
-
+import time
 class Test(unittest.TestCase):
 
     # Test SQLAlchemy db connection

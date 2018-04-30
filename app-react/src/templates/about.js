@@ -221,6 +221,9 @@ export default class About extends React.Component {
                   <p>
                     <a href="https://github.com/Magana/roadtripr/">Github Repo</a>
                   </p>
+                  <p>
+                    <a href="https://gitpitch.com/Magana/roadtripr/master">GitPitch</a>
+                  </p>
                 </div>
               </div>
             </div>
