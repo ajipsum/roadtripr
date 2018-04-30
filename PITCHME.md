@@ -11,38 +11,47 @@ Discover the freedom of the open road
 ## Jonathan Brewer
 <img width = 30% src="./app-react/src/img/headshot-jon.jpg">
 
--  API, UML, Routing, Testing |
+-  API, UML, Routing, Testing 
 
 ---
 
 
 ## Matthew Savignano
-<img width = 30% src="./app-react/src/img/headshot-matt.jpg">
+<img width = 30% src="./app-react/src/img/headshot-matt.png">
 
-- Server, AWS, React, Searching, Filtering |
+- Server, AWS, React, Searching, Filtering 
 
 --- 
 
 ## Jose Magana
 <img width = 30% src="./app-react/src/img/headshot-jose.jpg">
 
-- Server, API, Searching, Sorting, Styling |
+- Server, API, Searching, Sorting, Styling 
 
 
 ---
 ## Yvonne Huang
 <img width = 30% src="./app-react/src/img/headshot-yvonne.jpg">
 
- - React, Filtering, Testing, Styling |
-|
+ - React, Filtering, Testing, Styling 
+
 
 
 ---
 
 ## Unit Tests
 
+### Frontend
 <img src="./app-react/src/img/mocha.png" />
+
+---
+
+### GUI
 <img src="./app-react/src/img/frontend.png" />
+
+---
+
+### Backend
 <img src="./app-react/src/img/backend.png" />
 
 ---
@@ -84,7 +93,8 @@ Discover the freedom of the open road
 ---
 
 
-# Other-critique - PocketChef
+## Other critique:
+## PocketChef
 
 ---
 
@@ -117,5 +127,5 @@ Discover the freedom of the open road
 
 --- 
 
-# VISUALIZATION
+## VISUALIZATION
 
