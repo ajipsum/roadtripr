@@ -42,7 +42,7 @@ Discover the freedom of the open road
 ## Unit Tests
 
 ### Frontend
-<img src="./app-react/src/img/mocha.png" />
+<img src="./app-react/src/img/mochatests.png" />
 
 ---
 
