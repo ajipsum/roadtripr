@@ -60,7 +60,7 @@ Discover the freedom of the open road
 
 --- 
 
-## What did we do well? 
+### What did we do well? 
 
 - Site is easy to navigate and consistent in style |
 - Navigation bar is visually appealing along with search bar |
@@ -69,7 +69,7 @@ Discover the freedom of the open road
 
 ---
 
-## What did we learn?
+### What did we learn?
 
 - AWS and server procedures along with Bootstrap and React components  |
 - Setting up API |
@@ -78,7 +78,7 @@ Discover the freedom of the open road
 
 ---
 
-## What can we do better?
+### What can we do better?
 - Overall code quality and could have created branches to avoid merge conflicts |
 - Created a loading visual and displayed more data for model pages |
 - Cross-browser compatibility  |
@@ -86,7 +86,7 @@ Discover the freedom of the open road
 
 ---
 
-## What puzzles us?
+### What puzzles us?
 - Rendering elements across different browsers |
 - Loading too many images on our site returns junk data |
 
@@ -94,11 +94,11 @@ Discover the freedom of the open road
 
 
 ## Other critique:
-## PocketChef
+### PocketChef
 
 ---
 
-## What did they do well?
+### What did they do well?
 
 - Website is easy to understand |
 - Their details page for 'Restaurants' and 'Recipes' display a lot of information |
@@ -106,14 +106,14 @@ Discover the freedom of the open road
 
 ---
 
-## What did we learn from their website?
+### What did we learn from their website?
 
 - Their navigation bar is clearly shown which reminded us to look more thoroughly into our site design |
 - Image resizing for model display pages  |
 
 ---
 
-## What can they do better?
+### What can they do better?
 
 - Their search functionality could be improved |
 - More consistency in grid card display across website |
@@ -121,7 +121,7 @@ Discover the freedom of the open road
 
 ---
 
-## What puzzles us about their website?
+### What puzzles us about their website?
 
 - They provided a map for Restaurants details pages but it doesn't display any location |
 
